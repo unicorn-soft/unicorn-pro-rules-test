@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #fafafa;
+    line-height: 1.5;
+}
+
+
+body > * {
+    margin: 1rem auto;
+    max-width: 800px;
+}
+
+@media(max-width: 768px) {
+    body > * {
+        margin: 1rem;
+    }
+}
+section {
+  padding: 1rem;
+  background: #fff;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+.title {
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.title h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+
+.description {
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.content-row {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.box {
+  flex: 1;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: relative;
+  /* .case 등을 절대배치할 때 대비 */
+}
+
+.target-box {
+  background: #c00;
+  border-right: 2px solid #fff;
+}
+
+.target-box[success] {
+  display: none;
+}
+
+.content-box {
+  background: #4caf50;
+}
+
+/* .case 요소는 실제 화면에 보이지 않도록 절대 위치 상단 */
+.case {
+  position: absolute;
+  top: -100%;
+  visibility: hidden;
+}
+
+.filter {
+  margin-top: 2rem;
+}
+
+.filter h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.25rem;
+}
+
+code,
+.filter-code {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: .25rem;
+  overflow-wrap: break-word;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.filter-code {
+  cursor: pointer;
+}
