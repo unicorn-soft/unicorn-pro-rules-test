@@ -1,6 +1,6 @@
 {
   "name": "unicorn-pro-rules-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Somfist",
   "scripts": {
     "dev": "webpack serve --mode development",

@@ -108,8 +108,7 @@ function observeTargetDisplay(targetEl, checkStyle) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (
-                    mutation.type === "attributes" &&
-                    mutation.attributeName.startsWith("data-")
+                    mutation.type === "attributes"
                 ) {
                     const targetStyle = getComputedStyle(mutation.target);
                     const result = Object.keys(checkStyle).every(
