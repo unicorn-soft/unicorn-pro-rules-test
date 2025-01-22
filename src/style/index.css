@@ -1,0 +1,80 @@
+.container {
+    background: #fff;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.desc {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 0.25rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: #eee;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #ddd;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    background: #eee;
+    color: #333;
+    transition: background 0.2s;
+}
+
+.button-link:hover {
+    background: #ddd;
+}
+
+.rules-container {
+    display: none;
+    overflow: auto;
+    margin-top: 1rem;
+}
+
+.rules-container.open {
+    display: block;
+}
+
+.rules-container pre {
+    margin: 0;
+    font-size: 0.9rem;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    overflow: auto;
+    white-space: pre;
+}
+
+pre,
+.rules-container pre {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
