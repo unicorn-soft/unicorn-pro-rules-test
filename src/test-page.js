@@ -130,7 +130,7 @@ function observeTargetDisplay(targetEl, checkStyle) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 mutation.removedNodes.forEach((node) => {
-                    if (node.classList.contains("target"))
+                    if (node.nodeType === 1 && node.classList.contains("target"))
                         parentBox.setAttribute("success", "");
                 });
             });
