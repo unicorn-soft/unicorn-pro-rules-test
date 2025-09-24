@@ -34,8 +34,13 @@ module.exports = {
             chunks: ["main"],
         }),
         new HtmlWebpackPlugin({
-            template: "./public/test-page.html",
-            filename: "test-page.html",
+            template: "./public/extend-css-test.html",
+            filename: "extend-css-test.html",
+            chunks: ["testPage"],
+        }),
+        new HtmlWebpackPlugin({
+            template: "./public/scriptlet-test.html",
+            filename: "scriptlet-test.html",
             chunks: ["testPage"],
         }),
         new MiniCssExtractPlugin(),

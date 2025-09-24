@@ -23,6 +23,14 @@
     margin-bottom: 1rem;
 }
 
+.buttons.scriptlet-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
