@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "filter": "div#case1.target:has-text(font-test):style(font-size: 32px)",
+    "title": "style() 테스트",
+    "desc": "style()의 기본 형태를 테스트합니다.",
+    "target": "<div id=\"case1\" class=\"target\">font-test</div>",
+    "checkStyle": {
+        "fontSize": "32px"
+    }
+  },
+  {
+    "id": "2",
+    "filter": "div#case2.target:has-text(background-test):style(background-color: rgb(255, 0, 0))",
+    "title": "style() 테스트",
+    "desc": "style()의 value에 괄호가 있을 경우를 테스트합니다.",
+    "target": "<div id=\"case2\" class=\"target\">background-test</div>",
+    "checkStyle": {
+        "backgroundColor": "rgb(255, 0, 0)"
+    }
+  }
+]

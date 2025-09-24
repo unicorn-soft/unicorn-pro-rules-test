@@ -1,7 +1,43 @@
 import "./style/global.css";
 import "./style/index.css";
-import testCase from "./filter"
 import { addDomainPrefix } from "./util";
+
+// Extend CSS imports
+import basicCases from "./filter/extend-css/basic.json";
+import styleCases from "./filter/extend-css/style.json";
+import removeCases from "./filter/extend-css/remove.json";
+
+// Scriptlet imports
+import setConstantCases from "./filter/scriptlet/set-constant.json";
+import jsonPruneCases from "./filter/scriptlet/json-prune.json";
+import jsonPruneXhrCases from "./filter/scriptlet/json-prune-xhr-response.json";
+import jsonPruneFetchCases from "./filter/scriptlet/json-prune-fetch-response.json";
+import trustedReplaceFetchCases from "./filter/scriptlet/trusted-replace-fetch-response.json";
+import trustedReplaceNodeCases from "./filter/scriptlet/trusted-replace-node-text.json";
+import abortScriptCases from "./filter/scriptlet/abort-current-inline-script.json";
+import noXhrCases from "./filter/scriptlet/no-xhr-if.json";
+import noFetchCases from "./filter/scriptlet/no-fetch-if.json";
+import adshieldCases from "./filter/scriptlet/adshield.json";
+
+// Combine all test cases
+const testCase = {
+    // Extend CSS categories
+    basic: basicCases,
+    style: styleCases,
+    remove: removeCases,
+    
+    // Scriptlet categories
+    "set-constant": setConstantCases,
+    "json-prune": jsonPruneCases,
+    "json-prune-xhr-response": jsonPruneXhrCases,
+    "json-prune-fetch-response": jsonPruneFetchCases,
+    "trusted-replace-fetch-response": trustedReplaceFetchCases,
+    "trusted-replace-node-text": trustedReplaceNodeCases,
+    "abort-current-inline-script": abortScriptCases,
+    "no-xhr-if": noXhrCases,
+    "no-fetch-if": noFetchCases,
+    "adshield": adshieldCases
+};
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,8 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
     caseKeys.forEach((key) => {
       rules.push(`! type : ${key}`)
       testCase[key].forEach((c) => {
-        if(!c.filter) return
-        rules.push(addDomainPrefix(c.filter))
+        // Extend CSS cases
+        if(c.filter) {
+          rules.push(addDomainPrefix(c.filter))
+        }
+        // Scriptlet cases
+        else if(c.scriptlet && c.scriptletParams) {
+          const scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams.join(', ')})`
+          rules.push(addDomainPrefix(scriptletRule))
+        }
       })
     })
     rulesText.textContent = rules.join('\n')
