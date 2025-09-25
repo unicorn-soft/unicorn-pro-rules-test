@@ -3,6 +3,7 @@ import "./style/test-page.css";
 import testCase from "./index"
 import { addDomainPrefix } from "./util";
 import { verifySetConstant } from "./scriptlet-verifiers/set-constant.js";
+import { verifyJsonPrune } from "./scriptlet-verifiers/json-prune.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -86,9 +87,7 @@ function createTestSection({ id, title, desc, target, filter, checkStyle, script
         filterCode.textContent = addDomainPrefix(filter);
     } else if (scriptlet && scriptletParams) {
         // 스크립트릿 케이스
-        console.log('Scriptlet params:', scriptletParams);
         const scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
-        console.log('Generated rule:', window.location.hostname + scriptletRule);
         filterCode.textContent = window.location.hostname + scriptletRule;
     }
     
@@ -171,8 +170,12 @@ function observeTargetDisplay(targetEl, checkStyle, verification) {
 
 function observeScriptletResult(targetEl, verification, parentBox) {
     const [type] = verification.split(':');
-    console.log('Verification type:', type, 'Full verification:', verification);
     
-    // 모든 스크립트릿 검증을 verifySetConstant로 처리
-    return verifySetConstant(targetEl, verification, parentBox);
+    // 검증 타입에 따라 적절한 검증 함수 호출
+    switch (type) {
+        case 'jsonEquals':
+            return verifyJsonPrune(targetEl, verification, parentBox);
+        default:
+            return verifySetConstant(targetEl, verification, parentBox);
+    }
 }
