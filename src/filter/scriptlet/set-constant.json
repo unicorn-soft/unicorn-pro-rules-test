@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "title": "adBlockDetected false 고정",
+    "desc": "광고차단 감지를 우회하기 위해 window.adBlockDetected를 항상 false로 반환",
+    "scriptlet": "set",
+    "scriptletParams": ["adBlockDetected", "false"],
+    "target": "<div class='target'><script>window.adBlockDetected = true;</script>광고차단 감지: <span class='status'>감지됨</span></div>",
+    "verification": "equals:window.adBlockDetected:false:우회됨"
+  },
+  {
+    "id": "2", 
+    "title": "Object.keys trueFunc 고정",
+    "desc": "Object.keys를 항상 true를 반환하는 함수로 고정",
+    "scriptlet": "set",
+    "scriptletParams": ["Object.keys", "trueFunc"],
+    "target": "<div class='target'><script>/* Object.keys는 기본 함수 */</script>Object.keys: <span class='status'>정상 함수</span></div>",
+    "verification": "functionCall:Object.keys:true:고정됨"
+  },
+  {
+    "id": "3",
+    "title": "premium true 고정",
+    "desc": "프리미엄 기능을 활성화하기 위해 window.premium을 항상 true로 반환",
+    "scriptlet": "set",
+    "scriptletParams": ["premium", "true"],
+    "target": "<div class='target'><script>window.premium = false;</script>프리미엄: <span class='status'>비활성화</span></div>",
+    "verification": "equals:window.premium:true:활성화됨"
+  },
+  {
+    "id": "4",
+    "title": "빈 배열 고정",
+    "desc": "광고 목록을 빈 배열로 고정하여 광고 데이터 차단",
+    "scriptlet": "set",
+    "scriptletParams": ["adsList", "[]"],
+    "target": "<div class='target'><script>window.adsList = ['ad1', 'ad2', 'ad3'];</script>광고 목록: <span class='status'>데이터 있음</span></div>",
+    "verification": "arrayEmpty:window.adsList::데이터 없음"
+  },
+  {
+    "id": "5",
+    "title": "빈 객체 고정",
+    "desc": "추적 설정을 빈 객체로 고정하여 추적 기능 비활성화",
+    "scriptlet": "set",
+    "scriptletParams": ["trackingConfig", "{}"],
+    "target": "<div class='target'><script>window.trackingConfig = {enabled: true, userId: '123'};</script>추적 설정: <span class='status'>활성화됨</span></div>",
+    "verification": "objectEmpty:window.trackingConfig::비활성화됨"
+  },
+  {
+    "id": "6",
+    "title": "빈 문자열 고정",
+    "desc": "API 키를 빈 문자열로 고정하여 API 호출 차단",
+    "scriptlet": "set",
+    "scriptletParams": ["apiKey", "''"],
+    "target": "<div class='target'><script>window.apiKey = 'abc123-default-key';</script>API 키: <span class='status'>설정됨</span></div>",
+    "verification": "equals:window.apiKey::차단됨"
+  },
+  {
+    "id": "7",
+    "title": "undefined 고정",
+    "desc": "사용자 토큰을 undefined로 고정하여 인증 차단",
+    "scriptlet": "set",
+    "scriptletParams": ["userToken", "undefined"],
+    "target": "<div class='target'><script>window.userToken = 'valid-token-123';</script>사용자 토큰: <span class='status'>인증됨</span></div>",
+    "verification": "equals:window.userToken:undefined:차단됨"
+  }
+]

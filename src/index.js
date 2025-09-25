@@ -39,6 +39,8 @@ const testCase = {
     "adshield": adshieldCases
 };
 
+export default testCase;
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const rulesText = document.getElementById("rulesText");
