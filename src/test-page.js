@@ -1,7 +1,8 @@
 import "./style/global.css";
 import "./style/test-page.css";
-import testCase from "./filter"
+import testCase from "./index"
 import { addDomainPrefix } from "./util";
+import { verifySetConstant } from "./scriptlet-verifiers/set-constant.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -35,7 +36,7 @@ import { addDomainPrefix } from "./util";
     }
 })()
 
-function createTestSection({ id, title, desc, target, filter, checkStyle }) {
+function createTestSection({ id, title, desc, target, filter, checkStyle, scriptlet, scriptletParams, verification }) {
     const section = document.createElement("section");
     section.id = `s_${id}`;
 
@@ -78,14 +79,26 @@ function createTestSection({ id, title, desc, target, filter, checkStyle }) {
 
     const filterCode = document.createElement("div");
     filterCode.className = "filter-code";
-    filterCode.textContent = addDomainPrefix(filter);
+    
+    // 확장CSS 또는 스크립트릿 규칙 생성
+    if (filter) {
+        // 확장CSS 케이스
+        filterCode.textContent = addDomainPrefix(filter);
+    } else if (scriptlet && scriptletParams) {
+        // 스크립트릿 케이스
+        console.log('Scriptlet params:', scriptletParams);
+        const scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
+        console.log('Generated rule:', window.location.hostname + scriptletRule);
+        filterCode.textContent = window.location.hostname + scriptletRule;
+    }
+    
     filtersEl.appendChild(filterCode);
 
     section.appendChild(filtersEl);
 
     document.body.appendChild(section);
 
-    observeTargetDisplay(targetEl, checkStyle);
+    observeTargetDisplay(targetEl, checkStyle, verification);
 }
 
 function createCase(htmlString) {
@@ -96,15 +109,28 @@ function createCase(htmlString) {
     const node = tmp.childNodes[0];
     if (!node) return tmp;
 
+    // HTML 내의 script 태그들을 실행
+    const scripts = node.querySelectorAll('script');
+    scripts.forEach(script => {
+        try {
+            eval(script.textContent);
+        } catch (e) {
+            console.warn('Script execution failed:', e);
+        }
+    });
+
     node.classList.add("case");
     return node.cloneNode(true);
 }
 
-function observeTargetDisplay(targetEl, checkStyle) {
+function observeTargetDisplay(targetEl, checkStyle, verification) {
     const parentBox = targetEl.closest(".target-box");
     if (!parentBox) return;
 
-    if (checkStyle) {
+    if (verification) {
+        // 스크립트릿 검증
+        observeScriptletResult(targetEl, verification, parentBox);
+    } else if (checkStyle) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (
@@ -141,4 +167,12 @@ function observeTargetDisplay(targetEl, checkStyle) {
             subtree: true,
         });
     }
+}
+
+function observeScriptletResult(targetEl, verification, parentBox) {
+    const [type] = verification.split(':');
+    console.log('Verification type:', type, 'Full verification:', verification);
+    
+    // 모든 스크립트릿 검증을 verifySetConstant로 처리
+    return verifySetConstant(targetEl, verification, parentBox);
 }
