@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         alert("규칙이 복사되었습니다!");
                     })
                     .catch((err) => {
-                        console.error("복사 실패:", err);
+                        // 복사 실패
                     });
             });
         }

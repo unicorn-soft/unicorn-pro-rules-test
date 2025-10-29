@@ -1,5 +1,35 @@
-export function verifyJsonPrune(targetEl, verification, parentBox) {
-    // verification 파싱: "jsonEquals:window.jsonPruneParsedData1:{"content1":"test"}:속성 제거됨"
+// 각 테스트 케이스별 응답 데이터 정의
+const mockResponses = {
+    '/api/data1': { ads1: 123, content1: 'test', tracking1: 'seoul' },
+    '/api/data2': { ads2: 1, tracking2: { banner2: 'seoul', popup2: 'kr' } },
+    '/api/data3': { ads3: 1, tracking3: { banner3: 'seoul', popup3: 'kr' } },
+    '/api/data4': [
+        { ads4: 1, tracking4: 'seoul' },
+        { ads4: 2, tracking4: 'busan' }
+    ],
+    '/api/data5': {
+        tracking5: {
+            video5: { ads5: 1, content5: '집' },
+            display5: { ads5: 2, content5: '회사' }
+        }
+    },
+    '/api/data6': { ads6: 123, content6: 'test', tracking6: 'seoul' }
+};
+
+// webpack dev server에서 실제 mock API를 제공하므로
+// 복잡한 모킹 로직이 필요 없습니다.
+// 템퍼몽키가 이미 XMLHttpRequest를 Proxy로 감쌌으므로,
+// 실제 네트워크 요청이 발생하면 템퍼몽키가 자동으로 처리합니다.
+export function setupXhrMock() {
+    // webpack dev server가 mock API 제공
+}
+
+export function teardownXhrMock() {
+    // webpack dev server가 처리하므로 teardown이 필요 없음
+}
+
+export function verifyJsonPruneXhrResponse(targetEl, verification, parentBox) {
+    // verification 파싱: "jsonEquals:window.jsonPruneXhrTestData1:{"content1":"test"}:속성 제거됨"
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
@@ -99,3 +129,4 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
         clearInterval(checkInterval);
     }, 10000);
 }
+

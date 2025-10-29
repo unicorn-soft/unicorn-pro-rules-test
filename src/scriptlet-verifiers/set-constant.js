@@ -1,6 +1,5 @@
 export function verifySetConstant(targetEl, verification, parentBox) {
     const [type, target, expected, successMessage] = verification.split(':');
-    console.log(type, target, expected, successMessage)
     // 범용 검증 로직
     const checkInterval = setInterval(() => {
         try {
@@ -49,7 +48,7 @@ export function verifySetConstant(targetEl, verification, parentBox) {
                     break;
                     
                 default:
-                    console.warn(`Unknown verification type: ${type}`);
+                    // Unknown verification type
             }
             
             if (isMatch) {
