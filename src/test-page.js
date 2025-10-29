@@ -4,13 +4,19 @@ import testCase from "./index"
 import { addDomainPrefix } from "./util";
 import { verifySetConstant } from "./scriptlet-verifiers/set-constant.js";
 import { verifyJsonPrune } from "./scriptlet-verifiers/json-prune.js";
+import { verifyJsonPruneXhrResponse, setupXhrMock } from "./scriptlet-verifiers/json-prune-xhr-response.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
     const currentCase = testCase[type];
     if (Array.isArray(currentCase) === false) return
 
-    currentCase.forEach((c) => createTestSection(c));
+    // json-prune-xhr-response인 경우 xhr-mock을 먼저 설정
+    if (type === 'json-prune-xhr-response') {
+        setupXhrMock();
+    }
+
+    currentCase.forEach((c) => createTestSection(c, type));
     if (navigator && navigator.clipboard) {
         window.copyId = null;
         document.addEventListener("click", (event) => {
@@ -30,14 +36,14 @@ import { verifyJsonPrune } from "./scriptlet-verifiers/json-prune.js";
                         }, 300);
                     })
                     .catch((err) => {
-                        console.error("Failed to copy:", err);
+                        // 복사 실패
                     });
             }
         });
     }
 })()
 
-function createTestSection({ id, title, desc, target, filter, checkStyle, scriptlet, scriptletParams, verification }) {
+function createTestSection({ id, title, desc, target, filter, checkStyle, scriptlet, scriptletParams, verification }, pageType) {
     const section = document.createElement("section");
     section.id = `s_${id}`;
 
@@ -97,7 +103,7 @@ function createTestSection({ id, title, desc, target, filter, checkStyle, script
 
     document.body.appendChild(section);
 
-    observeTargetDisplay(targetEl, checkStyle, verification);
+    observeTargetDisplay(targetEl, checkStyle, verification, pageType);
 }
 
 function createCase(htmlString) {
@@ -114,7 +120,7 @@ function createCase(htmlString) {
         try {
             eval(script.textContent);
         } catch (e) {
-            console.warn('Script execution failed:', e);
+            // Script execution failed
         }
     });
 
@@ -122,13 +128,13 @@ function createCase(htmlString) {
     return node.cloneNode(true);
 }
 
-function observeTargetDisplay(targetEl, checkStyle, verification) {
+function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
     const parentBox = targetEl.closest(".target-box");
     if (!parentBox) return;
 
     if (verification) {
         // 스크립트릿 검증
-        observeScriptletResult(targetEl, verification, parentBox);
+        observeScriptletResult(targetEl, verification, parentBox, pageType);
     } else if (checkStyle) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
@@ -168,8 +174,13 @@ function observeTargetDisplay(targetEl, checkStyle, verification) {
     }
 }
 
-function observeScriptletResult(targetEl, verification, parentBox) {
+function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     const [type] = verification.split(':');
+    
+    // 페이지 타입이 json-prune-xhr-response인 경우 특별 처리
+    if (pageType === 'json-prune-xhr-response' && type === 'jsonEquals') {
+        return verifyJsonPruneXhrResponse(targetEl, verification, parentBox);
+    }
     
     // 검증 타입에 따라 적절한 검증 함수 호출
     switch (type) {
