@@ -15,7 +15,7 @@
     "scriptlet": "json-prune-xhr-response",
     "scriptletParams": ["tracking2.banner2", "ads2"],
     "target": "<div class='target'><script>window.jsonPruneXhrTestData2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/data2'); xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { try { window.jsonPruneXhrTestData2 = xhr2.responseType === 'json' ? xhr2.response : JSON.parse(xhr2.responseText); } catch(e) {} } }; xhr2.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "jsonEquals:window.jsonPruneXhrTestData2:{\"tracking2\":{\"banner2\":\"seoul\",\"popup2\":\"kr\"},\"content2\":\"test\"}:조건부 제거 성공"
+    "verification": "jsonEquals:window.jsonPruneXhrTestData2:{\"ads2\":1,\"tracking2\":{\"popup2\":\"kr\"},\"content2\":\"test\"}:조건부 제거 성공"
   },
   {
     "id": "3",
