@@ -5,6 +5,7 @@ import { addDomainPrefix } from "./util";
 import { verifySetConstant } from "./scriptlet-verifiers/set-constant.js";
 import { verifyJsonPrune } from "./scriptlet-verifiers/json-prune.js";
 import { verifyJsonPruneXhrResponse, setupXhrMock } from "./scriptlet-verifiers/json-prune-xhr-response.js";
+import { verifyJsonPruneFetchResponse, setupFetchMock } from "./scriptlet-verifiers/json-prune-fetch-response.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -14,6 +15,11 @@ import { verifyJsonPruneXhrResponse, setupXhrMock } from "./scriptlet-verifiers/
     // json-prune-xhr-response인 경우 xhr-mock을 먼저 설정
     if (type === 'json-prune-xhr-response') {
         setupXhrMock();
+    }
+    
+    // json-prune-fetch-response인 경우 fetch-mock을 먼저 설정
+    if (type === 'json-prune-fetch-response') {
+        setupFetchMock();
     }
 
     currentCase.forEach((c) => createTestSection(c, type));
@@ -175,15 +181,27 @@ function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
 }
 
 function observeScriptletResult(targetEl, verification, parentBox, pageType) {
-    const [type] = verification.split(':');
+    const [verificationType] = verification.split(':');
     
-    // 페이지 타입이 json-prune-xhr-response인 경우 특별 처리
-    if (pageType === 'json-prune-xhr-response' && type === 'jsonEquals') {
-        return verifyJsonPruneXhrResponse(targetEl, verification, parentBox);
+    // 페이지 타입별 검증 함수 매핑
+    if (pageType === 'json-prune-xhr-response') {
+        if (verificationType === 'jsonEquals') {
+            return verifyJsonPruneXhrResponse(targetEl, verification, parentBox);
+        }
+        // json-prune-xhr-response 페이지에서는 다른 검증 타입은 지원하지 않음
+        return;
     }
     
-    // 검증 타입에 따라 적절한 검증 함수 호출
-    switch (type) {
+    if (pageType === 'json-prune-fetch-response') {
+        if (verificationType === 'jsonEquals') {
+            return verifyJsonPruneFetchResponse(targetEl, verification, parentBox);
+        }
+        // json-prune-fetch-response 페이지에서는 다른 검증 타입은 지원하지 않음
+        return;
+    }
+    
+    // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
+    switch (verificationType) {
         case 'jsonEquals':
             return verifyJsonPrune(targetEl, verification, parentBox);
         default:
