@@ -8,6 +8,7 @@ import { verifyJsonPruneXhrResponse, setupXhrMock } from "./scriptlet-verifiers/
 import { verifyJsonPruneFetchResponse, setupFetchMock } from "./scriptlet-verifiers/json-prune-fetch-response.js";
 import { verifyTrustedReplaceFetchResponse, setupReplaceFetchMock } from "./scriptlet-verifiers/trusted-replace-fetch-response.js";
 import { verifyTrustedReplaceNodeText } from "./scriptlet-verifiers/trusted-replace-node-text.js";
+import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-replace-outbound-text.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -216,6 +217,11 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     // trusted-replace-node-text 페이지 처리
     if (pageType === 'trusted-replace-node-text') {
         return verifyTrustedReplaceNodeText(targetEl, verification, parentBox);
+    }
+
+    // trusted-replace-outbound-text 페이지 처리
+    if (pageType === 'trusted-replace-outbound-text') {
+        return verifyTrustedReplaceOutboundText(targetEl, verification, parentBox);
     }
 
     // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
