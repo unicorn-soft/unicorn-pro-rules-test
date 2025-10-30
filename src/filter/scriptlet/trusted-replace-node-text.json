@@ -1,1 +1,39 @@
-[]
+[
+  {
+    "id": "1",
+    "title": "DIV 텍스트 기본 치환",
+    "desc": "DIV에 포함된 'ads'를 'removed'로 치환",
+    "scriptlet": "trusted-replace-node-text",
+    "scriptletParams": ["DIV", "ads", "removed"],
+    "target": "<div class='target'><script>window.trustedReplaceNodeTextData1 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads content';container.appendChild(el);setInterval(function(){window.trustedReplaceNodeTextData1=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "textEquals:window.trustedReplaceNodeTextData1:This content has removed content:기본 치환 성공"
+  },
+  {
+    "id": "2",
+    "title": "정규식 치환(숫자 제거)",
+    "desc": "DIV 텍스트에서 모든 숫자 제거",
+    "scriptlet": "trusted-replace-node-text",
+    "scriptletParams": ["DIV", "/\\\\d+/", ""],
+    "target": "<div class='target'><script>window.trustedReplaceNodeTextData2 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Price is 123 dollars';container.appendChild(el);setInterval(function(){window.trustedReplaceNodeTextData2=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "textEquals:window.trustedReplaceNodeTextData2:Price is  dollars:정규식 치환 성공"
+  },
+  {
+    "id": "3",
+    "title": "SEDCOUNT 옵션 1회 치환(키워드: promo)",
+    "desc": "DIV 텍스트에서 첫 1회만 'promo'를 'clean'으로 치환",
+    "scriptlet": "trusted-replace-node-text",
+    "scriptletParams": ["DIV", "promo", "clean", "SEDCOUNT", 1],
+    "target": "<div class='target'><script>window.trustedReplaceNodeTextData3 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='promo here and keep';container.appendChild(el);setInterval(function(){window.trustedReplaceNodeTextData3=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "textEquals:window.trustedReplaceNodeTextData3:clean here and keep:SEDCOUNT 1회 치환 성공"
+  }
+  ,
+  {
+    "id": "4",
+    "title": "대소문자 무시 정규식 치환(키워드: PROMO)",
+    "desc": "DIV 텍스트의 'PROMO'를 정규식 /promo/i로 치환",
+    "scriptlet": "trusted-replace-node-text",
+    "scriptletParams": ["DIV", "/promo/i", "removed"],
+    "target": "<div class='target'><script>window.trustedReplaceNodeTextData4 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This has PROMO marker';container.appendChild(el);setInterval(function(){window.trustedReplaceNodeTextData4=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "textEquals:window.trustedReplaceNodeTextData4:This has removed marker:정규식 i 플래그 치환 성공"
+  }
+]
