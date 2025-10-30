@@ -56,6 +56,15 @@ module.exports = {
                 '/api/fetch-data5': { ads5: 123, content5: 'test', tracking5: 'seoul' }
             };
 
+            // trusted-replace-fetch-response 테스트를 위한 mock 텍스트 응답
+            const replaceFetchMockResponses = {
+                '/api/replace-data1': 'This content has ads content',
+                '/api/replace-data2': 'Price is 123 dollars',
+                '/api/replace-data3': 'This has tracking code',
+                '/api/replace-data4': 'secret information',
+                '/api/replace-data5': 'This is bad content with ads items'
+            };
+
             // 모든 /api/data* 경로에 대해 mock 응답 제공 (XHR용)
             // JSON 문자열로 응답하여 템퍼몽키의 JSON.parse()가 정상 작동하도록 함
             Object.keys(xhrMockResponses).forEach(path => {
@@ -74,6 +83,21 @@ module.exports = {
                     res.setHeader('Access-Control-Allow-Origin', '*');
                     // res.json() 대신 JSON 문자열로 직접 전송
                     res.send(JSON.stringify(fetchMockResponses[path]));
+                });
+            });
+
+            // 모든 /api/replace-data* 경로에 대해 mock 응답 제공 (텍스트 응답용)
+            Object.keys(replaceFetchMockResponses).forEach(path => {
+                devServer.app.get(path, (req, res) => {
+                    res.setHeader('Content-Type', 'text/plain');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.send(replaceFetchMockResponses[path]);
+                });
+                // POST 요청도 지원
+                devServer.app.post(path, (req, res) => {
+                    res.setHeader('Content-Type', 'text/plain');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.send(replaceFetchMockResponses[path]);
                 });
             });
 

@@ -6,6 +6,7 @@ import { verifySetConstant } from "./scriptlet-verifiers/set-constant.js";
 import { verifyJsonPrune } from "./scriptlet-verifiers/json-prune.js";
 import { verifyJsonPruneXhrResponse, setupXhrMock } from "./scriptlet-verifiers/json-prune-xhr-response.js";
 import { verifyJsonPruneFetchResponse, setupFetchMock } from "./scriptlet-verifiers/json-prune-fetch-response.js";
+import { verifyTrustedReplaceFetchResponse, setupReplaceFetchMock } from "./scriptlet-verifiers/trusted-replace-fetch-response.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -20,6 +21,11 @@ import { verifyJsonPruneFetchResponse, setupFetchMock } from "./scriptlet-verifi
     // json-prune-fetch-response인 경우 fetch-mock을 먼저 설정
     if (type === 'json-prune-fetch-response') {
         setupFetchMock();
+    }
+
+    // trusted-replace-fetch-response인 경우 replace-fetch-mock을 먼저 설정
+    if (type === 'trusted-replace-fetch-response') {
+        setupReplaceFetchMock();
     }
 
     currentCase.forEach((c) => createTestSection(c, type));
@@ -200,6 +206,12 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
         return;
     }
     
+    // trusted-replace-fetch-response 페이지 처리
+    if (pageType === 'trusted-replace-fetch-response') {
+        // textEquals 등 텍스트 기반 검증 처리
+        return verifyTrustedReplaceFetchResponse(targetEl, verification, parentBox);
+    }
+
     // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
     switch (verificationType) {
         case 'jsonEquals':
