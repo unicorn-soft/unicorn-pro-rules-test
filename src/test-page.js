@@ -128,11 +128,13 @@ function createCase(htmlString) {
     const node = tmp.childNodes[0];
     if (!node) return tmp;
 
-    // HTML 내의 script 태그들을 실행
+    // HTML 내의 script 태그들을 실제 DOM script로 재주입하여 실행
     const scripts = node.querySelectorAll('script');
     scripts.forEach(script => {
         try {
-            eval(script.textContent);
+            const s = document.createElement('script');
+            s.text = script.textContent;
+            script.parentNode.replaceChild(s, script);
         } catch (e) {
             // Script execution failed
         }
