@@ -14,6 +14,7 @@ import jsonPruneXhrCases from "./filter/scriptlet/json-prune-xhr-response.json";
 import jsonPruneFetchCases from "./filter/scriptlet/json-prune-fetch-response.json";
 import trustedReplaceFetchCases from "./filter/scriptlet/trusted-replace-fetch-response.json";
 import trustedReplaceNodeCases from "./filter/scriptlet/trusted-replace-node-text.json";
+import trustedReplaceOutboundCases from "./filter/scriptlet/trusted-replace-outbound-text.json";
 import abortScriptCases from "./filter/scriptlet/abort-current-inline-script.json";
 import noXhrCases from "./filter/scriptlet/no-xhr-if.json";
 import noFetchCases from "./filter/scriptlet/no-fetch-if.json";
@@ -33,6 +34,7 @@ const testCase = {
     "json-prune-fetch-response": jsonPruneFetchCases,
     "trusted-replace-fetch-response": trustedReplaceFetchCases,
     "trusted-replace-node-text": trustedReplaceNodeCases,
+    "trusted-replace-outbound-text": trustedReplaceOutboundCases,
     "abort-current-inline-script": abortScriptCases,
     "no-xhr-if": noXhrCases,
     "no-fetch-if": noFetchCases,
