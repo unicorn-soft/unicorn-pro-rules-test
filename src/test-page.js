@@ -10,6 +10,7 @@ import { verifyTrustedReplaceFetchResponse, setupReplaceFetchMock } from "./scri
 import { verifyTrustedReplaceNodeText } from "./scriptlet-verifiers/trusted-replace-node-text.js";
 import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-replace-outbound-text.js";
 import { verifyNoXhrIf, setupXhrMock as setupNoXhrIfMock } from "./scriptlet-verifiers/no-xhr-if.js";
+import { verifyNoFetchIf, setupFetchMock as setupNoFetchIfMock } from "./scriptlet-verifiers/no-fetch-if.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -34,6 +35,11 @@ import { verifyNoXhrIf, setupXhrMock as setupNoXhrIfMock } from "./scriptlet-ver
     // no-xhr-if인 경우 xhr-mock을 먼저 설정
     if (type === 'no-xhr-if') {
         setupNoXhrIfMock();
+    }
+
+    // no-fetch-if인 경우 fetch-mock을 먼저 설정
+    if (type === 'no-fetch-if') {
+        setupNoFetchIfMock();
     }
 
     currentCase.forEach((c) => createTestSection(c, type));
@@ -235,6 +241,11 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     // no-xhr-if 페이지 처리
     if (pageType === 'no-xhr-if') {
         return verifyNoXhrIf(targetEl, verification, parentBox);
+    }
+
+    // no-fetch-if 페이지 처리
+    if (pageType === 'no-fetch-if') {
+        return verifyNoFetchIf(targetEl, verification, parentBox);
     }
 
     // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
