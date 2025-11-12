@@ -74,6 +74,15 @@ module.exports = {
                 '/api/surrogate-data': { content: 'surrogate' }
             };
 
+            // no-fetch-if 테스트를 위한 mock API 엔드포인트
+            const noFetchIfMockResponses = {
+                '/api/fetch-block1': 'original-response-fetch-block1',
+                '/api/fetch-track-analytics': 'original-response-fetch-track',
+                '/api/fetch-post-data': 'original-response-fetch-post',
+                '/api/fetch-block4': 'original-response-fetch-block4',
+                '/api/fetch-surrogate-data': { content: 'surrogate' }
+            };
+
             // 모든 /api/data* 경로에 대해 mock 응답 제공 (XHR용)
             // JSON 문자열로 응답하여 템퍼몽키의 JSON.parse()가 정상 작동하도록 함
             Object.keys(xhrMockResponses).forEach(path => {
@@ -113,6 +122,33 @@ module.exports = {
             // no-xhr-if 테스트를 위한 mock API 엔드포인트
             Object.keys(noXhrIfMockResponses).forEach(path => {
                 const response = noXhrIfMockResponses[path];
+                const isJson = typeof response === 'object';
+                
+                devServer.app.get(path, (req, res) => {
+                    res.setHeader('Content-Type', isJson ? 'application/json' : 'text/plain');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    if (isJson) {
+                        res.send(JSON.stringify(response));
+                    } else {
+                        res.send(response);
+                    }
+                });
+                
+                // POST 요청도 지원
+                devServer.app.post(path, (req, res) => {
+                    res.setHeader('Content-Type', isJson ? 'application/json' : 'text/plain');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    if (isJson) {
+                        res.send(JSON.stringify(response));
+                    } else {
+                        res.send(response);
+                    }
+                });
+            });
+
+            // no-fetch-if 테스트를 위한 mock API 엔드포인트
+            Object.keys(noFetchIfMockResponses).forEach(path => {
+                const response = noFetchIfMockResponses[path];
                 const isJson = typeof response === 'object';
                 
                 devServer.app.get(path, (req, res) => {
