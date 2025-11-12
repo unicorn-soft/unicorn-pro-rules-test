@@ -9,6 +9,7 @@ import { verifyJsonPruneFetchResponse, setupFetchMock } from "./scriptlet-verifi
 import { verifyTrustedReplaceFetchResponse, setupReplaceFetchMock } from "./scriptlet-verifiers/trusted-replace-fetch-response.js";
 import { verifyTrustedReplaceNodeText } from "./scriptlet-verifiers/trusted-replace-node-text.js";
 import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-replace-outbound-text.js";
+import { verifyNoXhrIf, setupXhrMock as setupNoXhrIfMock } from "./scriptlet-verifiers/no-xhr-if.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -28,6 +29,11 @@ import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-
     // trusted-replace-fetch-response인 경우 replace-fetch-mock을 먼저 설정
     if (type === 'trusted-replace-fetch-response') {
         setupReplaceFetchMock();
+    }
+
+    // no-xhr-if인 경우 xhr-mock을 먼저 설정
+    if (type === 'no-xhr-if') {
+        setupNoXhrIfMock();
     }
 
     currentCase.forEach((c) => createTestSection(c, type));
@@ -224,6 +230,11 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     // trusted-replace-outbound-text 페이지 처리
     if (pageType === 'trusted-replace-outbound-text') {
         return verifyTrustedReplaceOutboundText(targetEl, verification, parentBox);
+    }
+
+    // no-xhr-if 페이지 처리
+    if (pageType === 'no-xhr-if') {
+        return verifyNoXhrIf(targetEl, verification, parentBox);
     }
 
     // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
