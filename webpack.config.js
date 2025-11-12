@@ -65,6 +65,15 @@ module.exports = {
                 '/api/replace-data5': 'This is bad content with ads items'
             };
 
+            // no-xhr-if 테스트를 위한 mock API 엔드포인트
+            const noXhrIfMockResponses = {
+                '/api/block1': 'original-response-block1',
+                '/api/track-analytics': 'original-response-track',
+                '/api/post-data': 'original-response-post',
+                '/api/block4': 'original-response-block4',
+                '/api/surrogate-data': { content: 'surrogate' }
+            };
+
             // 모든 /api/data* 경로에 대해 mock 응답 제공 (XHR용)
             // JSON 문자열로 응답하여 템퍼몽키의 JSON.parse()가 정상 작동하도록 함
             Object.keys(xhrMockResponses).forEach(path => {
@@ -98,6 +107,33 @@ module.exports = {
                     res.setHeader('Content-Type', 'text/plain');
                     res.setHeader('Access-Control-Allow-Origin', '*');
                     res.send(replaceFetchMockResponses[path]);
+                });
+            });
+
+            // no-xhr-if 테스트를 위한 mock API 엔드포인트
+            Object.keys(noXhrIfMockResponses).forEach(path => {
+                const response = noXhrIfMockResponses[path];
+                const isJson = typeof response === 'object';
+                
+                devServer.app.get(path, (req, res) => {
+                    res.setHeader('Content-Type', isJson ? 'application/json' : 'text/plain');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    if (isJson) {
+                        res.send(JSON.stringify(response));
+                    } else {
+                        res.send(response);
+                    }
+                });
+                
+                // POST 요청도 지원
+                devServer.app.post(path, (req, res) => {
+                    res.setHeader('Content-Type', isJson ? 'application/json' : 'text/plain');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    if (isJson) {
+                        res.send(JSON.stringify(response));
+                    } else {
+                        res.send(response);
+                    }
                 });
             });
 
