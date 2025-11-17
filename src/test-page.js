@@ -11,6 +11,7 @@ import { verifyTrustedReplaceNodeText } from "./scriptlet-verifiers/trusted-repl
 import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-replace-outbound-text.js";
 import { verifyNoXhrIf, setupXhrMock as setupNoXhrIfMock } from "./scriptlet-verifiers/no-xhr-if.js";
 import { verifyNoFetchIf, setupFetchMock as setupNoFetchIfMock } from "./scriptlet-verifiers/no-fetch-if.js";
+import { verifyRemoveNodeText } from "./scriptlet-verifiers/remove-node-text.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -246,6 +247,11 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     // no-fetch-if 페이지 처리
     if (pageType === 'no-fetch-if') {
         return verifyNoFetchIf(targetEl, verification, parentBox);
+    }
+
+    // remove-node-text 페이지 처리
+    if (pageType === 'remove-node-text') {
+        return verifyRemoveNodeText(targetEl, verification, parentBox);
     }
 
     // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
