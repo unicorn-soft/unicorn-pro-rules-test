@@ -18,6 +18,7 @@ import trustedReplaceOutboundCases from "./filter/scriptlet/trusted-replace-outb
 import abortScriptCases from "./filter/scriptlet/abort-current-inline-script.json";
 import noXhrCases from "./filter/scriptlet/no-xhr-if.json";
 import noFetchCases from "./filter/scriptlet/no-fetch-if.json";
+import removeNodeTextCases from "./filter/scriptlet/remove-node-text.json";
 import adshieldCases from "./filter/scriptlet/adshield.json";
 
 // Combine all test cases
@@ -38,6 +39,7 @@ const testCase = {
     "abort-current-inline-script": abortScriptCases,
     "no-xhr-if": noXhrCases,
     "no-fetch-if": noFetchCases,
+    "remove-node-text": removeNodeTextCases,
     "adshield": adshieldCases
 };
 
