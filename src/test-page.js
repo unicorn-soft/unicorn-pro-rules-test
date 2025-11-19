@@ -12,6 +12,7 @@ import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-
 import { verifyNoXhrIf, setupXhrMock as setupNoXhrIfMock } from "./scriptlet-verifiers/no-xhr-if.js";
 import { verifyNoFetchIf, setupFetchMock as setupNoFetchIfMock } from "./scriptlet-verifiers/no-fetch-if.js";
 import { verifyRemoveNodeText } from "./scriptlet-verifiers/remove-node-text.js";
+import { verifyTrustedJsonEditFetchRequest, setupJsonEditFetchRequestMock } from "./scriptlet-verifiers/trusted-json-edit-fetch-request.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -41,6 +42,11 @@ import { verifyRemoveNodeText } from "./scriptlet-verifiers/remove-node-text.js"
     // no-fetch-if인 경우 fetch-mock을 먼저 설정
     if (type === 'no-fetch-if') {
         setupNoFetchIfMock();
+    }
+
+    // trusted-json-edit-fetch-request인 경우 fetch-mock을 먼저 설정
+    if (type === 'trusted-json-edit-fetch-request') {
+        setupJsonEditFetchRequestMock();
     }
 
     currentCase.forEach((c) => createTestSection(c, type));
@@ -120,7 +126,17 @@ function createTestSection({ id, title, desc, target, filter, checkStyle, script
         filterCode.textContent = addDomainPrefix(filter);
     } else if (scriptlet && scriptletParams) {
         // 스크립트릿 케이스
-        const scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
+        let scriptletRule;
+        if (scriptlet === 'trusted-json-edit-fetch-request') {
+            // 할당 연산자가 두 번째 인자로 분리된 경우 합침
+            if (scriptletParams.length > 1 && scriptletParams[1] && scriptletParams[1].startsWith('=')) {
+                scriptletRule = `##+js(${scriptlet}, ${scriptletParams[0]}${scriptletParams[1]})`;
+            } else {
+                scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
+            }
+        } else {
+            scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
+        }
         filterCode.textContent = window.location.hostname + scriptletRule;
     }
     
@@ -252,6 +268,14 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     // remove-node-text 페이지 처리
     if (pageType === 'remove-node-text') {
         return verifyRemoveNodeText(targetEl, verification, parentBox);
+    }
+
+    // trusted-json-edit-fetch-request 페이지 처리
+    if (pageType === 'trusted-json-edit-fetch-request') {
+        if (verificationType === 'jsonEquals') {
+            return verifyTrustedJsonEditFetchRequest(targetEl, verification, parentBox);
+        }
+        return;
     }
 
     // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
