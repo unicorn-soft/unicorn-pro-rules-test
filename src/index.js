@@ -19,7 +19,7 @@ import abortScriptCases from "./filter/scriptlet/abort-current-inline-script.jso
 import noXhrCases from "./filter/scriptlet/no-xhr-if.json";
 import noFetchCases from "./filter/scriptlet/no-fetch-if.json";
 import removeNodeTextCases from "./filter/scriptlet/remove-node-text.json";
-import adshieldCases from "./filter/scriptlet/adshield.json";
+import trustedJsonEditFetchRequestCases from "./filter/scriptlet/trusted-json-edit-fetch-request.json";
 
 // Combine all test cases
 const testCase = {
@@ -40,7 +40,7 @@ const testCase = {
     "no-xhr-if": noXhrCases,
     "no-fetch-if": noFetchCases,
     "remove-node-text": removeNodeTextCases,
-    "adshield": adshieldCases
+    "trusted-json-edit-fetch-request": trustedJsonEditFetchRequestCases
 };
 
 export default testCase;
@@ -65,7 +65,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // Scriptlet cases
             else if(c.scriptlet && c.scriptletParams) {
-              const scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams.join(', ')})`
+              let scriptletRule;
+              if (c.scriptlet === 'trusted-json-edit-fetch-request') {
+                // 할당 연산자가 두 번째 인자로 분리된 경우 합침
+                if (c.scriptletParams.length > 1 && c.scriptletParams[1] && c.scriptletParams[1].startsWith('=')) {
+                  scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams[0]}${c.scriptletParams[1]})`;
+                } else {
+                  scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams.join(', ')})`;
+                }
+              } else {
+                scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams.join(', ')})`;
+              }
               rules.push(addDomainPrefix(scriptletRule))
             }
           })

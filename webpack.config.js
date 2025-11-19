@@ -83,6 +83,26 @@ module.exports = {
                 '/api/fetch-surrogate-data': { content: 'surrogate' }
             };
 
+            // trusted-json-edit-fetch-request 테스트를 위한 에코 엔드포인트
+            const editRequestPaths = [
+                '/api/edit-request-1',
+                '/api/edit-request-2',
+                '/api/edit-request-3',
+                '/api/edit-request-4',
+                '/api/edit-request-5',
+                '/api/edit-request-6',
+                '/api/edit-request-7',
+                '/api/edit-request-8',
+                '/api/edit-request-9',
+                '/api/edit-request-10',
+                '/api/edit-request-11',
+                '/api/edit-request-12',
+                '/api/edit-request-13',
+                '/api/edit-request-14',
+                '/api/edit-request-15',
+                '/api/edit-request-16'
+            ];
+
             // 모든 /api/data* 경로에 대해 mock 응답 제공 (XHR용)
             // JSON 문자열로 응답하여 템퍼몽키의 JSON.parse()가 정상 작동하도록 함
             Object.keys(xhrMockResponses).forEach(path => {
@@ -170,6 +190,33 @@ module.exports = {
                     } else {
                         res.send(response);
                     }
+                });
+            });
+
+            // trusted-json-edit-fetch-request용 POST 에코 핸들러
+            editRequestPaths.forEach(path => {
+                devServer.app.post(path, (req, res) => {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+
+                    let bodyData = '';
+                    req.on('data', chunk => {
+                        bodyData += chunk.toString();
+                    });
+                    req.on('end', () => {
+                        if (!bodyData) {
+                            res.send('{}');
+                            return;
+                        }
+                        try {
+                            // body 가 JSON 문자열이면 그대로 반환
+                            JSON.parse(bodyData);
+                            res.send(bodyData);
+                        } catch (e) {
+                            // JSON 이 아니면 string 형태로 감싼다
+                            res.send(JSON.stringify({ data: bodyData }));
+                        }
+                    });
                 });
             });
 
