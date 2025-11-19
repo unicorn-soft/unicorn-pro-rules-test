@@ -20,6 +20,7 @@ import noXhrCases from "./filter/scriptlet/no-xhr-if.json";
 import noFetchCases from "./filter/scriptlet/no-fetch-if.json";
 import removeNodeTextCases from "./filter/scriptlet/remove-node-text.json";
 import trustedJsonEditFetchRequestCases from "./filter/scriptlet/trusted-json-edit-fetch-request.json";
+import trustedJsonEditXhrRequestCases from "./filter/scriptlet/trusted-json-edit-xhr-request.json";
 
 // Combine all test cases
 const testCase = {
@@ -40,7 +41,8 @@ const testCase = {
     "no-xhr-if": noXhrCases,
     "no-fetch-if": noFetchCases,
     "remove-node-text": removeNodeTextCases,
-    "trusted-json-edit-fetch-request": trustedJsonEditFetchRequestCases
+    "trusted-json-edit-fetch-request": trustedJsonEditFetchRequestCases,
+    "trusted-json-edit-xhr-request": trustedJsonEditXhrRequestCases
 };
 
 export default testCase;
@@ -66,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Scriptlet cases
             else if(c.scriptlet && c.scriptletParams) {
               let scriptletRule;
-              if (c.scriptlet === 'trusted-json-edit-fetch-request') {
+              if (c.scriptlet === 'trusted-json-edit-fetch-request' || c.scriptlet === 'trusted-json-edit-xhr-request') {
                 // 할당 연산자가 두 번째 인자로 분리된 경우 합침
                 if (c.scriptletParams.length > 1 && c.scriptletParams[1] && c.scriptletParams[1].startsWith('=')) {
                   scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams[0]}${c.scriptletParams[1]})`;

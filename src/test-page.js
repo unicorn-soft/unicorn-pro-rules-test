@@ -13,6 +13,7 @@ import { verifyNoXhrIf, setupXhrMock as setupNoXhrIfMock } from "./scriptlet-ver
 import { verifyNoFetchIf, setupFetchMock as setupNoFetchIfMock } from "./scriptlet-verifiers/no-fetch-if.js";
 import { verifyRemoveNodeText } from "./scriptlet-verifiers/remove-node-text.js";
 import { verifyTrustedJsonEditFetchRequest, setupJsonEditFetchRequestMock } from "./scriptlet-verifiers/trusted-json-edit-fetch-request.js";
+import { verifyTrustedJsonEditXhrRequest, setupJsonEditXhrRequestMock } from "./scriptlet-verifiers/trusted-json-edit-xhr-request.js";
 
 ;(function () {
     const type = new URLSearchParams(location.search).get('type')
@@ -47,6 +48,11 @@ import { verifyTrustedJsonEditFetchRequest, setupJsonEditFetchRequestMock } from
     // trusted-json-edit-fetch-request인 경우 fetch-mock을 먼저 설정
     if (type === 'trusted-json-edit-fetch-request') {
         setupJsonEditFetchRequestMock();
+    }
+
+    // trusted-json-edit-xhr-request인 경우 xhr-mock을 먼저 설정
+    if (type === 'trusted-json-edit-xhr-request') {
+        setupJsonEditXhrRequestMock();
     }
 
     currentCase.forEach((c) => createTestSection(c, type));
@@ -127,7 +133,7 @@ function createTestSection({ id, title, desc, target, filter, checkStyle, script
     } else if (scriptlet && scriptletParams) {
         // 스크립트릿 케이스
         let scriptletRule;
-        if (scriptlet === 'trusted-json-edit-fetch-request') {
+        if (scriptlet === 'trusted-json-edit-fetch-request' || scriptlet === 'trusted-json-edit-xhr-request') {
             // 할당 연산자가 두 번째 인자로 분리된 경우 합침
             if (scriptletParams.length > 1 && scriptletParams[1] && scriptletParams[1].startsWith('=')) {
                 scriptletRule = `##+js(${scriptlet}, ${scriptletParams[0]}${scriptletParams[1]})`;
@@ -274,6 +280,14 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     if (pageType === 'trusted-json-edit-fetch-request') {
         if (verificationType === 'jsonEquals') {
             return verifyTrustedJsonEditFetchRequest(targetEl, verification, parentBox);
+        }
+        return;
+    }
+
+    // trusted-json-edit-xhr-request 페이지 처리
+    if (pageType === 'trusted-json-edit-xhr-request') {
+        if (verificationType === 'jsonEquals') {
+            return verifyTrustedJsonEditXhrRequest(targetEl, verification, parentBox);
         }
         return;
     }
