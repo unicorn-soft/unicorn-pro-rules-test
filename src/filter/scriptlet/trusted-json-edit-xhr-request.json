@@ -52,5 +52,23 @@
     "scriptletParams": ["$[0].ads6"],
     "target": "<div class='target'><script>window.tjexr6=null;var xhr6=new XMLHttpRequest();xhr6.open('POST','/api/edit-xhr-request-6');xhr6.setRequestHeader('Content-Type','application/json');xhr6.onload=function(){try{window.tjexr6=JSON.parse(xhr6.responseText);}catch(e){}};xhr6.send(JSON.stringify([{ads6:1,content6:'item1'},{ads6:2,content6:'item2'}]));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
     "verification": "jsonEquals:window.tjexr6:[{\"content6\":\"item1\"},{\"ads6\":2,\"content6\":\"item2\"}]:배열 첫 요소 ads6 삭제"
+  },
+  {
+    "id": "7",
+    "title": "단일 속성 제거 (ad_id)",
+    "desc": "XHR 요청 body JSON의 ad_id 속성을 삭제합니다",
+    "scriptlet": "trusted-json-edit-xhr-request",
+    "scriptletParams": [".ad_id"],
+    "target": "<div class='target'><script>window.tjexr7=null;var xhr=new XMLHttpRequest();xhr.open('POST','/api/echo');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){try{window.tjexr7=JSON.parse(xhr.responseText);}catch(e){}};xhr.send(JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 }));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "jsonEquals:window.tjexr7:{\"user_id\":\"123\",\"timestamp\":1678886400}:ad_id 삭제됨"
+  },
+  {
+    "id": "8",
+    "title": "값 변경 (user_id)",
+    "desc": "XHR 요청 body의 user_id 값을 'anonymous'로 변경합니다",
+    "scriptlet": "trusted-json-edit-xhr-request",
+    "scriptletParams": ["$.user_id=\"anonymous\""],
+    "target": "<div class='target'><script>window.tjexr8=null;var xhr=new XMLHttpRequest();xhr.open('POST','/api/echo');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){try{window.tjexr8=JSON.parse(xhr.responseText);}catch(e){}};xhr.send(JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 }));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "jsonEquals:window.tjexr8:{\"user_id\":\"anonymous\",\"ad_id\":\"abc\",\"timestamp\":1678886400}:user_id 변경됨"
   }
 ]

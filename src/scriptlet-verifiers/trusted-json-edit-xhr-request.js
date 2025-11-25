@@ -1,10 +1,6 @@
 // trusted-json-edit-xhr-request 전용 검증기
 // 요청 body가 수정되어 서버에서 반환된 JSON과 기대값을 비교한다.
 
-export function setupJsonEditXhrRequestMock() {
-    // webpack dev server가 POST 에코 엔드포인트를 제공하므로 별도 작업 없음
-}
-
 export function verifyTrustedJsonEditXhrRequest(targetEl, verification, parentBox) {
     const parts = verification.split(":");
     const type = parts[0];

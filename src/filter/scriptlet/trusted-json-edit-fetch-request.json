@@ -100,11 +100,20 @@
   },
   {
     "id": "12",
-    "title": "필터 비교 표현식 (tracking16)",
-    "desc": "id가 2보다 큰 요소의 tracking16을 삭제합니다 (템퍼몽키 예시와 동일)",
+    "title": "단일 속성 제거 (ad_id)",
+    "desc": "body JSON의 ad_id 속성을 삭제합니다",
     "scriptlet": "trusted-json-edit-fetch-request",
-    "scriptletParams": ["$[?(@.id > 2)].tracking16"],
-    "target": "<div class='target'><script>window.tjefr12=null;fetch('/api/edit-request-12',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{id:1,tracking16:'t1',content16:'c1'},{id:2,tracking16:'t2',content16:'c2'},{id:3,tracking16:'t3',content16:'c3'},{id:4,tracking16:'t4',content16:'c4'}]) }).then(r=>r.json()).then(d=>{window.tjefr12=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "jsonEquals:window.tjefr12:[{\"id\":1,\"tracking16\":\"t1\",\"content16\":\"c1\"},{\"id\":2,\"tracking16\":\"t2\",\"content16\":\"c2\"},{\"id\":3,\"tracking16\":\"t3\",\"content16\":\"c3\"},{\"id\":4,\"tracking16\":\"t4\",\"content16\":\"c4\"}]:필터 비교 표현식 (작동하지 않을 수 있음 - > 연산자 미지원)"
+    "scriptletParams": [".ad_id"],
+    "target": "<div class='target'><script>window.tjefr12=null;fetch('/api/echo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 })}).then(r=>r.json()).then(d=>{window.tjefr12=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "jsonEquals:window.tjefr12:{\"user_id\":\"123\",\"timestamp\":1678886400}:ad_id 삭제됨"
+  },
+  {
+    "id": "13",
+    "title": "값 변경 (user_id)",
+    "desc": "user_id 값을 'anonymous'로 변경합니다",
+    "scriptlet": "trusted-json-edit-fetch-request",
+    "scriptletParams": ["$.user_id=\"anonymous\""],
+    "target": "<div class='target'><script>window.tjefr13=null;fetch('/api/echo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 })}).then(r=>r.json()).then(d=>{window.tjefr13=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+    "verification": "jsonEquals:window.tjefr13:{\"user_id\":\"anonymous\",\"ad_id\":\"abc\",\"timestamp\":1678886400}:user_id 변경됨"
   }
 ]

@@ -1,59 +1,32 @@
+import { worker } from './mocks/browser'
 import "./style/global.css";
 import "./style/test-page.css";
 import testCase from "./index"
 import { addDomainPrefix } from "./util";
 import { verifySetConstant } from "./scriptlet-verifiers/set-constant.js";
 import { verifyJsonPrune } from "./scriptlet-verifiers/json-prune.js";
-import { verifyJsonPruneXhrResponse, setupXhrMock } from "./scriptlet-verifiers/json-prune-xhr-response.js";
-import { verifyJsonPruneFetchResponse, setupFetchMock } from "./scriptlet-verifiers/json-prune-fetch-response.js";
-import { verifyTrustedReplaceFetchResponse, setupReplaceFetchMock } from "./scriptlet-verifiers/trusted-replace-fetch-response.js";
+import { verifyJsonPruneXhrResponse } from "./scriptlet-verifiers/json-prune-xhr-response.js";
+import { verifyJsonPruneFetchResponse } from "./scriptlet-verifiers/json-prune-fetch-response.js";
+import { verifyTrustedReplaceFetchResponse } from "./scriptlet-verifiers/trusted-replace-fetch-response.js";
 import { verifyTrustedReplaceNodeText } from "./scriptlet-verifiers/trusted-replace-node-text.js";
 import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-replace-outbound-text.js";
-import { verifyNoXhrIf, setupXhrMock as setupNoXhrIfMock } from "./scriptlet-verifiers/no-xhr-if.js";
-import { verifyNoFetchIf, setupFetchMock as setupNoFetchIfMock } from "./scriptlet-verifiers/no-fetch-if.js";
+import { verifyNoXhrIf } from "./scriptlet-verifiers/no-xhr-if.js";
+import { verifyNoFetchIf } from "./scriptlet-verifiers/no-fetch-if.js";
 import { verifyRemoveNodeText } from "./scriptlet-verifiers/remove-node-text.js";
-import { verifyTrustedJsonEditFetchRequest, setupJsonEditFetchRequestMock } from "./scriptlet-verifiers/trusted-json-edit-fetch-request.js";
-import { verifyTrustedJsonEditXhrRequest, setupJsonEditXhrRequestMock } from "./scriptlet-verifiers/trusted-json-edit-xhr-request.js";
+import { verifyTrustedJsonEditFetchRequest } from "./scriptlet-verifiers/trusted-json-edit-fetch-request.js";
+import { verifyTrustedJsonEditXhrRequest } from "./scriptlet-verifiers/trusted-json-edit-xhr-request.js";
 
-;(function () {
+async function enableMocking() {
+  // 서비스 워커를 시작합니다.
+  await worker.start();
+}
+
+;(async function () {
+    await enableMocking();
+
     const type = new URLSearchParams(location.search).get('type')
     const currentCase = testCase[type];
     if (Array.isArray(currentCase) === false) return
-
-    // json-prune-xhr-response인 경우 xhr-mock을 먼저 설정
-    if (type === 'json-prune-xhr-response') {
-        setupXhrMock();
-    }
-    
-    // json-prune-fetch-response인 경우 fetch-mock을 먼저 설정
-    if (type === 'json-prune-fetch-response') {
-        setupFetchMock();
-    }
-
-    // trusted-replace-fetch-response인 경우 replace-fetch-mock을 먼저 설정
-    if (type === 'trusted-replace-fetch-response') {
-        setupReplaceFetchMock();
-    }
-
-    // no-xhr-if인 경우 xhr-mock을 먼저 설정
-    if (type === 'no-xhr-if') {
-        setupNoXhrIfMock();
-    }
-
-    // no-fetch-if인 경우 fetch-mock을 먼저 설정
-    if (type === 'no-fetch-if') {
-        setupNoFetchIfMock();
-    }
-
-    // trusted-json-edit-fetch-request인 경우 fetch-mock을 먼저 설정
-    if (type === 'trusted-json-edit-fetch-request') {
-        setupJsonEditFetchRequestMock();
-    }
-
-    // trusted-json-edit-xhr-request인 경우 xhr-mock을 먼저 설정
-    if (type === 'trusted-json-edit-xhr-request') {
-        setupJsonEditXhrRequestMock();
-    }
 
     currentCase.forEach((c) => createTestSection(c, type));
     if (navigator && navigator.clipboard) {

@@ -1,15 +1,3 @@
-// webpack dev server에서 실제 mock API를 제공하므로
-// 복잡한 모킹 로직이 필요 없습니다.
-// 템퍼몽키가 이미 fetch를 Proxy로 감쌌으므로,
-// 실제 네트워크 요청이 발생하면 템퍼몽키가 자동으로 처리합니다.
-export function setupFetchMock() {
-    // webpack dev server가 mock API 제공
-}
-
-export function teardownFetchMock() {
-    // webpack dev server가 처리하므로 teardown이 필요 없음
-}
-
 export function verifyJsonPruneFetchResponse(targetEl, verification, parentBox) {
     // verification 파싱: "jsonEquals:window.jsonPruneFetchTestData1:{"content1":"test"}:속성 제거됨"
     const parts = verification.split(':');

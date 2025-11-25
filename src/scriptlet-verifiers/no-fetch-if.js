@@ -5,14 +5,6 @@ const expectedServerResponses = {
     'window.noFetchIfTestData3': 'original-response-fetch-post'
 };
 
-export function setupFetchMock() {
-    // webpack dev server가 mock API 제공
-}
-
-export function teardownFetchMock() {
-    // webpack dev server가 처리하므로 teardown이 필요 없음
-}
-
 export function verifyNoFetchIf(targetEl, verification, parentBox) {
     const parts = verification.split(':');
     const type = parts[0];
