@@ -5,14 +5,6 @@ const expectedServerResponses = {
     'window.noXhrIfTestData3': 'original-response-post'
 };
 
-export function setupXhrMock() {
-    // webpack dev server가 mock API 제공
-}
-
-export function teardownXhrMock() {
-    // webpack dev server가 처리하므로 teardown이 필요 없음
-}
-
 export function verifyNoXhrIf(targetEl, verification, parentBox) {
     const parts = verification.split(':');
     const type = parts[0];
