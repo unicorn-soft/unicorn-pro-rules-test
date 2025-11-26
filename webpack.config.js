@@ -17,6 +17,9 @@ module.exports = {
             directory: path.join(__dirname, "public"),
         },
         port: 3000,
+        client: {
+            webSocketURL: 'ws://localhost:3000/ws',
+        },
     },
     module: {
         rules: [

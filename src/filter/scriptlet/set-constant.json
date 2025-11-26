@@ -9,13 +9,13 @@
     "verification": "equals:window.adBlockDetected:false:우회됨"
   },
   {
-    "id": "2", 
-    "title": "Object.keys trueFunc 고정",
-    "desc": "Object.keys를 항상 true를 반환하는 함수로 고정",
+    "id": "2",
+    "title": "setConstantTestObjectKeys trueFunc 고정",
+    "desc": "setConstantTestObjectKeys를 항상 true를 반환하는 함수로 고정 (Object.keys 충돌 회피)",
     "scriptlet": "set",
-    "scriptletParams": ["Object.keys", "trueFunc"],
-    "target": "<div class='target'><script>/* Object.keys는 기본 함수 */</script>Object.keys: <span class='status'>정상 함수</span></div>",
-    "verification": "functionCall:Object.keys:true:고정됨"
+    "scriptletParams": ["setConstantTestObjectKeys", "trueFunc"],
+    "target": "<div class='target'><script>/* 테스트용 전역 속성 */</script>setConstantTestObjectKeys: <span class='status'>초기값</span></div>",
+    "verification": "functionCall:setConstantTestObjectKeys:true:고정됨"
   },
   {
     "id": "3",

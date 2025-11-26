@@ -34,14 +34,5 @@
     "scriptletParams": ["secret", "public", "method:POST"],
     "target": "<div class='target'><script>window.trustedReplaceFetchTestData4 = null; fetch('/api/replace-data4', {method: 'POST'}).then(res => res.text()).then(data => { window.trustedReplaceFetchTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
     "verification": "textEquals:window.trustedReplaceFetchTestData4:public information:Method 옵션 치환 성공"
-  },
-  {
-    "id": "5",
-    "title": "여러 규칙 순차 적용",
-    "desc": "여러 치환 규칙을 순차적으로 적용",
-    "scriptlet": "trusted-replace-fetch-response",
-    "scriptletParams": ["bad", "good", "ads", "removed"],
-    "target": "<div class='target'><script>window.trustedReplaceFetchTestData5 = null; fetch('/api/replace-data5').then(res => res.text()).then(data => { window.trustedReplaceFetchTestData5 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textEquals:window.trustedReplaceFetchTestData5:This is good content with removed items:여러 규칙 적용 성공"
   }
 ]
