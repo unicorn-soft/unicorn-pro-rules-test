@@ -1,114 +1,127 @@
-import { worker } from './mocks/browser'
-import "./style/global.css";
-import "./style/test-page.css";
-import testCase from "./index"
-import { addDomainPrefix } from "./util";
-import { verifySetConstant } from "./scriptlet-verifiers/set-constant.js";
-import { verifyJsonPrune } from "./scriptlet-verifiers/json-prune.js";
-import { verifyJsonPruneXhrResponse } from "./scriptlet-verifiers/json-prune-xhr-response.js";
-import { verifyJsonPruneFetchResponse } from "./scriptlet-verifiers/json-prune-fetch-response.js";
-import { verifyTrustedReplaceFetchResponse } from "./scriptlet-verifiers/trusted-replace-fetch-response.js";
-import { verifyTrustedReplaceNodeText } from "./scriptlet-verifiers/trusted-replace-node-text.js";
-import { verifyTrustedReplaceOutboundText } from "./scriptlet-verifiers/trusted-replace-outbound-text.js";
-import { verifyNoXhrIf } from "./scriptlet-verifiers/no-xhr-if.js";
-import { verifyNoFetchIf } from "./scriptlet-verifiers/no-fetch-if.js";
-import { verifyRemoveNodeText } from "./scriptlet-verifiers/remove-node-text.js";
-import { verifyTrustedJsonEditFetchRequest } from "./scriptlet-verifiers/trusted-json-edit-fetch-request.js";
-import { verifyTrustedJsonEditXhrRequest } from "./scriptlet-verifiers/trusted-json-edit-xhr-request.js";
+import { worker } from './mocks/browser';
+import './style/global.css';
+import './style/test-page.css';
+import testCase from './index';
+import { addDomainPrefix } from './util';
+import { verifySetConstant } from './scriptlet-verifiers/set-constant.js';
+import { verifyJsonPrune } from './scriptlet-verifiers/json-prune.js';
+import { verifyJsonPruneXhrResponse } from './scriptlet-verifiers/json-prune-xhr-response.js';
+import { verifyJsonPruneFetchResponse } from './scriptlet-verifiers/json-prune-fetch-response.js';
+import { verifyTrustedReplaceFetchResponse } from './scriptlet-verifiers/trusted-replace-fetch-response.js';
+import { verifyTrustedReplaceNodeText } from './scriptlet-verifiers/trusted-replace-node-text.js';
+import { verifyTrustedReplaceOutboundText } from './scriptlet-verifiers/trusted-replace-outbound-text.js';
+import { verifyNoXhrIf } from './scriptlet-verifiers/no-xhr-if.js';
+import { verifyNoFetchIf } from './scriptlet-verifiers/no-fetch-if.js';
+import { verifyRemoveNodeText } from './scriptlet-verifiers/remove-node-text.js';
+import { verifyTrustedJsonEditFetchRequest } from './scriptlet-verifiers/trusted-json-edit-fetch-request.js';
+import { verifyTrustedJsonEditXhrRequest } from './scriptlet-verifiers/trusted-json-edit-xhr-request.js';
 
 async function enableMocking() {
-  // 서비스 워커를 시작합니다.
-  await worker.start();
+    await worker.start();
 }
 
-;(async function () {
+(async function () {
     await enableMocking();
 
-    const type = new URLSearchParams(location.search).get('type')
+    const type = new URLSearchParams(location.search).get('type');
     const currentCase = testCase[type];
-    if (Array.isArray(currentCase) === false) return
+    if (Array.isArray(currentCase) === false) return;
 
     currentCase.forEach((c) => createTestSection(c, type));
     if (navigator && navigator.clipboard) {
         window.copyId = null;
-        document.addEventListener("click", (event) => {
+        document.addEventListener('click', (event) => {
             const el = event.target;
             if (
-                el.classList.contains("filter-code") &&
+                el.classList.contains('filter-code') &&
                 window.copyId === null
             ) {
                 const textToCopy = el.textContent.trim();
                 navigator.clipboard
                     .writeText(textToCopy)
                     .then(() => {
-                        el.textContent = "복사 완료!";
+                        el.textContent = '복사 완료!';
                         window.copyId = setTimeout(() => {
                             el.textContent = textToCopy;
                             window.copyId = null;
                         }, 300);
                     })
-                    .catch((err) => {
-                        // 복사 실패
-                    });
+                    .catch((err) => {});
             }
         });
     }
-})()
+})();
 
-function createTestSection({ id, title, desc, target, filter, checkStyle, scriptlet, scriptletParams, verification }, pageType) {
-    const section = document.createElement("section");
+function createTestSection(
+    {
+        id,
+        title,
+        desc,
+        target,
+        filter,
+        checkStyle,
+        scriptlet,
+        scriptletParams,
+        verification,
+    },
+    pageType
+) {
+    const section = document.createElement('section');
     section.id = `s_${id}`;
 
-    const divTitle = document.createElement("div");
-    divTitle.className = "title";
-    const h1El = document.createElement("h1");
+    const divTitle = document.createElement('div');
+    divTitle.className = 'title';
+    const h1El = document.createElement('h1');
     h1El.textContent = `${id}. ${title}`;
     divTitle.appendChild(h1El);
     section.appendChild(divTitle);
 
-    const pDesc = document.createElement("p");
-    pDesc.className = "description";
+    const pDesc = document.createElement('p');
+    pDesc.className = 'description';
     pDesc.innerHTML = desc;
     section.appendChild(pDesc);
 
-    const contentRow = document.createElement("div");
-    contentRow.className = "content-row";
+    const contentRow = document.createElement('div');
+    contentRow.className = 'content-row';
 
-    const targetBox = document.createElement("div");
-    targetBox.className = "box target-box";
-    targetBox.textContent = "타겟";
+    const targetBox = document.createElement('div');
+    targetBox.className = 'box target-box';
+    targetBox.textContent = '타겟';
 
     const targetEl = createCase(target);
     targetBox.appendChild(targetEl);
     contentRow.appendChild(targetBox);
 
-    const exampleBox = document.createElement("div");
-    exampleBox.className = "box content-box";
-    exampleBox.textContent = "콘텐츠";
+    const exampleBox = document.createElement('div');
+    exampleBox.className = 'box content-box';
+    exampleBox.textContent = '콘텐츠';
     contentRow.appendChild(exampleBox);
 
     section.appendChild(contentRow);
 
-    const filtersEl = document.createElement("div");
-    filtersEl.className = "filter";
+    const filtersEl = document.createElement('div');
+    filtersEl.className = 'filter';
 
-    const h2Filter = document.createElement("h2");
-    h2Filter.textContent = "Filter";
+    const h2Filter = document.createElement('h2');
+    h2Filter.textContent = 'Filter';
     filtersEl.appendChild(h2Filter);
 
-    const filterCode = document.createElement("div");
-    filterCode.className = "filter-code";
-    
-    // 확장CSS 또는 스크립트릿 규칙 생성
+    const filterCode = document.createElement('div');
+    filterCode.className = 'filter-code';
+
     if (filter) {
-        // 확장CSS 케이스
         filterCode.textContent = addDomainPrefix(filter);
     } else if (scriptlet && scriptletParams) {
-        // 스크립트릿 케이스
         let scriptletRule;
-        if (scriptlet === 'trusted-json-edit-fetch-request' || scriptlet === 'trusted-json-edit-xhr-request') {
-            // 할당 연산자가 두 번째 인자로 분리된 경우 합침
-            if (scriptletParams.length > 1 && scriptletParams[1] && scriptletParams[1].startsWith('=')) {
+        if (
+            scriptlet === 'trusted-json-edit-fetch-request' ||
+            scriptlet === 'trusted-json-edit-xhr-request'
+        ) {
+            if (
+                scriptletParams.length > 1 &&
+                scriptletParams[1] &&
+                scriptletParams[1].startsWith('=')
+            ) {
                 scriptletRule = `##+js(${scriptlet}, ${scriptletParams[0]}${scriptletParams[1]})`;
             } else {
                 scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
@@ -118,7 +131,7 @@ function createTestSection({ id, title, desc, target, filter, checkStyle, script
         }
         filterCode.textContent = window.location.hostname + scriptletRule;
     }
-    
+
     filtersEl.appendChild(filterCode);
 
     section.appendChild(filtersEl);
@@ -129,49 +142,43 @@ function createTestSection({ id, title, desc, target, filter, checkStyle, script
 }
 
 function createCase(htmlString) {
-    const tmp = document.createElement("div");
+    const tmp = document.createElement('div');
     if (!htmlString) return tmp;
 
     tmp.innerHTML = htmlString;
     const node = tmp.childNodes[0];
     if (!node) return tmp;
 
-    // HTML 내의 script 태그들을 실제 DOM script로 재주입하여 실행
     const scripts = node.querySelectorAll('script');
-    scripts.forEach(script => {
+    scripts.forEach((script) => {
         try {
             const s = document.createElement('script');
             s.text = script.textContent;
             script.parentNode.replaceChild(s, script);
-        } catch (e) {
-            // Script execution failed
-        }
+        } catch (e) {}
     });
 
-    node.classList.add("case");
+    node.classList.add('case');
     return node.cloneNode(true);
 }
 
 function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
-    const parentBox = targetEl.closest(".target-box");
+    const parentBox = targetEl.closest('.target-box');
     if (!parentBox) return;
 
     if (verification) {
-        // 스크립트릿 검증
         observeScriptletResult(targetEl, verification, parentBox, pageType);
     } else if (checkStyle) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (
-                    mutation.type === "attributes"
-                ) {
+                if (mutation.type === 'attributes') {
                     const targetStyle = getComputedStyle(mutation.target);
                     const result = Object.keys(checkStyle).every(
                         (key) => targetStyle[key] === checkStyle[key]
                     );
 
-                    if (result) parentBox.setAttribute("success", "");
-                    else parentBox.removeAttribute("success");
+                    if (result) parentBox.setAttribute('success', '');
+                    else parentBox.removeAttribute('success');
                 }
             });
         });
@@ -185,8 +192,11 @@ function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 mutation.removedNodes.forEach((node) => {
-                    if (node.nodeType === 1 && node.classList.contains("target"))
-                        parentBox.setAttribute("success", "");
+                    if (
+                        node.nodeType === 1 &&
+                        node.classList.contains('target')
+                    )
+                        parentBox.setAttribute('success', '');
                 });
             });
         });
@@ -200,72 +210,85 @@ function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
 
 function observeScriptletResult(targetEl, verification, parentBox, pageType) {
     const [verificationType] = verification.split(':');
-    
-    // 페이지 타입별 검증 함수 매핑
+
     if (pageType === 'json-prune-xhr-response') {
         if (verificationType === 'jsonEquals') {
-            return verifyJsonPruneXhrResponse(targetEl, verification, parentBox);
+            return verifyJsonPruneXhrResponse(
+                targetEl,
+                verification,
+                parentBox
+            );
         }
-        // json-prune-xhr-response 페이지에서는 다른 검증 타입은 지원하지 않음
+
         return;
-    }
-    
-    if (pageType === 'json-prune-fetch-response') {
-        if (verificationType === 'jsonEquals') {
-            return verifyJsonPruneFetchResponse(targetEl, verification, parentBox);
-        }
-        // json-prune-fetch-response 페이지에서는 다른 검증 타입은 지원하지 않음
-        return;
-    }
-    
-    // trusted-replace-fetch-response 페이지 처리
-    if (pageType === 'trusted-replace-fetch-response') {
-        // textEquals 등 텍스트 기반 검증 처리
-        return verifyTrustedReplaceFetchResponse(targetEl, verification, parentBox);
     }
 
-    // trusted-replace-node-text 페이지 처리
+    if (pageType === 'json-prune-fetch-response') {
+        if (verificationType === 'jsonEquals') {
+            return verifyJsonPruneFetchResponse(
+                targetEl,
+                verification,
+                parentBox
+            );
+        }
+
+        return;
+    }
+
+    if (pageType === 'trusted-replace-fetch-response') {
+        return verifyTrustedReplaceFetchResponse(
+            targetEl,
+            verification,
+            parentBox
+        );
+    }
+
     if (pageType === 'trusted-replace-node-text') {
         return verifyTrustedReplaceNodeText(targetEl, verification, parentBox);
     }
 
-    // trusted-replace-outbound-text 페이지 처리
     if (pageType === 'trusted-replace-outbound-text') {
-        return verifyTrustedReplaceOutboundText(targetEl, verification, parentBox);
+        return verifyTrustedReplaceOutboundText(
+            targetEl,
+            verification,
+            parentBox
+        );
     }
 
-    // no-xhr-if 페이지 처리
     if (pageType === 'no-xhr-if') {
         return verifyNoXhrIf(targetEl, verification, parentBox);
     }
 
-    // no-fetch-if 페이지 처리
     if (pageType === 'no-fetch-if') {
         return verifyNoFetchIf(targetEl, verification, parentBox);
     }
 
-    // remove-node-text 페이지 처리
     if (pageType === 'remove-node-text') {
         return verifyRemoveNodeText(targetEl, verification, parentBox);
     }
 
-    // trusted-json-edit-fetch-request 페이지 처리
     if (pageType === 'trusted-json-edit-fetch-request') {
         if (verificationType === 'jsonEquals') {
-            return verifyTrustedJsonEditFetchRequest(targetEl, verification, parentBox);
+            return verifyTrustedJsonEditFetchRequest(
+                targetEl,
+                verification,
+                parentBox
+            );
         }
         return;
     }
 
-    // trusted-json-edit-xhr-request 페이지 처리
     if (pageType === 'trusted-json-edit-xhr-request') {
         if (verificationType === 'jsonEquals') {
-            return verifyTrustedJsonEditXhrRequest(targetEl, verification, parentBox);
+            return verifyTrustedJsonEditXhrRequest(
+                targetEl,
+                verification,
+                parentBox
+            );
         }
         return;
     }
 
-    // 검증 타입에 따라 적절한 검증 함수 호출 (기타 페이지용)
     switch (verificationType) {
         case 'jsonEquals':
             return verifyJsonPrune(targetEl, verification, parentBox);

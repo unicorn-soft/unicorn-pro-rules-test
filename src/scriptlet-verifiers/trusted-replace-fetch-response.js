@@ -1,12 +1,14 @@
-export function verifyTrustedReplaceFetchResponse(targetEl, verification, parentBox) {
-    // verification 파싱: "textEquals:window.trustedReplaceFetchTestData1:This content has removed content:기본 치환 성공"
+export function verifyTrustedReplaceFetchResponse(
+    targetEl,
+    verification,
+    parentBox
+) {
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
     const successMessage = parts[parts.length - 1];
-    const expected = parts.slice(2, -1).join(':'); // 중간 부분들을 다시 합침
+    const expected = parts.slice(2, -1).join(':');
 
-    // UI 업데이트 함수
     const updateUI = (actualValue) => {
         const jsonResultEl = targetEl.querySelector('.json-result');
         if (jsonResultEl && actualValue) {
@@ -14,7 +16,6 @@ export function verifyTrustedReplaceFetchResponse(targetEl, verification, parent
         }
     };
 
-    // 즉시 한 번 실행
     const runCheck = () => {
         try {
             const actualValue = eval(target);
@@ -22,24 +23,21 @@ export function verifyTrustedReplaceFetchResponse(targetEl, verification, parent
                 return false;
             }
 
-            // UI 업데이트
             updateUI(actualValue);
 
             let isMatch = false;
 
             switch (type) {
                 case 'textEquals':
-                    // 텍스트 직접 비교
                     isMatch = String(actualValue) === expected;
-                    
+
                     break;
 
                 default:
-                    // Unknown verification type
             }
 
             if (isMatch) {
-                parentBox.setAttribute("success", "");
+                parentBox.setAttribute('success', '');
 
                 const statusEl = targetEl.querySelector('.status');
                 if (statusEl && successMessage) {
@@ -47,13 +45,10 @@ export function verifyTrustedReplaceFetchResponse(targetEl, verification, parent
                 }
                 return true;
             }
-        } catch (e) {
-            // 오류 무시
-        }
+        } catch (e) {}
         return false;
     };
 
-    // 즉시 실행
     if (runCheck()) return;
 
     const checkInterval = setInterval(() => {
@@ -63,24 +58,21 @@ export function verifyTrustedReplaceFetchResponse(targetEl, verification, parent
                 return;
             }
 
-            // UI 업데이트
             updateUI(actualValue);
 
             let isMatch = false;
 
             switch (type) {
                 case 'textEquals':
-                    // 텍스트 직접 비교
                     isMatch = String(actualValue) === expected;
-                    
+
                     break;
 
                 default:
-                    // Unknown verification type
             }
 
             if (isMatch) {
-                parentBox.setAttribute("success", "");
+                parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
 
                 const statusEl = targetEl.querySelector('.status');
@@ -88,13 +80,10 @@ export function verifyTrustedReplaceFetchResponse(targetEl, verification, parent
                     statusEl.textContent = successMessage;
                 }
             }
-        } catch (e) {
-            // 변수가 아직 존재하지 않을 수 있음, 무시
-        }
+        } catch (e) {}
     }, 100);
 
     setTimeout(() => {
         clearInterval(checkInterval);
     }, 10000);
 }
-
