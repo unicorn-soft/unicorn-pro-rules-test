@@ -1,9 +1,9 @@
 [
-  {
-    "id": "1",
-    "filter": "div#case1.target:has-text(remove-test):remove()",
-    "title": "style() 테스트",
-    "desc": "style()의 기본 형태를 테스트합니다.",
-    "target": "<div id=\"case1\" class=\"target\">remove-test</div>"
-  }
+    {
+        "id": "1",
+        "filter": "div#case1.target:has-text(remove-test):remove()",
+        "title": "style() 테스트",
+        "desc": "style()의 기본 형태를 테스트합니다.",
+        "target": "<div id=\"case1\" class=\"target\">remove-test</div>"
+    }
 ]

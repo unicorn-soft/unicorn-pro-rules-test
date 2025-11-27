@@ -1,38 +1,38 @@
 [
-  {
-    "id": "1",
-    "title": "기본 문자열 매칭으로 인라인 스크립트 중단",
-    "desc": "특정 키워드가 포함된 인라인 스크립트를 중단(ABORTME1)",
-    "scriptlet": "abort-current-inline-script",
-    "scriptletParams": ["__ABORT1__", "ABORTME1"],
-    "target": "<div class='target'><script>/* case1: should abort */\ntry {\n  // 트랩 대상 접근\n  window.__ABORT1__;\n  // 매칭 문자열 포함\n  /* ABORTME1 */\n  // 아래 코드는 실행되면 안 됨\n  window.abortResult1 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case1: control */\n// 제어 스크립트 (중단 대상 아님)\nwindow.abortControl1 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "equals:window.abortResult1:undefined:인라인 스크립트 중단됨"
-  },
-  {
-    "id": "2",
-    "title": "정규식 매칭으로 인라인 스크립트 중단",
-    "desc": "정규식 /ABORT\\d+/를 포함한 인라인 스크립트를 중단",
-    "scriptlet": "abort-current-inline-script",
-    "scriptletParams": ["__ABORT2__", "/ABORT\\\\d+/"],
-    "target": "<div class='target'><script>/* case2: should abort */\ntry {\n  window.__ABORT2__;\n  /* ABORT9 */\n  window.abortResult2 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case2: control */\nwindow.abortControl2 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "equals:window.abortResult2:undefined:정규식 매칭 중단됨"
-  },
-  {
-    "id": "3",
-    "title": "대소문자 무시 정규식 중단",
-    "desc": "정규식 /abortme/i 를 포함한 인라인 스크립트를 중단",
-    "scriptlet": "abort-current-inline-script",
-    "scriptletParams": ["__ABORT3__", "/abortme/i"],
-    "target": "<div class='target'><script>/* case3: should abort */\ntry {\n  window.__ABORT3__;\n  /* AbOrTmE */\n  window.abortResult3 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case3: control */\nwindow.abortControl3 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "equals:window.abortResult3:undefined:대소문자 무시 중단됨"
-  },
-  {
-    "id": "4",
-    "title": "특수문자 이스케이프 정규식 중단",
-    "desc": "정규식 /A\\+B\\?C/ 포함 시 인라인 스크립트 중단",
-    "scriptlet": "abort-current-inline-script",
-    "scriptletParams": ["__ABORT4__", "/A\\\\+B\\\\?C/"],
-    "target": "<div class='target'><script>/* case4: should abort */\ntry {\n  window.__ABORT4__;\n  /* A+B?C */\n  window.abortResult4 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case4: control */\nwindow.abortControl4 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "equals:window.abortResult4:undefined:특수문자 케이스 중단됨"
-  }
+    {
+        "id": "1",
+        "title": "기본 문자열 매칭으로 인라인 스크립트 중단",
+        "desc": "특정 키워드가 포함된 인라인 스크립트를 중단(ABORTME1)",
+        "scriptlet": "abort-current-inline-script",
+        "scriptletParams": ["__ABORT1__", "ABORTME1"],
+        "target": "<div class='target'><script>/* case1: should abort */\ntry {\n  // 트랩 대상 접근\n  window.__ABORT1__;\n  // 매칭 문자열 포함\n  /* ABORTME1 */\n  // 아래 코드는 실행되면 안 됨\n  window.abortResult1 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case1: control */\n// 제어 스크립트 (중단 대상 아님)\nwindow.abortControl1 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.abortResult1:undefined:인라인 스크립트 중단됨"
+    },
+    {
+        "id": "2",
+        "title": "정규식 매칭으로 인라인 스크립트 중단",
+        "desc": "정규식 /ABORT\\d+/를 포함한 인라인 스크립트를 중단",
+        "scriptlet": "abort-current-inline-script",
+        "scriptletParams": ["__ABORT2__", "/ABORT\\\\d+/"],
+        "target": "<div class='target'><script>/* case2: should abort */\ntry {\n  window.__ABORT2__;\n  /* ABORT9 */\n  window.abortResult2 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case2: control */\nwindow.abortControl2 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.abortResult2:undefined:정규식 매칭 중단됨"
+    },
+    {
+        "id": "3",
+        "title": "대소문자 무시 정규식 중단",
+        "desc": "정규식 /abortme/i 를 포함한 인라인 스크립트를 중단",
+        "scriptlet": "abort-current-inline-script",
+        "scriptletParams": ["__ABORT3__", "/abortme/i"],
+        "target": "<div class='target'><script>/* case3: should abort */\ntry {\n  window.__ABORT3__;\n  /* AbOrTmE */\n  window.abortResult3 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case3: control */\nwindow.abortControl3 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.abortResult3:undefined:대소문자 무시 중단됨"
+    },
+    {
+        "id": "4",
+        "title": "특수문자 이스케이프 정규식 중단",
+        "desc": "정규식 /A\\+B\\?C/ 포함 시 인라인 스크립트 중단",
+        "scriptlet": "abort-current-inline-script",
+        "scriptletParams": ["__ABORT4__", "/A\\\\+B\\\\?C/"],
+        "target": "<div class='target'><script>/* case4: should abort */\ntry {\n  window.__ABORT4__;\n  /* A+B?C */\n  window.abortResult4 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case4: control */\nwindow.abortControl4 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.abortResult4:undefined:특수문자 케이스 중단됨"
+    }
 ]

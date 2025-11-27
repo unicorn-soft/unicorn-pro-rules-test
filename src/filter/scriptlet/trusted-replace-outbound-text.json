@@ -1,39 +1,44 @@
 [
-  {
-    "id": "1",
-    "title": "btoa + ENCODING(base64) 치환",
-    "desc": "btoa 결과를 base64 decode→치환→encode 과정으로 'ads'를 'removed'로 변경",
-    "scriptlet": "trusted-replace-outbound-text",
-    "scriptletParams": ["btoa", "ads", "removed", "ENCODING", "base64"],
-    "target": "<div class='target'><script>window.outboundTextData1 = null;(function(){var container=document.currentScript.parentElement;var out=btoa('ads content');try{window.outboundTextData1=atob(out);}catch(e){window.outboundTextData1='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textEquals:window.outboundTextData1:removed content:ENCODING(base64) 치환 성공"
-  },
-  {
-    "id": "2",
-    "title": "decodeURIComponent 숫자 제거",
-    "desc": "decodeURIComponent 결과에서 숫자 제거",
-    "scriptlet": "trusted-replace-outbound-text",
-    "scriptletParams": ["decodeURIComponent", "/\\\\d+/", ""],
-    "target": "<div class='target'><script>window.outboundTextData2 = null;(function(){var container=document.currentScript.parentElement;var enc=encodeURIComponent('Price 123');try{window.outboundTextData2=decodeURIComponent(enc);}catch(e){window.outboundTextData2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textEquals:window.outboundTextData2:Price :숫자 제거 성공"
-  },
-  {
-    "id": "3",
-    "title": "decodeURIComponent + CONDITION",
-    "desc": "'promo='가 포함될 때만 ads→removed 치환",
-    "scriptlet": "trusted-replace-outbound-text",
-    "scriptletParams": ["decodeURIComponent", "ads", "removed", "CONDITION", "promo="],
-    "target": "<div class='target'><script>window.outboundTextData3 = null;(function(){var container=document.currentScript.parentElement;var dec=decodeURIComponent('promo%3Dads');window.outboundTextData3=dec;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textEquals:window.outboundTextData3:promo=removed:CONDITION 치환 성공"
-  },
-  {
-    "id": "4",
-    "title": "atob 기본 치환",
-    "desc": "atob 결과 문자열의 secret→public 치환",
-    "scriptlet": "trusted-replace-outbound-text",
-    "scriptletParams": ["atob", "secret", "public"],
-    "target": "<div class='target'><script>window.outboundTextData4 = null;(function(){var container=document.currentScript.parentElement;var out=atob(btoa('secret info'));window.outboundTextData4=out;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textEquals:window.outboundTextData4:public info:기본 치환 성공"
-  }
+    {
+        "id": "1",
+        "title": "btoa + ENCODING(base64) 치환",
+        "desc": "btoa 결과를 base64 decode→치환→encode 과정으로 'ads'를 'removed'로 변경",
+        "scriptlet": "trusted-replace-outbound-text",
+        "scriptletParams": ["btoa", "ads", "removed", "ENCODING", "base64"],
+        "target": "<div class='target'><script>window.outboundTextData1 = null;(function(){var container=document.currentScript.parentElement;var out=btoa('ads content');try{window.outboundTextData1=atob(out);}catch(e){window.outboundTextData1='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.outboundTextData1:removed content:ENCODING(base64) 치환 성공"
+    },
+    {
+        "id": "2",
+        "title": "decodeURIComponent 숫자 제거",
+        "desc": "decodeURIComponent 결과에서 숫자 제거",
+        "scriptlet": "trusted-replace-outbound-text",
+        "scriptletParams": ["decodeURIComponent", "/\\\\d+/", ""],
+        "target": "<div class='target'><script>window.outboundTextData2 = null;(function(){var container=document.currentScript.parentElement;var enc=encodeURIComponent('Price 123');try{window.outboundTextData2=decodeURIComponent(enc);}catch(e){window.outboundTextData2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.outboundTextData2:Price :숫자 제거 성공"
+    },
+    {
+        "id": "3",
+        "title": "decodeURIComponent + CONDITION",
+        "desc": "'promo='가 포함될 때만 ads→removed 치환",
+        "scriptlet": "trusted-replace-outbound-text",
+        "scriptletParams": [
+            "decodeURIComponent",
+            "ads",
+            "removed",
+            "CONDITION",
+            "promo="
+        ],
+        "target": "<div class='target'><script>window.outboundTextData3 = null;(function(){var container=document.currentScript.parentElement;var dec=decodeURIComponent('promo%3Dads');window.outboundTextData3=dec;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.outboundTextData3:promo=removed:CONDITION 치환 성공"
+    },
+    {
+        "id": "4",
+        "title": "atob 기본 치환",
+        "desc": "atob 결과 문자열의 secret→public 치환",
+        "scriptlet": "trusted-replace-outbound-text",
+        "scriptletParams": ["atob", "secret", "public"],
+        "target": "<div class='target'><script>window.outboundTextData4 = null;(function(){var container=document.currentScript.parentElement;var out=atob(btoa('secret info'));window.outboundTextData4=out;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.outboundTextData4:public info:기본 치환 성공"
+    }
 ]
-

@@ -1,38 +1,41 @@
 [
-  {
-    "id": "1",
-    "title": "기본 URL 매칭 차단 (randomStr 반환)",
-    "desc": "특정 URL(/api/fetch-block1)에 대한 Fetch 요청을 차단하고 랜덤 문자열을 반환",
-    "scriptlet": "no-fetch-if",
-    "scriptletParams": ["url:/api/fetch-block1", "true"],
-    "target": "<div class='target'><script>window.noFetchIfTestData1 = null; fetch('/api/fetch-block1').then(res => res.text()).then(data => { window.noFetchIfTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textBlocked:window.noFetchIfTestData1::Fetch 차단됨 (랜덤 문자열 반환)"
-  },
-  {
-    "id": "2",
-    "title": "정규식 URL 매칭 차단",
-    "desc": "정규식 패턴(/api/fetch-track.*)에 매칭되는 Fetch 요청을 차단",
-    "scriptlet": "no-fetch-if",
-    "scriptletParams": ["url:/api/fetch-track.*", "true"],
-    "target": "<div class='target'><script>window.noFetchIfTestData2 = null; fetch('/api/fetch-track-analytics').then(res => res.text()).then(data => { window.noFetchIfTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textBlocked:window.noFetchIfTestData2::정규식 매칭 차단됨"
-  },
-  {
-    "id": "3",
-    "title": "Method 매칭 차단",
-    "desc": "POST 메서드 요청만 차단",
-    "scriptlet": "no-fetch-if",
-    "scriptletParams": ["method:POST", "true"],
-    "target": "<div class='target'><script>window.noFetchIfTestData3 = null; fetch('/api/fetch-post-data', {method: 'POST'}).then(res => res.text()).then(data => { window.noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "textBlocked:window.noFetchIfTestData3::POST 요청 차단됨"
-  },
-  {
-    "id": "4",
-    "title": "Surrogate 옵션 (대체 URL에서 데이터 가져오기)",
-    "desc": "차단된 요청을 다른 URL(/api/fetch-surrogate-data)에서 가져오기",
-    "scriptlet": "no-fetch-if",
-    "scriptletParams": ["url:/api/fetch-block4", "war:/api/fetch-surrogate-data"],
-    "target": "<div class='target'><script>window.noFetchIfTestData4 = null; fetch('/api/fetch-block4').then(res => res.json()).then(data => { window.noFetchIfTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-    "verification": "jsonEquals:window.noFetchIfTestData4:{\"content\":\"surrogate\"}:Surrogate 데이터 반환됨"
-  }
+    {
+        "id": "1",
+        "title": "기본 URL 매칭 차단 (randomStr 반환)",
+        "desc": "특정 URL(/api/fetch-block1)에 대한 Fetch 요청을 차단하고 랜덤 문자열을 반환",
+        "scriptlet": "no-fetch-if",
+        "scriptletParams": ["url:/api/fetch-block1", "true"],
+        "target": "<div class='target'><script>window.noFetchIfTestData1 = null; fetch('/api/fetch-block1').then(res => res.text()).then(data => { window.noFetchIfTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.noFetchIfTestData1::Fetch 차단됨 (랜덤 문자열 반환)"
+    },
+    {
+        "id": "2",
+        "title": "정규식 URL 매칭 차단",
+        "desc": "정규식 패턴(/api/fetch-track.*)에 매칭되는 Fetch 요청을 차단",
+        "scriptlet": "no-fetch-if",
+        "scriptletParams": ["url:/api/fetch-track.*", "true"],
+        "target": "<div class='target'><script>window.noFetchIfTestData2 = null; fetch('/api/fetch-track-analytics').then(res => res.text()).then(data => { window.noFetchIfTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.noFetchIfTestData2::정규식 매칭 차단됨"
+    },
+    {
+        "id": "3",
+        "title": "Method 매칭 차단",
+        "desc": "POST 메서드 요청만 차단",
+        "scriptlet": "no-fetch-if",
+        "scriptletParams": ["method:POST", "true"],
+        "target": "<div class='target'><script>window.noFetchIfTestData3 = null; fetch('/api/fetch-post-data', {method: 'POST'}).then(res => res.text()).then(data => { window.noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.noFetchIfTestData3::POST 요청 차단됨"
+    },
+    {
+        "id": "4",
+        "title": "Surrogate 옵션 (대체 URL에서 데이터 가져오기)",
+        "desc": "차단된 요청을 다른 URL(/api/fetch-surrogate-data)에서 가져오기",
+        "scriptlet": "no-fetch-if",
+        "scriptletParams": [
+            "url:/api/fetch-block4",
+            "war:/api/fetch-surrogate-data"
+        ],
+        "target": "<div class='target'><script>window.noFetchIfTestData4 = null; fetch('/api/fetch-block4').then(res => res.json()).then(data => { window.noFetchIfTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.noFetchIfTestData4:{\"content\":\"surrogate\"}:Surrogate 데이터 반환됨"
+    }
 ]

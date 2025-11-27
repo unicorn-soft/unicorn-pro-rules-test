@@ -1,3 +1,3 @@
-export function addDomainPrefix (text) {
-    return window.location.hostname + '##' + text
-  }
+export function addDomainPrefix(text) {
+    return window.location.hostname + '##' + text;
+}

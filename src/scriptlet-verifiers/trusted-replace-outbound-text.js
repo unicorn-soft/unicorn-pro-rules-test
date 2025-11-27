@@ -1,4 +1,8 @@
-export function verifyTrustedReplaceOutboundText(targetEl, verification, parentBox) {
+export function verifyTrustedReplaceOutboundText(
+    targetEl,
+    verification,
+    parentBox
+) {
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
@@ -31,7 +35,8 @@ export function verifyTrustedReplaceOutboundText(targetEl, verification, parentB
             if (isMatch) {
                 parentBox.setAttribute('success', '');
                 const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) statusEl.textContent = successMessage;
+                if (statusEl && successMessage)
+                    statusEl.textContent = successMessage;
                 return true;
             }
         } catch (e) {}
@@ -46,5 +51,3 @@ export function verifyTrustedReplaceOutboundText(targetEl, verification, parentB
 
     setTimeout(() => clearInterval(checkInterval), 10000);
 }
-
-

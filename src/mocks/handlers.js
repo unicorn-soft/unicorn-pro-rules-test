@@ -1,78 +1,85 @@
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse } from 'msw';
 
-// `webpack.config.js`의 mock 데이터를 기반으로 핸들러를 생성합니다.
-
-// 1. XHR 테스트용 핸들러
 const xhrMockResponses = {
     '/api/data1': { ads1: 1, tracking1: { banner1: 'seoul', popup1: 'kr' } },
-    '/api/data2': { ads2: 1, tracking2: { banner2: 'seoul', popup2: 'kr' }, content2: 'test' },
+    '/api/data2': {
+        ads2: 1,
+        tracking2: { banner2: 'seoul', popup2: 'kr' },
+        content2: 'test',
+    },
     '/api/data3': [
         { ads3: 1, tracking3: 'seoul' },
-        { ads3: 2, tracking3: 'busan' }
+        { ads3: 2, tracking3: 'busan' },
     ],
     '/api/data4': {
         tracking4: {
             video4: { ads4: 1, content4: '집' },
-            display4: { ads4: 2, content4: '회사' }
-        }
+            display4: { ads4: 2, content4: '회사' },
+        },
     },
-    '/api/data5': { ads5: 123, content5: 'test', tracking5: 'seoul' }
+    '/api/data5': { ads5: 123, content5: 'test', tracking5: 'seoul' },
 };
 
-const xhrHandlers = Object.keys(xhrMockResponses).map(path => {
+const xhrHandlers = Object.keys(xhrMockResponses).map((path) => {
     return http.get(path, () => {
         return HttpResponse.json(xhrMockResponses[path]);
     });
 });
 
-// 2. Fetch 테스트용 핸들러
 const fetchMockResponses = {
-    '/api/fetch-data1': { ads1: 1, tracking1: { banner1: 'seoul', popup1: 'kr' } },
-    '/api/fetch-data2': { ads2: 1, tracking2: { banner2: 'seoul', popup2: 'kr' }, content2: 'test' },
+    '/api/fetch-data1': {
+        ads1: 1,
+        tracking1: { banner1: 'seoul', popup1: 'kr' },
+    },
+    '/api/fetch-data2': {
+        ads2: 1,
+        tracking2: { banner2: 'seoul', popup2: 'kr' },
+        content2: 'test',
+    },
     '/api/fetch-data3': [
         { ads3: 1, tracking3: 'seoul' },
-        { ads3: 2, tracking3: 'busan' }
+        { ads3: 2, tracking3: 'busan' },
     ],
     '/api/fetch-data4': {
         tracking4: {
             video4: { ads4: 1, content4: '집' },
-            display4: { ads4: 2, content4: '회사' }
-        }
+            display4: { ads4: 2, content4: '회사' },
+        },
     },
-    '/api/fetch-data5': { ads5: 123, content5: 'test', tracking5: 'seoul' }
+    '/api/fetch-data5': { ads5: 123, content5: 'test', tracking5: 'seoul' },
 };
 
-const fetchHandlers = Object.keys(fetchMockResponses).map(path => {
+const fetchHandlers = Object.keys(fetchMockResponses).map((path) => {
     return http.get(path, () => {
         return HttpResponse.json(fetchMockResponses[path]);
     });
 });
 
-// 3. 텍스트 응답 교체 테스트용 핸들러
 const replaceFetchMockResponses = {
     '/api/replace-data1': 'This content has ads content',
     '/api/replace-data2': 'Price is 123 dollars',
     '/api/replace-data3': 'This has tracking code',
     '/api/replace-data4': 'secret information',
-    '/api/replace-data5': 'This is bad content with ads items'
+    '/api/replace-data5': 'This is bad content with ads items',
 };
 
-const replaceFetchHandlers = Object.keys(replaceFetchMockResponses).map(path => {
-    return http.all(path, () => {
-        return HttpResponse.text(replaceFetchMockResponses[path]);
-    });
-});
+const replaceFetchHandlers = Object.keys(replaceFetchMockResponses).map(
+    (path) => {
+        return http.all(path, () => {
+            return HttpResponse.text(replaceFetchMockResponses[path]);
+        });
+    }
+);
 
-// 4. no-xhr-if 테스트용 핸들러
 const noXhrIfMockResponses = {
     '/api/block1': 'original-response-block1',
     '/api/track-analytics': 'original-response-track',
     '/api/post-data': 'original-response-post',
     '/api/block4': 'original-response-block4',
-    '/api/surrogate-data': { content: 'surrogate' }
+    '/api/surrogate-data': { content: 'surrogate' },
 };
 
-const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map(path => {
+const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {
     return http.all(path, () => {
         const response = noXhrIfMockResponses[path];
         if (typeof response === 'object') {
@@ -82,16 +89,15 @@ const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map(path => {
     });
 });
 
-// 5. no-fetch-if 테스트용 핸들러
 const noFetchIfMockResponses = {
     '/api/fetch-block1': 'original-response-fetch-block1',
     '/api/fetch-track-analytics': 'original-response-fetch-track',
     '/api/fetch-post-data': 'original-response-fetch-post',
     '/api/fetch-block4': 'original-response-fetch-block4',
-    '/api/fetch-surrogate-data': { content: 'surrogate' }
+    '/api/fetch-surrogate-data': { content: 'surrogate' },
 };
 
-const noFetchIfHandlers = Object.keys(noFetchIfMockResponses).map(path => {
+const noFetchIfHandlers = Object.keys(noFetchIfMockResponses).map((path) => {
     return http.all(path, () => {
         const response = noFetchIfMockResponses[path];
         if (typeof response === 'object') {
@@ -101,21 +107,34 @@ const noFetchIfHandlers = Object.keys(noFetchIfMockResponses).map(path => {
     });
 });
 
-// 6. '에코' 핸들러 (trusted-json-edit-* 요청용)
 const echoPaths = [
-    '/api/edit-request-1', '/api/edit-request-2', '/api/edit-request-3',
-    '/api/edit-request-4', '/api/edit-request-5', '/api/edit-request-6',
-    '/api/edit-request-7', '/api/edit-request-8', '/api/edit-request-9',
-    '/api/edit-request-10', '/api/edit-request-11', '/api/edit-request-12',
-    '/api/edit-request-13', '/api/edit-request-14', '/api/edit-request-15',
+    '/api/edit-request-1',
+    '/api/edit-request-2',
+    '/api/edit-request-3',
+    '/api/edit-request-4',
+    '/api/edit-request-5',
+    '/api/edit-request-6',
+    '/api/edit-request-7',
+    '/api/edit-request-8',
+    '/api/edit-request-9',
+    '/api/edit-request-10',
+    '/api/edit-request-11',
+    '/api/edit-request-12',
+    '/api/edit-request-13',
+    '/api/edit-request-14',
+    '/api/edit-request-15',
     '/api/edit-request-16',
-    '/api/edit-xhr-request-1', '/api/edit-xhr-request-2', '/api/edit-xhr-request-3',
-    '/api/edit-xhr-request-4', '/api/edit-xhr-request-5', '/api/edit-xhr-request-6',
-    // 이전 PHP echo 서버를 대체할 경로
-    '/api/echo'
+    '/api/edit-xhr-request-1',
+    '/api/edit-xhr-request-2',
+    '/api/edit-xhr-request-3',
+    '/api/edit-xhr-request-4',
+    '/api/edit-xhr-request-5',
+    '/api/edit-xhr-request-6',
+
+    '/api/echo',
 ];
 
-const echoHandlers = echoPaths.map(path => {
+const echoHandlers = echoPaths.map((path) => {
     return http.post(path, async ({ request }) => {
         try {
             const body = await request.json();
@@ -125,17 +144,17 @@ const echoHandlers = echoPaths.map(path => {
             if (!textBody) {
                 return HttpResponse.json({});
             }
-            // JSON이 아닌 경우, 텍스트를 data 프로퍼티에 담아 반환
+
             return HttpResponse.json({ data: textBody });
         }
     });
 });
 
 export const handlers = [
-  ...xhrHandlers,
-  ...fetchHandlers,
-  ...replaceFetchHandlers,
-  ...noXhrIfHandlers,
-  ...noFetchIfHandlers,
-  ...echoHandlers,
-]
+    ...xhrHandlers,
+    ...fetchHandlers,
+    ...replaceFetchHandlers,
+    ...noXhrIfHandlers,
+    ...noFetchIfHandlers,
+    ...echoHandlers,
+];

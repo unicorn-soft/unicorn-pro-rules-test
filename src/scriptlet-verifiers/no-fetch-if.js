@@ -1,8 +1,7 @@
-// 각 테스트 케이스별 예상 서버 응답 (규칙이 없을 때 반환되는 값)
 const expectedServerResponses = {
     'window.noFetchIfTestData1': 'original-response-fetch-block1',
     'window.noFetchIfTestData2': 'original-response-fetch-track',
-    'window.noFetchIfTestData3': 'original-response-fetch-post'
+    'window.noFetchIfTestData3': 'original-response-fetch-post',
 };
 
 export function verifyNoFetchIf(targetEl, verification, parentBox) {
@@ -15,9 +14,10 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
     const updateUI = (actualValue) => {
         const jsonResultEl = targetEl.querySelector('.json-result');
         if (jsonResultEl) {
-            jsonResultEl.textContent = typeof actualValue === 'object' && actualValue !== null
-                ? JSON.stringify(actualValue, null, 2)
-                : (actualValue || '');
+            jsonResultEl.textContent =
+                typeof actualValue === 'object' && actualValue !== null
+                    ? JSON.stringify(actualValue, null, 2)
+                    : actualValue || '';
         }
     };
 
@@ -26,7 +26,9 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
             if (typeof actualValue === 'string' && actualValue.length > 0) {
                 const expectedServerResponse = expectedServerResponses[target];
                 const isRandomString = /^[a-z0-9]{10,}$/i.test(actualValue);
-                const isDifferentFromServer = expectedServerResponse && actualValue !== expectedServerResponse;
+                const isDifferentFromServer =
+                    expectedServerResponse &&
+                    actualValue !== expectedServerResponse;
                 return isDifferentFromServer && isRandomString;
             }
         } else if (type === 'jsonEquals') {
@@ -42,9 +44,10 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
 
             updateUI(actualValue);
             if (checkMatch(actualValue)) {
-                parentBox.setAttribute("success", "");
+                parentBox.setAttribute('success', '');
                 const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) statusEl.textContent = successMessage;
+                if (statusEl && successMessage)
+                    statusEl.textContent = successMessage;
                 return true;
             }
         } catch (e) {}
@@ -60,14 +63,14 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
 
             updateUI(actualValue);
             if (checkMatch(actualValue)) {
-                parentBox.setAttribute("success", "");
+                parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
                 const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) statusEl.textContent = successMessage;
+                if (statusEl && successMessage)
+                    statusEl.textContent = successMessage;
             }
         } catch (e) {}
     }, 100);
 
     setTimeout(() => clearInterval(checkInterval), 10000);
 }
-
