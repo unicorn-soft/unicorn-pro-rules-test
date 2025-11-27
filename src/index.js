@@ -1,6 +1,6 @@
 import './style/global.css';
 import './style/index.css';
-import { addDomainPrefix } from './util';
+import { createRuleString } from './utils/createRuleString.js';
 
 import basicCases from './filter/extend-css/basic.json';
 import styleCases from './filter/extend-css/style.json';
@@ -54,28 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
         caseKeys.forEach((key) => {
             rules.push(`! type : ${key}`);
             testCase[key].forEach((c) => {
-                if (c.filter) {
-                    rules.push(addDomainPrefix(c.filter));
-                } else if (c.scriptlet && c.scriptletParams) {
-                    let scriptletRule;
-                    if (
-                        c.scriptlet === 'trusted-json-edit-fetch-request' ||
-                        c.scriptlet === 'trusted-json-edit-xhr-request'
-                    ) {
-                        if (
-                            c.scriptletParams.length > 1 &&
-                            c.scriptletParams[1] &&
-                            c.scriptletParams[1].startsWith('=')
-                        ) {
-                            scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams[0]}${c.scriptletParams[1]})`;
-                        } else {
-                            scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams.join(', ')})`;
-                        }
-                    } else {
-                        scriptletRule = `scriptlet(${c.scriptlet}, ${c.scriptletParams.join(', ')})`;
+                const ruleString = createRuleString(c);
+                    if (ruleString) {
+                        rules.push(ruleString);
                     }
-                    rules.push(addDomainPrefix(scriptletRule));
-                }
             });
         });
         rulesText.textContent = rules.join('\n');

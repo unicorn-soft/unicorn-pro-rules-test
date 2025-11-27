@@ -2,7 +2,7 @@ import { worker } from './mocks/browser';
 import './style/global.css';
 import './style/test-page.css';
 import testCase from './index';
-import { addDomainPrefix } from './util';
+import { createRuleString } from './utils/createRuleString.js';
 import { verifySetConstant } from './scriptlet-verifiers/set-constant.js';
 import { verifyJsonPrune } from './scriptlet-verifiers/json-prune.js';
 import { verifyJsonPruneXhrResponse } from './scriptlet-verifiers/json-prune-xhr-response.js';
@@ -109,28 +109,11 @@ function createTestSection(
     const filterCode = document.createElement('div');
     filterCode.className = 'filter-code';
 
-    if (filter) {
-        filterCode.textContent = addDomainPrefix(filter);
-    } else if (scriptlet && scriptletParams) {
-        let scriptletRule;
-        if (
-            scriptlet === 'trusted-json-edit-fetch-request' ||
-            scriptlet === 'trusted-json-edit-xhr-request'
-        ) {
-            if (
-                scriptletParams.length > 1 &&
-                scriptletParams[1] &&
-                scriptletParams[1].startsWith('=')
-            ) {
-                scriptletRule = `##+js(${scriptlet}, ${scriptletParams[0]}${scriptletParams[1]})`;
-            } else {
-                scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
-            }
-        } else {
-            scriptletRule = `##+js(${scriptlet}, ${scriptletParams.join(', ')})`;
-        }
-        filterCode.textContent = window.location.hostname + scriptletRule;
-    }
+    filterCode.textContent = createRuleString({
+        filter,
+        scriptlet,
+        scriptletParams,
+    });
 
     filtersEl.appendChild(filterCode);
 
