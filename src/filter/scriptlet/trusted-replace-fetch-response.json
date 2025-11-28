@@ -6,16 +6,16 @@
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["ads", "removed"],
         "target": "<div class='target'><script>window.trustedReplaceFetchTestData1 = null; fetch('/api/replace-data1').then(res => res.text()).then(data => { window.trustedReplaceFetchTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.trustedReplaceFetchTestData1:This content has removed content:기본 치환 성공"
+        "verification": "textEquals:window.trustedReplaceFetchTestData1:This content has removed content"
     },
     {
         "id": "2",
         "title": "정규식 치환",
         "desc": "Fetch 응답에서 숫자를 모두 제거",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": ["/\\d+/", ""],
+        "scriptletParams": ["/\\\\d+/", ""],
         "target": "<div class='target'><script>window.trustedReplaceFetchTestData2 = null; fetch('/api/replace-data2').then(res => res.text()).then(data => { window.trustedReplaceFetchTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.trustedReplaceFetchTestData2:Price is  dollars:정규식 치환 성공"
+        "verification": "textEquals:window.trustedReplaceFetchTestData2:Price is  dollars"
     },
     {
         "id": "3",
@@ -24,7 +24,7 @@
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["tracking", "removed", "url:/api/replace-data3"],
         "target": "<div class='target'><script>window.trustedReplaceFetchTestData3 = null; fetch('/api/replace-data3').then(res => res.text()).then(data => { window.trustedReplaceFetchTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.trustedReplaceFetchTestData3:This has removed code:URL 옵션 치환 성공"
+        "verification": "textEquals:window.trustedReplaceFetchTestData3:This has removed code"
     },
     {
         "id": "4",
@@ -33,6 +33,6 @@
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["secret", "public", "method:POST"],
         "target": "<div class='target'><script>window.trustedReplaceFetchTestData4 = null; fetch('/api/replace-data4', {method: 'POST'}).then(res => res.text()).then(data => { window.trustedReplaceFetchTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.trustedReplaceFetchTestData4:public information:Method 옵션 치환 성공"
+        "verification": "textEquals:window.trustedReplaceFetchTestData4:public information"
     }
 ]

@@ -6,7 +6,7 @@
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["tracking1.banner1"],
         "target": "<div class='target'><script>window.jsonPruneXhrTestData1 = null; const xhr1 = new XMLHttpRequest(); xhr1.open('GET', '/api/data1'); xhr1.onload = function() { if (xhr1.readyState === 4 && xhr1.status === 200) { try { window.jsonPruneXhrTestData1 = xhr1.responseType === 'json' ? xhr1.response : JSON.parse(xhr1.responseText); } catch(e) {} } }; xhr1.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneXhrTestData1:{\"ads1\":1,\"tracking1\":{\"popup1\":\"kr\"}}:중첩 속성 제거됨"
+        "verification": "jsonEquals:window.jsonPruneXhrTestData1:{\"ads1\":1,\"tracking1\":{\"popup1\":\"kr\"}}"
     },
     {
         "id": "2",
@@ -15,7 +15,7 @@
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["tracking2.banner2", "ads2"],
         "target": "<div class='target'><script>window.jsonPruneXhrTestData2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/data2'); xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { try { window.jsonPruneXhrTestData2 = xhr2.responseType === 'json' ? xhr2.response : JSON.parse(xhr2.responseText); } catch(e) {} } }; xhr2.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneXhrTestData2:{\"ads2\":1,\"tracking2\":{\"popup2\":\"kr\"},\"content2\":\"test\"}:조건부 제거 성공"
+        "verification": "jsonEquals:window.jsonPruneXhrTestData2:{\"ads2\":1,\"tracking2\":{\"popup2\":\"kr\"},\"content2\":\"test\"}"
     },
     {
         "id": "3",
@@ -24,7 +24,7 @@
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["[].tracking3"],
         "target": "<div class='target'><script>window.jsonPruneXhrTestData3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('GET', '/api/data3'); xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { try { window.jsonPruneXhrTestData3 = xhr3.responseType === 'json' ? xhr3.response : JSON.parse(xhr3.responseText); } catch(e) {} } }; xhr3.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneXhrTestData3:[{\"ads3\":1},{\"ads3\":2}]:배열 속성 제거됨"
+        "verification": "jsonEquals:window.jsonPruneXhrTestData3:[{\"ads3\":1},{\"ads3\":2}]"
     },
     {
         "id": "4",
@@ -33,7 +33,7 @@
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["tracking4.*.ads4"],
         "target": "<div class='target'><script>window.jsonPruneXhrTestData4 = null; const xhr4 = new XMLHttpRequest(); xhr4.open('GET', '/api/data4'); xhr4.onload = function() { if (xhr4.readyState === 4 && xhr4.status === 200) { try { window.jsonPruneXhrTestData4 = xhr4.responseType === 'json' ? xhr4.response : JSON.parse(xhr4.responseText); } catch(e) {} } }; xhr4.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneXhrTestData4:{\"tracking4\":{\"video4\":{\"content4\":\"집\"},\"display4\":{\"content4\":\"회사\"}}}:와일드카드 제거 성공"
+        "verification": "jsonEquals:window.jsonPruneXhrTestData4:{\"tracking4\":{\"video4\":{\"content4\":\"집\"},\"display4\":{\"content4\":\"회사\"}}}"
     },
     {
         "id": "5",
@@ -47,6 +47,6 @@
             "url:/api/data5"
         ],
         "target": "<div class='target'><script>window.jsonPruneXhrTestData5 = null; const xhr5 = new XMLHttpRequest(); xhr5.open('GET', '/api/data5'); xhr5.onload = function() { if (xhr5.readyState === 4 && xhr5.status === 200) { try { window.jsonPruneXhrTestData5 = xhr5.responseType === 'json' ? xhr5.response : JSON.parse(xhr5.responseText); } catch(e) {} } }; xhr5.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneXhrTestData5:{\"content5\":\"test\"}:URL 매칭 제거 성공"
+        "verification": "jsonEquals:window.jsonPruneXhrTestData5:{\"content5\":\"test\"}"
     }
 ]

@@ -1,5 +1,5 @@
 export function verifySetConstant(targetEl, verification, parentBox) {
-    const [type, target, expected, successMessage] = verification.split(':');
+    const [type, target, expected] = verification.split(':');
 
     const checkInterval = setInterval(() => {
         try {
@@ -52,10 +52,7 @@ export function verifySetConstant(targetEl, verification, parentBox) {
                 parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
 
-                const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) {
-                    statusEl.textContent = successMessage;
-                }
+                
             }
         } catch (e) {}
     }, 100);
