@@ -6,7 +6,6 @@ export function verifyJsonPruneFetchResponse(
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
-    const successMessage = parts[parts.length - 1];
     const expected = parts.slice(2, -1).join(':');
 
     const updateUI = (actualValue) => {
@@ -40,11 +39,7 @@ export function verifyJsonPruneFetchResponse(
             if (isMatch) {
                 parentBox.setAttribute('success', '');
 
-                const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) {
-                    statusEl.textContent = successMessage;
-                }
-                return true;
+
             }
         } catch (e) {}
         return false;
@@ -77,10 +72,7 @@ export function verifyJsonPruneFetchResponse(
                 parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
 
-                const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) {
-                    statusEl.textContent = successMessage;
-                }
+                
             }
         } catch (e) {}
     }, 100);

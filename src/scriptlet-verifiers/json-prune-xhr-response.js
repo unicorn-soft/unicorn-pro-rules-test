@@ -19,7 +19,6 @@ export function verifyJsonPruneXhrResponse(targetEl, verification, parentBox) {
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
-    const successMessage = parts[parts.length - 1];
     const expected = parts.slice(2, -1).join(':');
 
     const updateUI = (actualValue) => {
@@ -53,10 +52,7 @@ export function verifyJsonPruneXhrResponse(targetEl, verification, parentBox) {
             if (isMatch) {
                 parentBox.setAttribute('success', '');
 
-                const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) {
-                    statusEl.textContent = successMessage;
-                }
+                
                 return true;
             }
         } catch (e) {}
@@ -90,10 +86,7 @@ export function verifyJsonPruneXhrResponse(targetEl, verification, parentBox) {
                 parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
 
-                const statusEl = targetEl.querySelector('.status');
-                if (statusEl && successMessage) {
-                    statusEl.textContent = successMessage;
-                }
+                
             }
         } catch (e) {}
     }, 100);

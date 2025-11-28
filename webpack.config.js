@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -47,5 +48,8 @@ module.exports = {
             chunks: ['testPage'],
         }),
         new MiniCssExtractPlugin(),
+        new CopyPlugin({
+            patterns: [{ from: 'public/mockServiceWorker.js', to: '.' }],
+        }),
     ],
 };

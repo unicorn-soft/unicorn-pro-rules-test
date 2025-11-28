@@ -6,7 +6,7 @@
         "scriptlet": "json-prune-fetch-response",
         "scriptletParams": ["tracking1.banner1"],
         "target": "<div class='target'><script>window.jsonPruneFetchTestData1 = null; fetch('/api/fetch-data1').then(res => res.json()).then(data => { window.jsonPruneFetchTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneFetchTestData1:{\"ads1\":1,\"tracking1\":{\"popup1\":\"kr\"}}:중첩 속성 제거됨"
+        "verification": "jsonEquals:window.jsonPruneFetchTestData1:{\"ads1\":1,\"tracking1\":{\"popup1\":\"kr\"}}"
     },
     {
         "id": "2",
@@ -15,7 +15,7 @@
         "scriptlet": "json-prune-fetch-response",
         "scriptletParams": ["tracking2.banner2", "ads2"],
         "target": "<div class='target'><script>window.jsonPruneFetchTestData2 = null; fetch('/api/fetch-data2').then(res => res.json()).then(data => { window.jsonPruneFetchTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneFetchTestData2:{\"ads2\":1,\"tracking2\":{\"popup2\":\"kr\"},\"content2\":\"test\"}:조건부 제거 성공"
+        "verification": "jsonEquals:window.jsonPruneFetchTestData2:{\"ads2\":1,\"tracking2\":{\"popup2\":\"kr\"},\"content2\":\"test\"}"
     },
     {
         "id": "3",
@@ -24,7 +24,7 @@
         "scriptlet": "json-prune-fetch-response",
         "scriptletParams": ["[].tracking3"],
         "target": "<div class='target'><script>window.jsonPruneFetchTestData3 = null; fetch('/api/fetch-data3').then(res => res.json()).then(data => { window.jsonPruneFetchTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneFetchTestData3:[{\"ads3\":1},{\"ads3\":2}]:배열 속성 제거됨"
+        "verification": "jsonEquals:window.jsonPruneFetchTestData3:[{\"ads3\":1},{\"ads3\":2}]"
     },
     {
         "id": "4",
@@ -33,7 +33,7 @@
         "scriptlet": "json-prune-fetch-response",
         "scriptletParams": ["tracking4.*.ads4"],
         "target": "<div class='target'><script>window.jsonPruneFetchTestData4 = null; fetch('/api/fetch-data4').then(res => res.json()).then(data => { window.jsonPruneFetchTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneFetchTestData4:{\"tracking4\":{\"video4\":{\"content4\":\"집\"},\"display4\":{\"content4\":\"회사\"}}}:와일드카드 제거 성공"
+        "verification": "jsonEquals:window.jsonPruneFetchTestData4:{\"tracking4\":{\"video4\":{\"content4\":\"집\"},\"display4\":{\"content4\":\"회사\"}}}"
     },
     {
         "id": "5",
@@ -47,6 +47,6 @@
             "url:/api/fetch-data5"
         ],
         "target": "<div class='target'><script>window.jsonPruneFetchTestData5 = null; fetch('/api/fetch-data5').then(res => res.json()).then(data => { window.jsonPruneFetchTestData5 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.jsonPruneFetchTestData5:{\"content5\":\"test\"}:URL 매칭 제거 성공"
+        "verification": "jsonEquals:window.jsonPruneFetchTestData5:{\"content5\":\"test\"}"
     }
 ]
