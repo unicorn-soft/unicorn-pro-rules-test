@@ -1,28 +1,28 @@
 {
-    "name": "unicorn-pro-rules-test",
-    "version": "1.0.3",
-    "author": "Somfist",
-    "scripts": {
-        "dev": "npx msw init public/ && webpack serve --mode development",
-        "build": "npx msw init public/ && webpack --mode production",
-        "deploy": "npm run build && npx gh-pages -d dist",
-        "format": "prettier --write ."
-    },
-    "devDependencies": {
-        "copy-webpack-plugin": "^13.0.1",
-        "css-loader": "^7.1.2",
-        "gh-pages": "^6.3.0",
-        "html-webpack-plugin": "^5.6.3",
-        "mini-css-extract-plugin": "^2.9.2",
-        "msw": "^2.12.3",
-        "prettier": "^3.6.2",
-        "webpack": "^5.97.1",
-        "webpack-cli": "^6.0.1",
-        "webpack-dev-server": "^5.2.0"
-    },
-    "msw": {
-        "workerDirectory": [
-            "public"
-        ]
-    }
+  "name": "unicorn-pro-rules-test",
+  "version": "1.0.3",
+  "author": "Somfist",
+  "scripts": {
+    "dev": "npx msw init public/ && webpack serve --mode development",
+    "build": "npx msw init public/ && webpack --mode production",
+    "deploy": "npm run build && npx gh-pages -d dist",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^13.0.1",
+    "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "msw": "^2.12.3",
+    "prettier": "^3.6.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }

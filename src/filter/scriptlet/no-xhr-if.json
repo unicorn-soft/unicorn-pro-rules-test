@@ -5,8 +5,8 @@
         "desc": "특정 URL(/api/block1)에 대한 XHR 요청을 차단하고 랜덤 문자열을 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block1", "true"],
-        "target": "<div class='target'><script>window.noXhrIfTestData1 = null; const xhr1 = new XMLHttpRequest(); xhr1.open('GET', '/api/block1'); xhr1.onload = function() { if (xhr1.readyState === 4 && xhr1.status === 200) { window.noXhrIfTestData1 = xhr1.responseText; } }; xhr1.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textBlocked:window.noXhrIfTestData1"
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData1 = null; const xhr1 = new XMLHttpRequest(); xhr1.open('GET', '/api/block1'); xhr1.onload = function() { if (xhr1.readyState === 4 && xhr1.status === 200) { window.nxif_noXhrIfTestData1 = xhr1.responseText; } }; xhr1.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.nxif_noXhrIfTestData1"
     },
     {
         "id": "2",
@@ -14,8 +14,8 @@
         "desc": "정규식 패턴(/api/track.*)에 매칭되는 XHR 요청을 차단",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/track.*", "true"],
-        "target": "<div class='target'><script>window.noXhrIfTestData2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/track-analytics'); xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { window.noXhrIfTestData2 = xhr2.responseText; } }; xhr2.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textBlocked:window.noXhrIfTestData2"
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/track-analytics'); xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { window.nxif_noXhrIfTestData2 = xhr2.responseText; } }; xhr2.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.nxif_noXhrIfTestData2"
     },
     {
         "id": "3",
@@ -23,8 +23,8 @@
         "desc": "POST 메서드 요청만 차단",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["method:POST", "true"],
-        "target": "<div class='target'><script>window.noXhrIfTestData3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('POST', '/api/post-data'); xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { window.noXhrIfTestData3 = xhr3.responseText; } }; xhr3.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textBlocked:window.noXhrIfTestData3"
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('POST', '/api/post-data'); xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { window.nxif_noXhrIfTestData3 = xhr3.responseText; } }; xhr3.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.nxif_noXhrIfTestData3"
     },
     {
         "id": "4",
@@ -32,7 +32,7 @@
         "desc": "차단된 요청을 다른 URL(/api/surrogate-data)에서 가져오기",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block4", "war:surrogate-data"],
-        "target": "<div class='target'><script>window.noXhrIfTestData4 = null; const xhr4 = new XMLHttpRequest(); xhr4.open('GET', '/api/block4'); xhr4.onload = function() { if (xhr4.readyState === 4 && xhr4.status === 200) { try { window.noXhrIfTestData4 = xhr4.responseType === 'json' ? xhr4.response : JSON.parse(xhr4.responseText); } catch(e) { window.noXhrIfTestData4 = xhr4.responseText; } } }; xhr4.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.noXhrIfTestData4:{\"content\":\"surrogate\"}"
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData4 = null; const xhr4 = new XMLHttpRequest(); xhr4.open('GET', '/api/block4'); xhr4.onload = function() { if (xhr4.readyState === 4 && xhr4.status === 200) { try { window.nxif_noXhrIfTestData4 = xhr4.responseType === 'json' ? xhr4.response : JSON.parse(xhr4.responseText); } catch(e) { window.nxif_noXhrIfTestData4 = xhr4.responseText; } } }; xhr4.send();</script>XHR 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.nxif_noXhrIfTestData4:{\"content\":\"surrogate\"}"
     }
 ]

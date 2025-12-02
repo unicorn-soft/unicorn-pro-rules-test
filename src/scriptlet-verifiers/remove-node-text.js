@@ -2,7 +2,7 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
-    const expected = parts.slice(2, -1).join(':');
+    const expected = parts.slice(2).join(':');
 
     const updateUI = (actualValue) => {
         const jsonResultEl = targetEl.querySelector('.json-result');
@@ -26,7 +26,7 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
             updateUI(actualValue);
             if (checkMatch(actualValue)) {
                 parentBox.setAttribute('success', '');
-                
+
                 return true;
             }
         } catch (e) {}
@@ -44,7 +44,6 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
             if (checkMatch(actualValue)) {
                 parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
-                
             }
         } catch (e) {}
     }, 100);

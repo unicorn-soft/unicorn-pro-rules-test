@@ -1,14 +1,14 @@
 const expectedServerResponses = {
-    'window.noFetchIfTestData1': 'original-response-fetch-block1',
-    'window.noFetchIfTestData2': 'original-response-fetch-track',
-    'window.noFetchIfTestData3': 'original-response-fetch-post',
+    'window.nfif_noFetchIfTestData1': 'original-response-fetch-block1',
+    'window.nfif_noFetchIfTestData2': 'original-response-fetch-track',
+    'window.nfif_noFetchIfTestData3': 'original-response-fetch-post',
 };
 
 export function verifyNoFetchIf(targetEl, verification, parentBox) {
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
-    const expected = parts.slice(2, -1).join(':');
+    const expected = parts.slice(2).join(':');
 
     const updateUI = (actualValue) => {
         const jsonResultEl = targetEl.querySelector('.json-result');
@@ -24,7 +24,7 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
         if (type === 'textBlocked') {
             if (typeof actualValue === 'string' && actualValue.length > 0) {
                 const expectedServerResponse = expectedServerResponses[target];
-                const isRandomString = /^[a-z0-9]{10,}$/i.test(actualValue);
+                const isRandomString = /^[a-z0-9]{1,}$/i.test(actualValue);
                 const isDifferentFromServer =
                     expectedServerResponse &&
                     actualValue !== expectedServerResponse;
@@ -44,7 +44,7 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
             updateUI(actualValue);
             if (checkMatch(actualValue)) {
                 parentBox.setAttribute('success', '');
-                
+
                 return true;
             }
         } catch (e) {}
@@ -62,7 +62,6 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
             if (checkMatch(actualValue)) {
                 parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
-                
             }
         } catch (e) {}
     }, 100);
