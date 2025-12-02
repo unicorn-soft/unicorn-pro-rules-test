@@ -55,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
             rules.push(`! type : ${key}`);
             testCase[key].forEach((c) => {
                 const ruleString = createRuleString(c);
-                    if (ruleString) {
-                        rules.push(ruleString);
-                    }
+                if (ruleString) {
+                    rules.push(ruleString);
+                }
             });
         });
         rulesText.textContent = rules.join('\n');

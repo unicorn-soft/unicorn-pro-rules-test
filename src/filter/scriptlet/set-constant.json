@@ -4,71 +4,71 @@
         "title": "adBlockDetected false 고정 (풀네임 'set-constant' 사용)",
         "desc": "광고차단 감지를 우회하기 위해 window.adBlockDetected를 항상 false로 반환",
         "scriptlet": "set-constant",
-        "scriptletParams": ["adBlockDetected", "false"],
-        "target": "<div class='target'><script>window.adBlockDetected = true;</script>광고차단 감지: <span class='status'>감지됨</span></div>",
-        "verification": "equals:window.adBlockDetected:false"
+        "scriptletParams": ["set_adBlockDetected", "false"],
+        "target": "<div class='target'><script>window.set_adBlockDetected = true;</script>광고차단 감지: <span class='status'>감지됨</span></div>",
+        "verification": "equals:window.set_adBlockDetected:false"
     },
     {
         "id": "1-alias",
         "title": "adBlockDetected false 고정 (별칭 'set' 사용)",
         "desc": "광고차단 감지를 우회하기 위해 window.adBlockDetected를 항상 false로 반환",
         "scriptlet": "set",
-        "scriptletParams": ["adBlockDetected", "false"],
-        "target": "<div class='target'><script>window.adBlockDetected2 = true;</script>광고차단 감지: <span class='status'>감지됨</span></div>",
-        "verification": "equals:window.adBlockDetected2:false"
+        "scriptletParams": ["set_adBlockDetected", "false"],
+        "target": "<div class='target'><script>window.set_adBlockDetected2 = true;</script>광고차단 감지: <span class='status'>감지됨</span></div>",
+        "verification": "equals:window.set_adBlockDetected2:false"
     },
     {
         "id": "2",
         "title": "setConstantTestObjectKeys trueFunc 고정",
         "desc": "setConstantTestObjectKeys를 항상 true를 반환하는 함수로 고정 (Object.keys 충돌 회피)",
         "scriptlet": "set-constant",
-        "scriptletParams": ["setConstantTestObjectKeys", "trueFunc"],
-        "target": "<div class='target'><script>/* 테스트용 전역 속성 */</script>setConstantTestObjectKeys: <span class='status'>초기값</span></div>",
-        "verification": "functionCall:setConstantTestObjectKeys"
+        "scriptletParams": ["set_setConstantTestObjectKeys", "trueFunc"],
+        "target": "<div class='target'><script>/* 테스트용 전역 속성 */</script>set_setConstantTestObjectKeys: <span class='status'>초기값</span></div>",
+        "verification": "functionCall:set_setConstantTestObjectKeys:true"
     },
     {
         "id": "3",
         "title": "premium true 고정",
         "desc": "프리미엄 기능을 활성화하기 위해 window.premium을 항상 true로 반환",
         "scriptlet": "set-constant",
-        "scriptletParams": ["premium", "true"],
-        "target": "<div class='target'><script>window.premium = false;</script>프리미엄: <span class='status'>비활성화</span></div>",
-        "verification": "equals:window.premium"
+        "scriptletParams": ["set_premium", "true"],
+        "target": "<div class='target'><script>window.set_premium = false;</script>프리미엄: <span class='status'>비활성화</span></div>",
+        "verification": "equals:window.set_premium:true"
     },
     {
         "id": "4",
         "title": "빈 배열 고정",
         "desc": "광고 목록을 빈 배열로 고정하여 광고 데이터 차단",
         "scriptlet": "set-constant",
-        "scriptletParams": ["adsList", "[]"],
-        "target": "<div class='target'><script>window.adsList = ['ad1', 'ad2', 'ad3'];</script>광고 목록: <span class='status'>데이터 있음</span></div>",
-        "verification": "arrayEmpty:window.adsList"
+        "scriptletParams": ["set_adsList", "[]"],
+        "target": "<div class='target'><script>window.set_adsList = ['ad1', 'ad2', 'ad3'];</script>광고 목록: <span class='status'>데이터 있음</span></div>",
+        "verification": "arrayEmpty:window.set_adsList"
     },
     {
         "id": "5",
         "title": "빈 객체 고정",
         "desc": "추적 설정을 빈 객체로 고정하여 추적 기능 비활성화",
         "scriptlet": "set-constant",
-        "scriptletParams": ["trackingConfig", "{}"],
-        "target": "<div class='target'><script>window.trackingConfig = {enabled: true, userId: '123'};</script>추적 설정: <span class='status'>활성화됨</span></div>",
-        "verification": "objectEmpty:window.trackingConfig"
+        "scriptletParams": ["set_trackingConfig", "{}"],
+        "target": "<div class='target'><script>window.set_trackingConfig = {enabled: true, userId: '123'};</script>추적 설정: <span class='status'>활성화됨</span></div>",
+        "verification": "objectEmpty:window.set_trackingConfig"
     },
     {
         "id": "6",
         "title": "빈 문자열 고정",
         "desc": "API 키를 빈 문자열로 고정하여 API 호출 차단",
         "scriptlet": "set-constant",
-        "scriptletParams": ["apiKey", "''"],
-        "target": "<div class='target'><script>window.apiKey = 'abc123-default-key';</script>API 키: <span class='status'>설정됨</span></div>",
-        "verification": "equals:window.apiKey"
+        "scriptletParams": ["set_apiKey", "''"],
+        "target": "<div class='target'><script>window.set_apiKey = 'abc123-default-key';</script>API 키: <span class='status'>설정됨</span></div>",
+        "verification": "equals:window.set_apiKey:"
     },
     {
         "id": "7",
         "title": "undefined 고정",
         "desc": "사용자 토큰을 undefined로 고정하여 인증 차단",
         "scriptlet": "set-constant",
-        "scriptletParams": ["userToken", "undefined"],
-        "target": "<div class='target'><script>window.userToken = 'valid-token-123';</script>사용자 토큰: <span class='status'>인증됨</span></div>",
-        "verification": "equals:window.userToken:undefined"
+        "scriptletParams": ["set_userToken", "undefined"],
+        "target": "<div class='target'><script>window.set_userToken = 'valid-token-123';</script>사용자 토큰: <span class='status'>인증됨</span></div>",
+        "verification": "equals:window.set_userToken:undefined"
     }
 ]

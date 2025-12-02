@@ -51,8 +51,6 @@ export function verifySetConstant(targetEl, verification, parentBox) {
             if (isMatch) {
                 parentBox.setAttribute('success', '');
                 clearInterval(checkInterval);
-
-                
             }
         } catch (e) {}
     }, 100);

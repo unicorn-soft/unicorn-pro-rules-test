@@ -5,8 +5,8 @@
         "desc": "btoa 결과를 base64 decode→치환→encode 과정으로 'ads'를 'removed'로 변경",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": ["btoa", "ads", "removed", "ENCODING", "base64"],
-        "target": "<div class='target'><script>window.outboundTextData1 = null;(function(){var container=document.currentScript.parentElement;var out=btoa('ads content');try{window.outboundTextData1=atob(out);}catch(e){window.outboundTextData1='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.outboundTextData1:removed content"
+        "target": "<div class='target'><script>window.trpot_1 = null;(function(){var container=document.currentScript.parentElement;var out=btoa('ads content');try{window.trpot_1=atob(out);}catch(e){window.trpot_1='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.trpot_1:removed content"
     },
     {
         "id": "1-alias",
@@ -14,8 +14,8 @@
         "desc": "btoa 결과를 base64 decode→치환→encode 과정으로 'ads'를 'removed'로 변경",
         "scriptlet": "trusted-rpot",
         "scriptletParams": ["btoa", "ads", "removed", "ENCODING", "base64"],
-        "target": "<div class='target'><script>window.outboundTextData1a = null;(function(){var container=document.currentScript.parentElement;var out=btoa('ads content');try{window.outboundTextData1a=atob(out);}catch(e){window.outboundTextData1a='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.outboundTextData1a:removed content"
+        "target": "<div class='target'><script>window.trpot_1a = null;(function(){var container=document.currentScript.parentElement;var out=btoa('ads content');try{window.trpot_1a=atob(out);}catch(e){window.trpot_1a='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.trpot_1a:removed content"
     },
     {
         "id": "2",
@@ -23,8 +23,8 @@
         "desc": "decodeURIComponent 결과에서 숫자 제거",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": ["decodeURIComponent", "/\\d+/", ""],
-        "target": "<div class='target'><script>window.outboundTextData2 = null;(function(){var container=document.currentScript.parentElement;var enc=encodeURIComponent('Price 123');try{window.outboundTextData2=decodeURIComponent(enc);}catch(e){window.outboundTextData2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.outboundTextData2:Price "
+        "target": "<div class='target'><script>window.trpot_2 = null;(function(){var container=document.currentScript.parentElement;var enc=encodeURIComponent('Price 123');try{window.trpot_2=decodeURIComponent(enc);}catch(e){window.trpot_2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.trpot_2:Price "
     },
     {
         "id": "3",
@@ -38,8 +38,8 @@
             "CONDITION",
             "promo="
         ],
-        "target": "<div class='target'><script>window.outboundTextData3 = null;(function(){var container=document.currentScript.parentElement;var dec=decodeURIComponent('promo%3Dads');window.outboundTextData3=dec;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.outboundTextData3:promo=removed"
+        "target": "<div class='target'><script>window.trpot_3 = null;(function(){var container=document.currentScript.parentElement;var dec=decodeURIComponent('promo%3Dads');window.trpot_3=dec;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.trpot_3:promo=removed"
     },
     {
         "id": "4",
@@ -47,7 +47,7 @@
         "desc": "atob 결과 문자열의 secret→public 치환",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": ["atob", "secret", "public"],
-        "target": "<div class='target'><script>window.outboundTextData4 = null;(function(){var container=document.currentScript.parentElement;var out=atob(btoa('secret info'));window.outboundTextData4=out;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.outboundTextData4:public info"
+        "target": "<div class='target'><script>window.trpot_4 = null;(function(){var container=document.currentScript.parentElement;var out=atob(btoa('secret info'));window.trpot_4=out;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.trpot_4:public info"
     }
 ]

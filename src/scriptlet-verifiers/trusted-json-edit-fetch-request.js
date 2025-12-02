@@ -6,7 +6,7 @@ export function verifyTrustedJsonEditFetchRequest(
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
-    const expectedRaw = parts.slice(2, -1).join(':');
+    const expectedRaw = parts.slice(2).join(':');
 
     let expected;
     try {
@@ -55,7 +55,7 @@ export function verifyTrustedJsonEditFetchRequest(
             if (type === 'jsonEquals') {
                 if (!deepEqual(actualValue, expected)) return false;
                 parentBox.setAttribute('success', '');
-                
+
                 return true;
             }
         } catch (_) {

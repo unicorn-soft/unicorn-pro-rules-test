@@ -6,7 +6,7 @@ export function verifyTrustedReplaceOutboundText(
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
-    const expected = parts.slice(2, -1).join(':');
+    const expected = parts.slice(2).join(':');
 
     const updateUI = (actualValue) => {
         const jsonResultEl = targetEl.querySelector('.json-result');
@@ -33,7 +33,7 @@ export function verifyTrustedReplaceOutboundText(
 
             if (isMatch) {
                 parentBox.setAttribute('success', '');
-                
+
                 return true;
             }
         } catch (e) {}

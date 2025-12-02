@@ -5,8 +5,8 @@
         "desc": "body JSON의 ads1 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": [".ads1"],
-        "target": "<div class='target'><script>window.tjefr1=null;fetch('/api/edit-request-1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads1:1,content1:'keep',tracking1:'seoul'})}).then(r=>r.json()).then(d=>{window.tjefr1=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr1:{\"content1\":\"keep\",\"tracking1\":\"seoul\"}"
+        "target": "<div class='target'><script>window.tjefr_1=null;fetch('/api/edit-request-1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads1:1,content1:'keep',tracking1:'seoul'})}).then(r=>r.json()).then(d=>{window.tjefr_1=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_1:{\"content1\":\"keep\",\"tracking1\":\"seoul\"}"
     },
     {
         "id": "2",
@@ -14,8 +14,8 @@
         "desc": "tracking2 값을 'removed'로 변경합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$.tracking2=\"removed\""],
-        "target": "<div class='target'><script>window.tjefr2=null;fetch('/api/edit-request-2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads2:1,tracking2:'orig',content2:'keep'})}).then(r=>r.json()).then(d=>{window.tjefr2=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr2:{\"ads2\":1,\"tracking2\":\"removed\",\"content2\":\"keep\"}"
+        "target": "<div class='target'><script>window.tjefr_2=null;fetch('/api/edit-request-2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads2:1,tracking2:'orig',content2:'keep'})}).then(r=>r.json()).then(d=>{window.tjefr_2=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_2:{\"ads2\":1,\"tracking2\":\"removed\",\"content2\":\"keep\"}"
     },
     {
         "id": "3",
@@ -23,8 +23,8 @@
         "desc": "config 객체에 newKey를 병합합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$.config+={\"newKey\":\"value\"}"],
-        "target": "<div class='target'><script>window.tjefr3=null;fetch('/api/edit-request-3',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({config:{old:'keep'},content3:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr3=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr3:{\"config\":{\"old\":\"keep\",\"newKey\":\"value\"},\"content3\":\"ok\"}"
+        "target": "<div class='target'><script>window.tjefr_3=null;fetch('/api/edit-request-3',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({config:{old:'keep'},content3:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_3=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_3:{\"config\":{\"old\":\"keep\",\"newKey\":\"value\"},\"content3\":\"ok\"}"
     },
     {
         "id": "4",
@@ -32,8 +32,8 @@
         "desc": "tracking4.banner4 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": [".tracking4.banner4"],
-        "target": "<div class='target'><script>window.tjefr4=null;fetch('/api/edit-request-4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tracking4:{banner4:'seoul',popup4:'kr'},content4:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr4=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr4:{\"tracking4\":{\"popup4\":\"kr\"},\"content4\":\"ok\"}"
+        "target": "<div class='target'><script>window.tjefr_4=null;fetch('/api/edit-request-4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tracking4:{banner4:'seoul',popup4:'kr'},content4:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_4=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_4:{\"tracking4\":{\"popup4\":\"kr\"},\"content4\":\"ok\"}"
     },
     {
         "id": "5",
@@ -46,8 +46,8 @@
             "propstomatch",
             "url:/api/edit-request-5"
         ],
-        "target": "<div class='target'><script>window.tjefr5=null;fetch('/api/edit-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads5:123,content5:'keep',tracking5:'seoul'})}).then(r=>r.json()).then(d=>{window.tjefr5=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr5:{\"content5\":\"keep\",\"tracking5\":\"seoul\"}"
+        "target": "<div class='target'><script>window.tjefr_5=null;fetch('/api/edit-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads5:123,content5:'keep',tracking5:'seoul'})}).then(r=>r.json()).then(d=>{window.tjefr_5=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_5:{\"content5\":\"keep\",\"tracking5\":\"seoul\"}"
     },
     {
         "id": "6",
@@ -55,8 +55,8 @@
         "desc": "배열 첫 요소의 ads6를 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[0].ads6"],
-        "target": "<div class='target'><script>window.tjefr6=null;fetch('/api/edit-request-6',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{ads6:1,content6:'item1'},{ads6:2,content6:'item2'}])}).then(r=>r.json()).then(d=>{window.tjefr6=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr6:[{\"content6\":\"item1\"},{\"ads6\":2,\"content6\":\"item2\"}]"
+        "target": "<div class='target'><script>window.tjefr_6=null;fetch('/api/edit-request-6',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{ads6:1,content6:'item1'},{ads6:2,content6:'item2'}])}).then(r=>r.json()).then(d=>{window.tjefr_6=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_6:[{\"content6\":\"item1\"},{\"ads6\":2,\"content6\":\"item2\"}]"
     },
     {
         "id": "7",
@@ -64,8 +64,8 @@
         "desc": "모든 depth의 tracking7 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["..tracking7"],
-        "target": "<div class='target'><script>window.tjefr7=null;fetch('/api/edit-request-7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads7:1,tracking7:'top',nested:{tracking7:'nested',content7:'ok'},content7:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr7=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr7:{\"ads7\":1,\"nested\":{\"content7\":\"ok\"},\"content7\":\"ok\"}"
+        "target": "<div class='target'><script>window.tjefr_7=null;fetch('/api/edit-request-7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ads7:1,tracking7:'top',nested:{tracking7:'nested',content7:'ok'},content7:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_7=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_7:{\"ads7\":1,\"nested\":{\"content7\":\"ok\"},\"content7\":\"ok\"}"
     },
     {
         "id": "8",
@@ -73,8 +73,8 @@
         "desc": "배열 모든 요소에서 ads8을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[*].ads8"],
-        "target": "<div class='target'><script>window.tjefr8=null;fetch('/api/edit-request-8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{ads8:1,content8:'a'},{ads8:2,content8:'b'},{ads8:3,content8:'c'}])}).then(r=>r.json()).then(d=>{window.tjefr8=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr8:[{\"content8\":\"a\"},{\"content8\":\"b\"},{\"content8\":\"c\"}]"
+        "target": "<div class='target'><script>window.tjefr_8=null;fetch('/api/edit-request-8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{ads8:1,content8:'a'},{ads8:2,content8:'b'},{ads8:3,content8:'c'}])}).then(r=>r.json()).then(d=>{window.tjefr_8=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_8:[{\"content8\":\"a\"},{\"content8\":\"b\"},{\"content8\":\"c\"}]"
     },
     {
         "id": "9",
@@ -82,8 +82,8 @@
         "desc": "배열의 마지막 요소(-1)에서 ads9를 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[-1].ads9"],
-        "target": "<div class='target'><script>window.tjefr9=null;fetch('/api/edit-request-9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{ads9:1,content9:'first'},{ads9:2,content9:'second'},{ads9:3,content9:'last'}])}).then(r=>r.json()).then(d=>{window.tjefr9=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr9:[{\"ads9\":1,\"content9\":\"first\"},{\"ads9\":2,\"content9\":\"second\"},{\"content9\":\"last\"}]"
+        "target": "<div class='target'><script>window.tjefr_9=null;fetch('/api/edit-request-9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{ads9:1,content9:'first'},{ads9:2,content9:'second'},{ads9:3,content9:'last'}])}).then(r=>r.json()).then(d=>{window.tjefr_9=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_9:[{\"ads9\":1,\"content9\":\"first\"},{\"ads9\":2,\"content9\":\"second\"},{\"content9\":\"last\"}]"
     },
     {
         "id": "10",
@@ -91,8 +91,8 @@
         "desc": "배열 모든 요소의 enabled를 'false' 문자열로 설정합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[*].enabled=\"false\""],
-        "target": "<div class='target'><script>window.tjefr10=null;fetch('/api/edit-request-10',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{id:1,enabled:true},{id:2,enabled:true},{id:3,enabled:true}])}).then(r=>r.json()).then(d=>{window.tjefr10=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr10:[{\"id\":1,\"enabled\":\"false\"},{\"id\":2,\"enabled\":\"false\"},{\"id\":3,\"enabled\":\"false\"}]"
+        "target": "<div class='target'><script>window.tjefr_10=null;fetch('/api/edit-request-10',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{id:1,enabled:true},{id:2,enabled:true},{id:3,enabled:true}])}).then(r=>r.json()).then(d=>{window.tjefr_10=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_10:[{\"id\":1,\"enabled\":\"false\"},{\"id\":2,\"enabled\":\"false\"},{\"id\":3,\"enabled\":\"false\"}]"
     },
     {
         "id": "11",
@@ -100,8 +100,8 @@
         "desc": "data.items[0].config.ads14를 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$.data.items[0].config.ads14"],
-        "target": "<div class='target'><script>window.tjefr11=null;fetch('/api/edit-request-11',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:{items:[{config:{ads14:1,content14:'keep'}},{config:{ads14:2,content14:'keep2'}}]}}) }).then(r=>r.json()).then(d=>{window.tjefr11=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr11:{\"data\":{\"items\":[{\"config\":{\"content14\":\"keep\"}},{\"config\":{\"ads14\":2,\"content14\":\"keep2\"}}]}}"
+        "target": "<div class='target'><script>window.tjefr_11=null;fetch('/api/edit-request-11',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:{items:[{config:{ads14:1,content14:'keep'}},{config:{ads14:2,content14:'keep2'}}]}}) }).then(r=>r.json()).then(d=>{window.tjefr_11=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_11:{\"data\":{\"items\":[{\"config\":{\"content14\":\"keep\"}},{\"config\":{\"ads14\":2,\"content14\":\"keep2\"}}]}}"
     },
     {
         "id": "12",
@@ -109,8 +109,8 @@
         "desc": "body JSON의 ad_id 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": [".ad_id"],
-        "target": "<div class='target'><script>window.tjefr12=null;fetch('/api/echo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 })}).then(r=>r.json()).then(d=>{window.tjefr12=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr12:{\"user_id\":\"123\",\"timestamp\":1678886400}"
+        "target": "<div class='target'><script>window.tjefr_12=null;fetch('/api/echo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 })}).then(r=>r.json()).then(d=>{window.tjefr_12=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_12:{\"user_id\":\"123\",\"timestamp\":1678886400}"
     },
     {
         "id": "13",
@@ -118,7 +118,7 @@
         "desc": "user_id 값을 'anonymous'로 변경합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$.user_id=\"anonymous\""],
-        "target": "<div class='target'><script>window.tjefr13=null;fetch('/api/echo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 })}).then(r=>r.json()).then(d=>{window.tjefr13=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.tjefr13:{\"user_id\":\"anonymous\",\"ad_id\":\"abc\",\"timestamp\":1678886400}"
+        "target": "<div class='target'><script>window.tjefr_13=null;fetch('/api/echo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ user_id: '123', ad_id: 'abc', timestamp: 1678886400 })}).then(r=>r.json()).then(d=>{window.tjefr_13=d;}).catch(()=>{});</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "jsonEquals:window.tjefr_13:{\"user_id\":\"anonymous\",\"ad_id\":\"abc\",\"timestamp\":1678886400}"
     }
 ]

@@ -5,8 +5,8 @@
         "desc": "DIV 노드에서 'ads' 텍스트가 포함된 경우 전체 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "ads"],
-        "target": "<div class='target'><script>window.removeNodeTextData1 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads content';container.appendChild(el);setInterval(function(){window.removeNodeTextData1=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.removeNodeTextData1"
+        "target": "<div class='target'><script>window.rmnt_removeNodeTextData1 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads content';container.appendChild(el);setInterval(function(){window.rmnt_removeNodeTextData1=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.rmnt_removeNodeTextData1"
     },
     {
         "id": "1-alias",
@@ -14,8 +14,8 @@
         "desc": "DIV 노드에서 'ads' 텍스트가 포함된 경우 전체 텍스트 제거",
         "scriptlet": "rmnt",
         "scriptletParams": ["DIV", "ads"],
-        "target": "<div class='target'><script>window.removeNodeTextData1alias = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads content';container.appendChild(el);setInterval(function(){window.removeNodeTextData1alias=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.removeNodeTextData1alias"
+        "target": "<div class='target'><script>window.rmnt_removeNodeTextData1alias = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads content';container.appendChild(el);setInterval(function(){window.rmnt_removeNodeTextData1alias=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.rmnt_removeNodeTextData1alias"
     },
     {
         "id": "2",
@@ -23,8 +23,8 @@
         "desc": "SPAN 노드에서 정규식 패턴(/track.*/)에 매칭되는 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["SPAN", "/track.*/"],
-        "target": "<div class='target'><script>window.removeNodeTextData2 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('span');el.textContent='This has tracking code';container.appendChild(el);setInterval(function(){window.removeNodeTextData2=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.removeNodeTextData2"
+        "target": "<div class='target'><script>window.rmnt_removeNodeTextData2 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('span');el.textContent='This has tracking code';container.appendChild(el);setInterval(function(){window.rmnt_removeNodeTextData2=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.rmnt_removeNodeTextData2"
     },
     {
         "id": "3",
@@ -32,8 +32,8 @@
         "desc": "P 노드에서 'promo'가 있고 'special'이 포함된 경우만 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["P", "promo", "INCLUDES", "special"],
-        "target": "<div class='target'><script>window.removeNodeTextData3 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('p');el.textContent='special promo code';container.appendChild(el);setInterval(function(){window.removeNodeTextData3=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.removeNodeTextData3"
+        "target": "<div class='target'><script>window.rmnt_removeNodeTextData3 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('p');el.textContent='special promo code';container.appendChild(el);setInterval(function(){window.rmnt_removeNodeTextData3=el.textContent;},50);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.rmnt_removeNodeTextData3"
     },
     {
         "id": "4",
@@ -41,7 +41,7 @@
         "desc": "B 노드에서 'remove' 텍스트를 1회만 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["B", "remove", "SEDCOUNT", 1],
-        "target": "<div class='target'><script>window.removeNodeTextData4 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('b');el.textContent='remove this text';container.appendChild(el);setTimeout(function(){var el2=document.createElement('b');el2.textContent='remove again';container.appendChild(el2);setInterval(function(){window.removeNodeTextData4=el.textContent + '|' + el2.textContent;},50);},200);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.removeNodeTextData4:|remove again"
+        "target": "<div class='target'><script>window.rmnt_removeNodeTextData4 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('b');el.textContent='remove this text';container.appendChild(el);setTimeout(function(){var el2=document.createElement('b');el2.textContent='remove again';container.appendChild(el2);setInterval(function(){window.rmnt_removeNodeTextData4=el.textContent + '|' + el2.textContent;},50);},200);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "verification": "textEquals:window.rmnt_removeNodeTextData4:|remove again"
     }
 ]
