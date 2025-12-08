@@ -5,9 +5,8 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
     const expected = parts.slice(2).join(':');
 
     const updateUI = (actualValue) => {
-        const jsonResultEl = targetEl.querySelector('.json-result');
-        if (jsonResultEl && actualValue) {
-            jsonResultEl.textContent = JSON.stringify(actualValue, null, 2);
+        if (actualValue !== undefined) {
+            console.log('[json-prune] value:', actualValue);
         }
     };
 
@@ -20,17 +19,9 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
 
             updateUI(actualValue);
 
-            let isMatch = false;
-
-            switch (type) {
-                case 'jsonEquals':
-                    const actualStr = JSON.stringify(actualValue);
-                    isMatch = actualStr === expected;
-
-                    break;
-
-                default:
-            }
+            const isMatch =
+                type === 'jsonEquals' &&
+                JSON.stringify(actualValue) === expected;
 
             if (isMatch) {
                 parentBox.setAttribute('success', '');
@@ -44,31 +35,7 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
     if (runCheck()) return;
 
     const checkInterval = setInterval(() => {
-        try {
-            const actualValue = eval(target);
-            if (actualValue === null || actualValue === undefined) {
-                return;
-            }
-
-            updateUI(actualValue);
-
-            let isMatch = false;
-
-            switch (type) {
-                case 'jsonEquals':
-                    const actualStr = JSON.stringify(actualValue);
-                    isMatch = actualStr === expected;
-
-                    break;
-
-                default:
-            }
-
-            if (isMatch) {
-                parentBox.setAttribute('success', '');
-                clearInterval(checkInterval);
-            }
-        } catch (e) {}
+        if (runCheck()) clearInterval(checkInterval);
     }, 100);
 
     setTimeout(() => {
