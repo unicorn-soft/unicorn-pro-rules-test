@@ -1,30 +1,74 @@
 import { http, HttpResponse } from 'msw';
 
 const xhrMockResponses = {
-    '/api/data1': { ads1: 1, tracking1: { banner1: 'seoul', popup1: 'kr' } },
+    '/api/data1': {
+        jpxr_ads1: 1,
+        jpxr_tracking1: { banner1: 'seoul', popup1: 'kr' },
+    },
     '/api/data2': {
-        ads2: 1,
-        tracking2: { banner2: 'seoul', popup2: 'kr' },
-        content2: 'test',
+        jpxr_ads2: 1,
+        jpxr_tracking2: { banner2: 'seoul', popup2: 'kr' },
+        jpxr_content2: 'test',
     },
     '/api/data3': [
-        { ads3: 1, tracking3: 'seoul' },
-        { ads3: 2, tracking3: 'busan' },
+        { jpxr_ads3: 1, jpxr_tracking3: 'seoul' },
+        { jpxr_ads3: 2, jpxr_tracking3: 'busan' },
     ],
     '/api/data4': {
-        tracking4: {
+        jpxr_tracking4: {
             video4: { ads4: 1, content4: '집' },
             display4: { ads4: 2, content4: '회사' },
         },
     },
-    '/api/data5': { ads5: 123, content5: 'test', tracking5: 'seoul' },
+    '/api/data5': {
+        jpxr_ads5: 123,
+        jpxr_content5: 'test',
+        jpxr_tracking5: 'seoul',
+    },
+    '/api/data6': {
+        jpxr_ads6: [
+            { id6: 1, banner6: 'top', popup6: 'modal' },
+            { id6: 2, video6: 'play', popup6: 'overlay' },
+            { id6: 3, banner6: 'bottom', popup6: 'toast' },
+        ],
+    },
+    '/api/data7': {
+        jpxr_ads7: 1,
+        jpxr_content7: 'keep',
+        jpxr_tracking7: 'seoul',
+    },
+    '/api/data8': {
+        jpxr_ads8: 1,
+        jpxr_content8: 'keep',
+        jpxr_tracking8: 'kr',
+    },
+    '/api/data9': {
+        jpxr_ads9: 1,
+        jpxr_content9: 'keep',
+        jpxr_tracking9: 'ok',
+    },
+    '/api/skip': {
+        jpxr_ads9: 99,
+        jpxr_content9: 'skip',
+        jpxr_tracking9: 'skip',
+    },
+    '/api/data10': {
+        jpxr_ads10: 1,
+        jpxr_content10: 'keep',
+        jpxr_tracking10: 'ok',
+    },
 };
 
-const xhrHandlers = Object.keys(xhrMockResponses).map((path) => {
-    return http.get(path, () => {
-        return HttpResponse.json(xhrMockResponses[path]);
-    });
-});
+const xhrHandlers = Object.keys(xhrMockResponses)
+    .map((path) => {
+        const responder = () => HttpResponse.json(xhrMockResponses[path]);
+        // /api/data8: method:POST 매칭 케이스 전용으로 POST만 응답
+        if (path === '/api/data8') {
+            return http.post(path, responder);
+        }
+        return http.get(path, responder);
+    })
+    .flat();
 
 const fetchMockResponses = {
     '/api/fetch-data1': {

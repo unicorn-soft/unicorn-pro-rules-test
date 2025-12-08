@@ -9,6 +9,8 @@ section {
     background: #fff;
     border-bottom: 1px solid #ccc;
     padding: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 .title h1 {
