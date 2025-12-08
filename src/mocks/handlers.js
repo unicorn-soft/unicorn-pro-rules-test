@@ -176,15 +176,25 @@ const replaceFetchMockResponses = {
     '/api/replace-data3': 'This has tracking code',
     '/api/replace-data4': 'secret information',
     '/api/replace-data5': 'This is bad content with ads items',
+    '/api/replace-data6': 'secret information',
+    '/api/replace-data7': '{"role":"user"}',
+    '/api/replace-skip': 'Skip request with ads inside',
 };
 
 const replaceFetchHandlers = Object.keys(replaceFetchMockResponses).map(
     (path) => {
+        // /api/replace-data4는 POST로도 테스트
+        if (path === '/api/replace-data4') {
+            return [
+                http.get(path, () => HttpResponse.text(replaceFetchMockResponses[path])),
+                http.post(path, () => HttpResponse.text(replaceFetchMockResponses[path])),
+            ];
+        }
         return http.all(path, () => {
             return HttpResponse.text(replaceFetchMockResponses[path]);
         });
     }
-);
+).flat();
 
 const noXhrIfMockResponses = {
     '/api/block1': 'original-response-block1',
