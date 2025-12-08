@@ -47,11 +47,6 @@ const xhrMockResponses = {
         jpxr_content9: 'keep',
         jpxr_tracking9: 'ok',
     },
-    '/api/skip': {
-        jpxr_ads9: 99,
-        jpxr_content9: 'skip',
-        jpxr_tracking9: 'skip',
-    },
     '/api/data10': {
         jpxr_ads10: 1,
         jpxr_content10: 'keep',
@@ -68,36 +63,112 @@ const xhrHandlers = Object.keys(xhrMockResponses)
         }
         return http.get(path, responder);
     })
-    .flat();
+    .flat()
+    .concat(http.get('/api/skip', () => HttpResponse.json(skipMockResponse)));
 
 const fetchMockResponses = {
-    '/api/fetch-data1': {
-        ads1: 1,
-        tracking1: { banner1: 'seoul', popup1: 'kr' },
+    "/api/fetch-data1": {
+        "jpfr_ads1": 1,
+        "jpfr_tracking1": {
+            "banner1": "seoul",
+            "popup1": "kr"
+        }
     },
-    '/api/fetch-data2': {
-        ads2: 1,
-        tracking2: { banner2: 'seoul', popup2: 'kr' },
-        content2: 'test',
-    },
-    '/api/fetch-data3': [
-        { ads3: 1, tracking3: 'seoul' },
-        { ads3: 2, tracking3: 'busan' },
-    ],
-    '/api/fetch-data4': {
-        tracking4: {
-            video4: { ads4: 1, content4: '집' },
-            display4: { ads4: 2, content4: '회사' },
+    "/api/fetch-data2": {
+        "jpfr_ads2": 1,
+        "jpfr_tracking2": {
+            "banner2": "seoul",
+            "popup2": "kr"
         },
+        "jpfr_content2": "test"
     },
-    '/api/fetch-data5': { ads5: 123, content5: 'test', tracking5: 'seoul' },
+    "/api/fetch-data3": [
+        {
+            "jpfr_ads3": 1,
+            "jpfr_tracking3": "seoul"
+        },
+        {
+            "jpfr_ads3": 2,
+            "jpfr_tracking3": "busan"
+        }
+    ],
+    "/api/fetch-data4": {
+        "jpfr_tracking4": {
+            "video4": {
+                "ads4": 1,
+                "content4": "집"
+            },
+            "display4": {
+                "ads4": 2,
+                "content4": "회사"
+            }
+        }
+    },
+    "/api/fetch-data5": {
+        "jpfr_ads5": 123,
+        "jpfr_content5": "test",
+        "jpfr_tracking5": "seoul"
+    },
+    "/api/fetch-data6": {
+        "jpfr_ads6": [
+            {
+                "id6": 1,
+                "banner6": "top",
+                "popup6": "modal"
+            },
+            {
+                "id6": 2,
+                "video6": "play",
+                "popup6": "overlay"
+            },
+            {
+                "id6": 3,
+                "banner6": "bottom",
+                "popup6": "toast"
+            }
+        ]
+    },
+    "/api/fetch-data7": {
+        "jpfr_ads7": 1,
+        "jpfr_content7": "keep",
+        "jpfr_tracking7": "seoul"
+    },
+    "/api/fetch-data8": {
+        "jpfr_ads8": 1,
+        "jpfr_content8": "keep",
+        "jpfr_tracking8": "kr"
+    },
+    "/api/fetch-data9": {
+        "jpfr_ads9": 1,
+        "jpfr_content9": "keep",
+        "jpfr_tracking9": "ok"
+    },
+    "/api/fetch-data10": {
+        "jpfr_ads10": 1,
+        "jpfr_content10": "keep",
+        "jpfr_tracking10": "ok"
+    }
 };
 
-const fetchHandlers = Object.keys(fetchMockResponses).map((path) => {
-    return http.get(path, () => {
-        return HttpResponse.json(fetchMockResponses[path]);
-    });
-});
+const skipMockResponse = {
+    jpxr_ads9: 99,
+    jpxr_content9: 'skip',
+    jpxr_tracking9: 'skip',
+    jpfr_ads9: 999,
+    jpfr_content9: 'skip',
+    jpfr_tracking9: 'skip',
+};
+
+const fetchHandlers = Object.keys(fetchMockResponses)
+    .map((path) => {
+        const responder = () => HttpResponse.json(fetchMockResponses[path]);
+        if (path === '/api/fetch-data8') {
+            return http.post(path, responder);
+        }
+        return http.get(path, responder);
+    })
+    .flat()
+    .concat(http.get('/api/skip', () => HttpResponse.json(skipMockResponse)));
 
 const replaceFetchMockResponses = {
     '/api/replace-data1': 'This content has ads content',
