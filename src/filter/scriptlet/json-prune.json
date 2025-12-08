@@ -5,7 +5,7 @@
         "desc": "최상위 속성 ads1, tracking1 제거",
         "scriptlet": "json-prune",
         "scriptletParams": ["ads1 tracking1"],
-        "target": "<div class='target'><script>window.jpp_1 = '{\"ads1\": 123, \"content1\": \"test\", \"tracking1\": \"seoul\"}'; window.jpp_parsed_1 = null; try { window.jpp_parsed_1 = JSON.parse(window.jpp_1); } catch(e) {}</script>JSON 파싱 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpp_1 = '{\"ads1\": 123, \"content1\": \"test\", \"tracking1\": \"seoul\"}'; window.jpp_parsed_1 = null; try { window.jpp_parsed_1 = JSON.parse(window.jpp_1); } catch(e) {}</script></div>",
         "verification": "jsonEquals:window.jpp_parsed_1:{\"content1\":\"test\"}"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "중첩된 tracking2.banner2 속성 제거",
         "scriptlet": "json-prune",
         "scriptletParams": ["tracking2.banner2"],
-        "target": "<div class='target'><script>window.jpp_2 = '{\"ads2\": 1, \"tracking2\": {\"banner2\": \"seoul\", \"popup2\": \"kr\"}}'; window.jpp_parsed_2 = null; setTimeout(() => { try { window.jpp_parsed_2 = JSON.parse(window.jpp_2); } catch(e) {} }, 100);</script>JSON 파싱 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpp_2 = '{\"ads2\": 1, \"tracking2\": {\"banner2\": \"seoul\", \"popup2\": \"kr\"}}'; window.jpp_parsed_2 = null; setTimeout(() => { try { window.jpp_parsed_2 = JSON.parse(window.jpp_2); } catch(e) {} }, 100);</script></div>",
         "verification": "jsonEquals:window.jpp_parsed_2:{\"ads2\":1,\"tracking2\":{\"popup2\":\"kr\"}}"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "ads3가 존재할 때만 tracking3.banner3 제거",
         "scriptlet": "json-prune",
         "scriptletParams": ["tracking3.banner3", "ads3"],
-        "target": "<div class='target'><script>window.jpp_3 = '{\"ads3\": 1, \"tracking3\": {\"banner3\": \"seoul\", \"popup3\": \"kr\"}}'; window.jpp_parsed_3 = null; setTimeout(() => { try { window.jpp_parsed_3 = JSON.parse(window.jpp_3); } catch(e) {} }, 100);</script>JSON 파싱 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpp_3 = '{\"ads3\": 1, \"tracking3\": {\"banner3\": \"seoul\", \"popup3\": \"kr\"}}'; window.jpp_parsed_3 = null; setTimeout(() => { try { window.jpp_parsed_3 = JSON.parse(window.jpp_3); } catch(e) {} }, 100);</script></div>",
         "verification": "jsonEquals:window.jpp_parsed_3:{\"ads3\":1,\"tracking3\":{\"popup3\":\"kr\"}}"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "배열의 모든 요소에서 tracking4 제거",
         "scriptlet": "json-prune",
         "scriptletParams": ["[].tracking4"],
-        "target": "<div class='target'><script>window.jpp_4 = '[{\"ads4\": 1, \"tracking4\": \"seoul\"}, {\"ads4\": 2, \"tracking4\": \"busan\"}]'; window.jpp_parsed_4 = null; setTimeout(() => { try { window.jpp_parsed_4 = JSON.parse(window.jpp_4); } catch(e) {} }, 100);</script>JSON 파싱 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpp_4 = '[{\"ads4\": 1, \"tracking4\": \"seoul\"}, {\"ads4\": 2, \"tracking4\": \"busan\"}]'; window.jpp_parsed_4 = null; setTimeout(() => { try { window.jpp_parsed_4 = JSON.parse(window.jpp_4); } catch(e) {} }, 100);</script></div>",
         "verification": "jsonEquals:window.jpp_parsed_4:[{\"ads4\":1},{\"ads4\":2}]"
     },
     {
@@ -41,7 +41,7 @@
         "desc": "tracking5 하위 모든 객체의 ads5 제거",
         "scriptlet": "json-prune",
         "scriptletParams": ["tracking5.*.ads5"],
-        "target": "<div class='target'><script>window.jpp_5 = '{\"tracking5\": {\"video5\": {\"ads5\": 1, \"content5\": \"집\"}, \"display5\": {\"ads5\": 2, \"content5\": \"회사\"}}}'; window.jpp_parsed_5 = null; setTimeout(() => { try { window.jpp_parsed_5 = JSON.parse(window.jpp_5); } catch(e) {} }, 100);</script>JSON 파싱 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpp_5 = '{\"tracking5\": {\"video5\": {\"ads5\": 1, \"content5\": \"집\"}, \"display5\": {\"ads5\": 2, \"content5\": \"회사\"}}}'; window.jpp_parsed_5 = null; setTimeout(() => { try { window.jpp_parsed_5 = JSON.parse(window.jpp_5); } catch(e) {} }, 100);</script></div>",
         "verification": "jsonEquals:window.jpp_parsed_5:{\"tracking5\":{\"video5\":{\"content5\":\"집\"},\"display5\":{\"content5\":\"회사\"}}}"
     },
     {
@@ -50,7 +50,7 @@
         "desc": "banner 타입 요소 제거 + 남은 요소들의 popup6 속성 제거",
         "scriptlet": "json-prune",
         "scriptletParams": ["ads6.[-].banner6 ads6.*.popup6"],
-        "target": "<div class='target'><script>window.jpp_6 = '{\"ads6\": [{\"id6\": 1, \"banner6\": \"top\", \"popup6\": \"modal\"}, {\"id6\": 2, \"video6\": \"play\", \"popup6\": \"overlay\"}, {\"id6\": 3, \"banner6\": \"bottom\", \"popup6\": \"toast\"}]}'; window.jpp_parsed_6 = null; setTimeout(() => { try { window.jpp_parsed_6 = JSON.parse(window.jpp_6); } catch(e) {} }, 100);</script>JSON 파싱 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpp_6 = '{\"ads6\": [{\"id6\": 1, \"banner6\": \"top\", \"popup6\": \"modal\"}, {\"id6\": 2, \"video6\": \"play\", \"popup6\": \"overlay\"}, {\"id6\": 3, \"banner6\": \"bottom\", \"popup6\": \"toast\"}]}'; window.jpp_parsed_6 = null; setTimeout(() => { try { window.jpp_parsed_6 = JSON.parse(window.jpp_6); } catch(e) {} }, 100);</script></div>",
         "verification": "jsonEquals:window.jpp_parsed_6:{\"ads6\":[{\"id6\":2,\"video6\":\"play\"}]}"
     }
 ]
