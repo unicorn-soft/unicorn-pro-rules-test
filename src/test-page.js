@@ -75,10 +75,17 @@ function createTestSection(
     h1El.textContent = `${id}. ${title}`;
     divTitle.appendChild(h1El);
     
-    if (pageType === 'json-prune-xhr-response' && String(id) === '9') {
+    if (
+        (pageType === 'json-prune-xhr-response' && String(id) === '9') ||
+        (pageType === 'json-prune-fetch-response' && String(id) === '9')
+    ) {
         const actionBtn = document.createElement('button');
-        actionBtn.id = 'jpxr_9_btn';
-        actionBtn.textContent = '/api/data9 요청';
+        actionBtn.id =
+            pageType === 'json-prune-xhr-response' ? 'jpxr_9_btn' : 'jpfr_9_btn';
+        actionBtn.textContent =
+            pageType === 'json-prune-xhr-response'
+                ? '/api/data9 요청'
+                : '/api/fetch-data9 요청';
         actionBtn.style.marginLeft = 'auto';
         actionBtn.style.fontSize = '12px';
         actionBtn.style.padding = '4px 8px';
