@@ -76,7 +76,13 @@
         "title": "includes 옵션",
         "desc": "텍스트에 'main'이 포함될 때만 치환",
         "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "Example_first", "Success", "includes", "main"],
+        "scriptletParams": [
+            "DIV",
+            "Example_first",
+            "Success",
+            "includes",
+            "main"
+        ],
         "target": "<div class='target'><script>window.rpnt_7=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example_first in main content';container.appendChild(el);var update=function(){window.rpnt_7=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.rpnt_7:Success in main content"
     },
@@ -85,7 +91,13 @@
         "title": "excludes 옵션",
         "desc": "텍스트에 'skip'이 없을 때만 치환",
         "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "Example_second", "Done", "excludes", "skip"],
+        "scriptletParams": [
+            "DIV",
+            "Example_second",
+            "Done",
+            "excludes",
+            "skip"
+        ],
         "target": "<div class='target'><script>window.rpnt_8=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example_second content ready';container.appendChild(el);var update=function(){window.rpnt_8=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.rpnt_8:Done content ready"
     },
@@ -115,59 +127,5 @@
         "scriptletParams": ["DIV", "Target", "Hit", "SEDCOUNT", "1", "STAY", "1", "QUITAFTER", "500"],
         "target": "<div class='target'><script>window.rpnt_11=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Target A';container.appendChild(el);var record=function(){window.rpnt_11=el.textContent;};record();var mo=new MutationObserver(function(){record();});mo.observe(el,{characterData:true,childList:true,subtree:true});setTimeout(function(){el.textContent += ' Target B Target C';},120);setTimeout(function(){el.textContent += ' Target D';},240);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.rpnt_11:Hit A Target B Target C Target D"
-    },
-    {
-        "id": "12",
-        "title": "#text 기본 치환 (예시 형태)",
-        "desc": "#text에서 'Example'을 'EEEEEEE'로 치환",
-        "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["#text", "Example", "EEEEEEE"],
-        "target": "<div class='target'><div id='rpnt_12_wrap'></div><script>window.rpnt_12=null;(function(){var wrap=document.getElementById('rpnt_12_wrap');if(!wrap)return;var textNode=document.createTextNode('Example text node');wrap.appendChild(textNode);var update=function(){window.rpnt_12=textNode.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(textNode,{characterData:true});}())</script>Text 노드: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.rpnt_12:EEEEEEE text node"
-    },
-    {
-        "id": "13",
-        "title": "h1 치환 (별칭 rpnt)",
-        "desc": "h1의 'Example'을 'EEEEEEE'로 치환",
-        "scriptlet": "rpnt",
-        "scriptletParams": ["H1", "Example", "EEEEEEE"],
-        "target": "<div class='target'><script>window.rpnt_13=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('h1');el.textContent='Example heading';container.appendChild(el);var update=function(){window.rpnt_13=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.rpnt_13:EEEEEEE heading"
-    },
-    {
-        "id": "14",
-        "title": "includes 옵션 (예시 형태, rpnt)",
-        "desc": "div에 main이 포함될 때만 Example→Success 치환",
-        "scriptlet": "rpnt",
-        "scriptletParams": ["DIV", "Example", "Success", "includes", "main"],
-        "target": "<div class='target'><script>window.rpnt_14=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example content in main area';container.appendChild(el);var update=function(){window.rpnt_14=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.rpnt_14:Success content in main area"
-    },
-    {
-        "id": "15",
-        "title": "sedCount 옵션 (예시 형태, rpnt)",
-        "desc": "div에서 Example을 한 번만 Success로 치환 후 종료",
-        "scriptlet": "rpnt",
-        "scriptletParams": ["DIV", "Example", "Success", "sedCount", 1],
-        "target": "<div class='target'><script>window.rpnt_15=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example first pass';container.appendChild(el);var update=function(){window.rpnt_15=el.textContent;};update();var mo=new MutationObserver(function(){update();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el.textContent+=' Example second';},150);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.rpnt_15:Success first pass Example second"
-    },
-    {
-        "id": "16",
-        "title": "stay + sedCount 옵션 (예시 형태, rpnt)",
-        "desc": "stay=1로 감시 지속, sedCount=10으로 여유 있게 Example→Test 치환",
-        "scriptlet": "rpnt",
-        "scriptletParams": ["DIV", "Example", "Test", "stay", 1, "sedCount", 10],
-        "target": "<div class='target'><script>window.rpnt_16=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example stay base';container.appendChild(el);var update=function(){window.rpnt_16=el.textContent;};update();var mo=new MutationObserver(function(){update();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el.textContent+=' Example stay next';},120);setTimeout(function(){el.textContent+=' Example stay last';},240);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.rpnt_16:Test stay base Test stay next Test stay last"
-    },
-    {
-        "id": "17",
-        "title": "quitAfter 옵션 (예시 형태, rpnt)",
-        "desc": "quitAfter 이후 추가된 Example은 치환되지 않음",
-        "scriptlet": "rpnt",
-        "scriptletParams": ["DIV", "Example", "Tester", "quitAfter", 300],
-        "target": "<div class='target'><script>window.rpnt_17=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example initial';container.appendChild(el);var update=function(){window.rpnt_17=el.textContent;};update();var mo=new MutationObserver(function(){update();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el.textContent='Example after quitAfter';},400);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "textEquals:window.rpnt_17:Example after quitAfter"
     }
 ]

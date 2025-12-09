@@ -8,8 +8,13 @@ export function createRuleString({ filter, scriptlet, scriptletParams }) {
     }
     if (scriptlet && scriptletParams) {
         const formattedParams = scriptletParams.map((param) => {
-            if (typeof param === 'string' && param.includes(',')) {
-                return `"${param.replace(/"/g, '\\"')}"`;
+            if (typeof param === 'string') {
+                if (param.startsWith('json:')) {
+                    return `"${param.replace(/"/g, '\\"')}"`;
+                }
+                if (param.includes(',') || param.includes(':')) {
+                    return `"${param.replace(/"/g, '\\"')}"`;
+                }
             }
             return param;
         });

@@ -4,10 +4,7 @@
         "title": "기본 텍스트 치환",
         "desc": "Fetch 응답에서 'ads' 문자열을 'removed'로 치환",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": [
-            "ads",
-            "removed"
-        ],
+        "scriptletParams": ["ads", "removed"],
         "target": "<div class='target'><script>window.trfr_1 = null; fetch('/api/replace-data1').then(res => res.text()).then(data => { window.trfr_1 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.trfr_1:This content has removed content"
     },
@@ -16,9 +13,7 @@
         "title": "정규식 치환",
         "desc": "Fetch 응답에서 숫자를 모두 제거",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": [
-            "/\\d+/"
-        ],
+        "scriptletParams": ["/\\d+/"],
         "target": "<div class='target'><script>window.trfr_2 = null; fetch('/api/replace-data2').then(res => res.text()).then(data => { window.trfr_2 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.trfr_2:Price is  dollars"
     },
@@ -27,11 +22,7 @@
         "title": "URL 옵션 조건부 치환",
         "desc": "특정 URL(/api/replace-data3)에만 'tracking'을 'removed'로 치환",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": [
-            "tracking",
-            "removed",
-            "url:/api/replace-data3"
-        ],
+        "scriptletParams": ["tracking", "removed", "url:/api/replace-data3"],
         "target": "<div class='target'><script>window.trfr_3 = null; fetch('/api/replace-data3').then(res => res.text()).then(data => { window.trfr_3 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.trfr_3:This has removed code"
     },
@@ -40,11 +31,7 @@
         "title": "Method 옵션 조건부 치환",
         "desc": "POST method에만 'secret'을 'public'으로 치환",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": [
-            "secret",
-            "public",
-            "method:POST"
-        ],
+        "scriptletParams": ["secret", "public", "method:POST"],
         "target": "<div class='target'><script>window.trfr_4 = null; fetch('/api/replace-data4', {method: 'POST'}).then(res => res.text()).then(data => { window.trfr_4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.trfr_4:public information"
     },
@@ -67,11 +54,7 @@
         "title": "정규식 URL 옵션",
         "desc": "url 정규식(/replace-data6$/) 매칭 시 'secret'을 'public'으로 치환",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": [
-            "secret",
-            "public",
-            "url:/replace-data6"
-        ],
+        "scriptletParams": ["secret", "public", "url:/replace-data6"],
         "target": "<div class='target'><script>window.trfr_6 = null; fetch('/api/replace-data6').then(res => res.text()).then(data => { window.trfr_6 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.trfr_6:public information"
     },
