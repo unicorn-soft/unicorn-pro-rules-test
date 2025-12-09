@@ -67,87 +67,87 @@ const xhrHandlers = Object.keys(xhrMockResponses)
     .concat(http.get('/api/skip', () => HttpResponse.json(skipMockResponse)));
 
 const fetchMockResponses = {
-    "/api/fetch-data1": {
-        "jpfr_ads1": 1,
-        "jpfr_tracking1": {
-            "banner1": "seoul",
-            "popup1": "kr"
-        }
-    },
-    "/api/fetch-data2": {
-        "jpfr_ads2": 1,
-        "jpfr_tracking2": {
-            "banner2": "seoul",
-            "popup2": "kr"
+    '/api/fetch-data1': {
+        jpfr_ads1: 1,
+        jpfr_tracking1: {
+            banner1: 'seoul',
+            popup1: 'kr',
         },
-        "jpfr_content2": "test"
     },
-    "/api/fetch-data3": [
+    '/api/fetch-data2': {
+        jpfr_ads2: 1,
+        jpfr_tracking2: {
+            banner2: 'seoul',
+            popup2: 'kr',
+        },
+        jpfr_content2: 'test',
+    },
+    '/api/fetch-data3': [
         {
-            "jpfr_ads3": 1,
-            "jpfr_tracking3": "seoul"
+            jpfr_ads3: 1,
+            jpfr_tracking3: 'seoul',
         },
         {
-            "jpfr_ads3": 2,
-            "jpfr_tracking3": "busan"
-        }
+            jpfr_ads3: 2,
+            jpfr_tracking3: 'busan',
+        },
     ],
-    "/api/fetch-data4": {
-        "jpfr_tracking4": {
-            "video4": {
-                "ads4": 1,
-                "content4": "집"
+    '/api/fetch-data4': {
+        jpfr_tracking4: {
+            video4: {
+                ads4: 1,
+                content4: '집',
             },
-            "display4": {
-                "ads4": 2,
-                "content4": "회사"
-            }
-        }
-    },
-    "/api/fetch-data5": {
-        "jpfr_ads5": 123,
-        "jpfr_content5": "test",
-        "jpfr_tracking5": "seoul"
-    },
-    "/api/fetch-data6": {
-        "jpfr_ads6": [
-            {
-                "id6": 1,
-                "banner6": "top",
-                "popup6": "modal"
+            display4: {
+                ads4: 2,
+                content4: '회사',
             },
+        },
+    },
+    '/api/fetch-data5': {
+        jpfr_ads5: 123,
+        jpfr_content5: 'test',
+        jpfr_tracking5: 'seoul',
+    },
+    '/api/fetch-data6': {
+        jpfr_ads6: [
             {
-                "id6": 2,
-                "video6": "play",
-                "popup6": "overlay"
+                id6: 1,
+                banner6: 'top',
+                popup6: 'modal',
             },
             {
-                "id6": 3,
-                "banner6": "bottom",
-                "popup6": "toast"
-            }
-        ]
+                id6: 2,
+                video6: 'play',
+                popup6: 'overlay',
+            },
+            {
+                id6: 3,
+                banner6: 'bottom',
+                popup6: 'toast',
+            },
+        ],
     },
-    "/api/fetch-data7": {
-        "jpfr_ads7": 1,
-        "jpfr_content7": "keep",
-        "jpfr_tracking7": "seoul"
+    '/api/fetch-data7': {
+        jpfr_ads7: 1,
+        jpfr_content7: 'keep',
+        jpfr_tracking7: 'seoul',
     },
-    "/api/fetch-data8": {
-        "jpfr_ads8": 1,
-        "jpfr_content8": "keep",
-        "jpfr_tracking8": "kr"
+    '/api/fetch-data8': {
+        jpfr_ads8: 1,
+        jpfr_content8: 'keep',
+        jpfr_tracking8: 'kr',
     },
-    "/api/fetch-data9": {
-        "jpfr_ads9": 1,
-        "jpfr_content9": "keep",
-        "jpfr_tracking9": "ok"
+    '/api/fetch-data9': {
+        jpfr_ads9: 1,
+        jpfr_content9: 'keep',
+        jpfr_tracking9: 'ok',
     },
-    "/api/fetch-data10": {
-        "jpfr_ads10": 1,
-        "jpfr_content10": "keep",
-        "jpfr_tracking10": "ok"
-    }
+    '/api/fetch-data10': {
+        jpfr_ads10: 1,
+        jpfr_content10: 'keep',
+        jpfr_tracking10: 'ok',
+    },
 };
 
 const skipMockResponse = {
@@ -181,20 +181,24 @@ const replaceFetchMockResponses = {
     '/api/replace-skip': 'Skip request with ads inside',
 };
 
-const replaceFetchHandlers = Object.keys(replaceFetchMockResponses).map(
-    (path) => {
+const replaceFetchHandlers = Object.keys(replaceFetchMockResponses)
+    .map((path) => {
         // /api/replace-data4는 POST로도 테스트
         if (path === '/api/replace-data4') {
             return [
-                http.get(path, () => HttpResponse.text(replaceFetchMockResponses[path])),
-                http.post(path, () => HttpResponse.text(replaceFetchMockResponses[path])),
+                http.get(path, () =>
+                    HttpResponse.text(replaceFetchMockResponses[path])
+                ),
+                http.post(path, () =>
+                    HttpResponse.text(replaceFetchMockResponses[path])
+                ),
             ];
         }
         return http.all(path, () => {
             return HttpResponse.text(replaceFetchMockResponses[path]);
         });
-    }
-).flat();
+    })
+    .flat();
 
 const noXhrIfMockResponses = {
     '/api/block1': 'original-response-block1',

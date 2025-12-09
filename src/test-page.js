@@ -82,14 +82,16 @@ function createTestSection(
     const h1El = document.createElement('h1');
     h1El.textContent = `${id}. ${title}`;
     divTitle.appendChild(h1El);
-    
+
     if (
         (pageType === 'json-prune-xhr-response' && String(id) === '9') ||
         (pageType === 'json-prune-fetch-response' && String(id) === '9')
     ) {
         const actionBtn = document.createElement('button');
         actionBtn.id =
-            pageType === 'json-prune-xhr-response' ? 'jpxr_9_btn' : 'jpfr_9_btn';
+            pageType === 'json-prune-xhr-response'
+                ? 'jpxr_9_btn'
+                : 'jpfr_9_btn';
         actionBtn.textContent =
             pageType === 'json-prune-xhr-response'
                 ? '/api/data9 요청'
@@ -100,10 +102,7 @@ function createTestSection(
         actionBtn.style.cursor = 'pointer';
         divTitle.appendChild(actionBtn);
     }
-    if (
-        pageType === 'trusted-replace-fetch-response' &&
-        String(id) === '5'
-    ) {
+    if (pageType === 'trusted-replace-fetch-response' && String(id) === '5') {
         const actionBtn = document.createElement('button');
         actionBtn.id = 'trfr_5_btn';
         actionBtn.textContent = '/api/replace-data5 요청';

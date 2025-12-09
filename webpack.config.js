@@ -3,11 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = {
     entry: {
         main: './src/index.js',
         testPage: './src/test-page.js',
     },
+    devtool: isProd ? false : 'source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[contenthash].js',
@@ -18,9 +21,9 @@ module.exports = {
             directory: path.join(__dirname, 'public'),
         },
         port: 3000,
-        client: {
-            webSocketURL: 'ws://localhost:3000/ws',
-        },
+        client: false,
+        hot: false,
+        liveReload: false,
     },
     module: {
         rules: [
