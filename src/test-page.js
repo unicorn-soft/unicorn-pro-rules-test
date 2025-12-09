@@ -20,14 +20,22 @@ async function enableMocking() {
     await worker.start();
 }
 
-(async function () {
-    await enableMocking();
-
+(function () {
     const type = new URLSearchParams(location.search).get('type');
     const currentCase = testCase[type];
     if (Array.isArray(currentCase) === false) return;
 
-    currentCase.forEach((c) => createTestSection(c, type));
+    const buildPage = () => {
+        currentCase.forEach((c) => createTestSection(c, type));
+    };
+
+    if (type === 'trusted-replace-node-text' || type === 'remove-node-text') {
+        buildPage();
+        enableMocking();
+    } else {
+        enableMocking().then(buildPage);
+    }
+
     if (navigator && navigator.clipboard) {
         window.copyId = null;
         document.addEventListener('click', (event) => {
