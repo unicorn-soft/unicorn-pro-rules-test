@@ -1,7 +1,11 @@
-const expectedServerResponses = {
-    'window.nfif_noFetchIfTestData1': 'original-response-fetch-block1',
-    'window.nfif_noFetchIfTestData2': 'original-response-fetch-track',
-    'window.nfif_noFetchIfTestData3': 'original-response-fetch-post',
+import { noFetchIfMockResponses } from '../mocks/handlers.js';
+
+const targetToPath = {
+    'window.nfif_noFetchIfTestData1': '/api/fetch-block1',
+    'window.nfif_noFetchIfTestData2': '/api/fetch-track-analytics',
+    'window.nfif_noFetchIfTestData3': '/api/fetch-post-data',
+    'window.nfif_noFetchIfTestData4': '/api/fetch-block-implicit',
+    'window.nfif_noFetchIfTestData5': '/api/fetch-block-multi',
 };
 
 export function verifyNoFetchIf(targetEl, verification, parentBox) {
@@ -22,13 +26,16 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
 
     const checkMatch = (actualValue) => {
         if (type === 'textBlocked') {
-            if (typeof actualValue === 'string' && actualValue.length > 0) {
-                const expectedServerResponse = expectedServerResponses[target];
-                const isRandomString = /^[a-z0-9]{1,}$/i.test(actualValue);
+            const path = targetToPath[target];
+            const expectedServerResponse =
+                path && noFetchIfMockResponses[path];
+
+            if (typeof actualValue === 'string') {
+                if (actualValue.length === 0) return true;
                 const isDifferentFromServer =
                     expectedServerResponse &&
                     actualValue !== expectedServerResponse;
-                return isDifferentFromServer && isRandomString;
+                return isDifferentFromServer;
             }
         } else if (type === 'jsonEquals') {
             return JSON.stringify(actualValue) === expected;
