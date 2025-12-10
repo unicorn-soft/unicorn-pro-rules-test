@@ -1,41 +1,47 @@
 [
     {
         "id": "1",
-        "title": "기본 URL 매칭 차단 (randomStr 반환)",
-        "desc": "특정 URL(/api/fetch-block1)에 대한 Fetch 요청을 차단하고 랜덤 문자열을 반환",
+        "title": "기본 URL 매칭 차단 (빈 응답)",
+        "desc": "특정 URL(/api/fetch-block1)에 대한 Fetch 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": ["url:/api/fetch-block1", "true"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData1 = null; fetch('/api/fetch-block1').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "scriptletParams": ["url:/api/fetch-block1"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData1 = null; fetch('/api/fetch-block1').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData1"
     },
     {
         "id": "2",
-        "title": "정규식 URL 매칭 차단",
-        "desc": "정규식 패턴(/api/fetch-track.*)에 매칭되는 Fetch 요청을 차단",
+        "title": "정규식 URL 매칭 차단 (빈 응답)",
+        "desc": "정규식 패턴(/api/fetch-track.*)에 매칭되는 Fetch 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": ["url:/api/fetch-track.*", "true"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData2 = null; fetch('/api/fetch-track-analytics').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "scriptletParams": ["url:/\\/api\\/fetch-track.*/"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData2 = null; fetch('/api/fetch-track-analytics').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData2"
     },
     {
         "id": "3",
-        "title": "Method 매칭 차단",
-        "desc": "POST 메서드 요청만 차단",
+        "title": "Method 매칭 차단 (빈 응답)",
+        "desc": "POST 메서드 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": ["method:POST", "true"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData3 = null; fetch('/api/fetch-post-data', {method: 'POST'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "scriptletParams": ["method:POST"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData3 = null; fetch('/api/fetch-post-data', {method: 'POST'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData3"
     },
     {
         "id": "4",
-        "title": "Surrogate 옵션 (대체 URL에서 데이터 가져오기)",
-        "desc": "차단된 요청을 다른 URL(/api/fetch-surrogate-data)에서 가져오기",
+        "title": "암시적 url 타입 차단 (빈 응답)",
+        "desc": "url: 생략하고 문자열만 전달해도 차단 후 빈 응답 반환",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": [
-            "url:/api/fetch-block4",
-            "war:/api/fetch-surrogate-data"
-        ],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData4 = null; fetch('/api/fetch-block4').then(res => res.json()).then(data => { window.nfif_noFetchIfTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
-        "verification": "jsonEquals:window.nfif_noFetchIfTestData4:{\"content\":\"surrogate\"}"
+        "scriptletParams": ["/api/fetch-block-implicit"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData4 = null; fetch('/api/fetch-block-implicit').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.nfif_noFetchIfTestData4"
+    },
+    {
+        "id": "5",
+        "title": "다중 옵션(url+method) 매칭 (빈 응답)",
+        "desc": "첫번째 파라미터에 url, method를 공백으로 동시에 작성해 차단 후 빈 응답 반환",
+        "scriptlet": "no-fetch-if",
+        "scriptletParams": ["url:/api/fetch-block-multi method:GET"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData5 = null; fetch('/api/fetch-block-multi', {method: 'GET'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData5 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
+        "verification": "textBlocked:window.nfif_noFetchIfTestData5"
     }
 ]

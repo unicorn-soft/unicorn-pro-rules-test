@@ -226,12 +226,12 @@ const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {
     });
 });
 
-const noFetchIfMockResponses = {
+export const noFetchIfMockResponses = {
     '/api/fetch-block1': 'original-response-fetch-block1',
     '/api/fetch-track-analytics': 'original-response-fetch-track',
     '/api/fetch-post-data': 'original-response-fetch-post',
-    '/api/fetch-block4': 'original-response-fetch-block4',
-    '/api/fetch-surrogate-data': { content: 'surrogate' },
+    '/api/fetch-block-implicit': 'original-response-fetch-implicit',
+    '/api/fetch-block-multi': 'original-response-fetch-multi',
 };
 
 const noFetchIfHandlers = Object.keys(noFetchIfMockResponses).map((path) => {
