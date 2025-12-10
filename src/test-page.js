@@ -112,6 +112,7 @@ function createTestSection(
         actionBtn.style.cursor = 'pointer';
         divTitle.appendChild(actionBtn);
     }
+
     section.appendChild(divTitle);
 
     const pDesc = document.createElement('p');
@@ -170,17 +171,19 @@ function createCase(htmlString) {
     const node = tmp.childNodes[0];
     if (!node) return tmp;
 
-    const scripts = node.querySelectorAll('script');
+    const scripts = Array.from(node.querySelectorAll('script'));
     scripts.forEach((script) => {
         try {
+            const scriptText = script.textContent;
+            script.remove();
             const s = document.createElement('script');
-            s.text = script.textContent;
-            script.parentNode.replaceChild(s, script);
+            s.text = scriptText;
+            node.appendChild(s);
         } catch (e) {}
     });
 
     node.classList.add('case');
-    return node.cloneNode(true);
+    return node;
 }
 
 function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
