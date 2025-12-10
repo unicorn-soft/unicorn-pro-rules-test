@@ -9,6 +9,7 @@ export function createRuleString({ filter, scriptlet, scriptletParams }) {
     if (scriptlet && scriptletParams) {
         const formattedParams = scriptletParams.map((param) => {
             if (typeof param === 'string') {
+                if (param === '') return '""';
                 if (param.startsWith('json:')) {
                     return `"${param.replace(/"/g, '\\"')}"`;
                 }

@@ -1,4 +1,4 @@
-export function verifySetConstant(targetEl, verification, parentBox) {
+export function verifyGlobalValue(targetEl, verification, parentBox) {
     const [type, target, expected] = verification.split(':');
 
     const checkInterval = setInterval(() => {
