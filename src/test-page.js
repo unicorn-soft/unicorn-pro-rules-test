@@ -3,7 +3,7 @@ import './style/global.css';
 import './style/test-page.css';
 import testCase from './index';
 import { createRuleString } from './utils/createRuleString.js';
-import { verifySetConstant } from './scriptlet-verifiers/set-constant.js';
+import { verifyGlobalValue } from './scriptlet-verifiers/global-value-check.js';
 import { verifyJsonPrune } from './scriptlet-verifiers/json-prune.js';
 import { verifyJsonPruneXhrResponse } from './scriptlet-verifiers/json-prune-xhr-response.js';
 import { verifyJsonPruneFetchResponse } from './scriptlet-verifiers/json-prune-fetch-response.js';
@@ -314,6 +314,6 @@ function observeScriptletResult(targetEl, verification, parentBox, pageType) {
         case 'jsonEquals':
             return verifyJsonPrune(targetEl, verification, parentBox);
         default:
-            return verifySetConstant(targetEl, verification, parentBox);
+            return verifyGlobalValue(targetEl, verification, parentBox);
     }
 }

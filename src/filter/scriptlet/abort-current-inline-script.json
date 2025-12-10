@@ -1,47 +1,74 @@
 [
     {
         "id": "1",
-        "title": "기본 문자열 매칭으로 인라인 스크립트 중단 (풀네임 'abort-current-inline-script' 사용)",
-        "desc": "특정 키워드가 포함된 인라인 스크립트를 중단(ABORTME1)",
+        "title": "기본 중단 (풀네임, 필수 파라미터만)",
+        "desc": "지정 프로퍼티에 대한 접근을 중단",
         "scriptlet": "abort-current-inline-script",
-        "scriptletParams": ["acis___ABORT1__", "ABORTME1"],
-        "target": "<div class='target'><script>/* case1: should abort */\ntry {\n  // 트랩 대상 접근\n  window.acis___ABORT1__;\n  // 매칭 문자열 포함\n  /* ABORTME1 */\n  // 아래 코드는 실행되면 안 됨\n  window.acis_abortResult1 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case1: control */\n// 제어 스크립트 (중단 대상 아님)\nwindow.acis_abortControl1 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "scriptletParams": ["acis___ABORT1__"],
+        "target": "<div class='target'><script>try { window.acis___ABORT1__; window.acis_abortResult1 = 'ran'; } catch(e) {}</script><br><pre class='json-result'></pre></div>",
         "verification": "equals:window.acis_abortResult1:undefined"
     },
     {
         "id": "1-alias",
-        "title": "기본 문자열 매칭으로 인라인 스크립트 중단 (별칭 'acis' 사용)",
-        "desc": "특정 키워드가 포함된 인라인 스크립트를 중단(ABORTME1)",
+        "title": "기본 중단 (별칭 'acis', 필수 파라미터만)",
+        "desc": "지정 프로퍼티에 대한 접근을 중단",
         "scriptlet": "acis",
-        "scriptletParams": ["acis___ABORT1__", "ABORTME1"],
-        "target": "<div class='target'><script>window.acis_adBlockDetected2 = true;</script>광고차단 감지: <span class='status'>감지됨</span></div>",
-        "verification": "equals:window.acis_adBlockDetected2"
+        "scriptletParams": ["acis___ABORT1_ALIAS__"],
+        "target": "<div class='target'><script>try { window.acis___ABORT1_ALIAS__; window.acis_abortResult1Alias = 'ran'; } catch(e) {}</script><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.acis_abortResult1Alias:undefined"
     },
     {
         "id": "2",
-        "title": "정규식 매칭으로 인라인 스크립트 중단",
-        "desc": "정규식 /ABORT\\d+/를 포함한 인라인 스크립트를 중단",
+        "title": "정규식 이스케이프 중단",
+        "desc": "정규식 /ABORT\\d+/ 매칭 시 인라인 스크립트 실행 중단",
         "scriptlet": "abort-current-inline-script",
-        "scriptletParams": ["acis___ABORT2__", "/ABORT\\\\d+/"],
-        "target": "<div class='target'><script>/* case2: should abort */\ntry {\n  window.acis___ABORT2__;\n  /* ABORT9 */\n  window.acis_abortResult2 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case2: control */\nwindow.acis_abortControl2 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "scriptletParams": ["acis___ABORT2__", "/ABORT\\d+/"],
+        "target": "<div class='target'><script>try { window.acis___ABORT2__; /* ABORT123 */ window.acis_abortResult2 = 'ran'; } catch(e) {}</script><br><pre class='json-result'></pre></div>",
         "verification": "equals:window.acis_abortResult2:undefined"
     },
     {
         "id": "3",
-        "title": "대소문자 무시 정규식 중단",
-        "desc": "정규식 /abortme/i 를 포함한 인라인 스크립트를 중단",
+        "title": "조건 옵션 + 정규식 중단",
+        "desc": "스크립트 내용이 /ABORTCOND/에 매칭될 때 실행 중단",
         "scriptlet": "abort-current-inline-script",
-        "scriptletParams": ["acis___ABORT3__", "/abortme/i"],
-        "target": "<div class='target'><script>/* case3: should abort */\ntry {\n  window.acis___ABORT3__;\n  /* AbOrTmE */\n  window.acis_abortResult3 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case3: control */\nwindow.acis_abortControl3 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "scriptletParams": ["acis___ABORT3__", "/ABORTCOND/"],
+        "target": "<div class='target'><script>try { /* ABORTCOND */ window.acis___ABORT3__; window.acis_abortResult3 = 'ran'; } catch(e) {}</script><br><pre class='json-result'></pre></div>",
         "verification": "equals:window.acis_abortResult3:undefined"
     },
     {
         "id": "4",
-        "title": "특수문자 이스케이프 정규식 중단",
-        "desc": "정규식 /A\\+B\\?C/ 포함 시 인라인 스크립트 중단",
+        "title": "조건 옵션 + 문자열 중단",
+        "desc": "스크립트 내용에 문자열 ABORTSTR 포함 시 실행 중단",
         "scriptlet": "abort-current-inline-script",
-        "scriptletParams": ["acis___ABORT4__", "/A\\\\+B\\\\?C/"],
-        "target": "<div class='target'><script>/* case4: should abort */\ntry {\n  window.acis___ABORT4__;\n  /* A+B?C */\n  window.acis_abortResult4 = 'ran';\n} catch(e) { /* ignore */ }</script><script>/* case4: control */\nwindow.acis_abortControl4 = 'ok';</script>상태: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "scriptletParams": ["acis___ABORT4__", "ABORTSTR"],
+        "target": "<div class='target'><script>try { var marker4 = 'ABORTSTR'; window.acis___ABORT4__; window.acis_abortResult4 = 'ran'; } catch(e) {}</script><br><pre class='json-result'></pre></div>",
         "verification": "equals:window.acis_abortResult4:undefined"
+    },
+    {
+        "id": "5",
+        "title": "사용자 정의 전역 함수 중단",
+        "desc": "window에 연결된 사용자 정의 함수를 접근할 때 중단되는지 확인",
+        "scriptlet": "abort-current-inline-script",
+        "scriptletParams": ["acis_customFn"],
+        "target": "<div class='target'><script>window.acis_abortResult5=undefined;function acis_customFn() {}</script><script>try { window.acis_customFn(); window.acis_abortResult5 = 'ran'; } catch(e) {}</script><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.acis_abortResult5:undefined"
+    },
+    {
+        "id": "6",
+        "title": "src 매칭 중단 (정규식)",
+        "desc": "지정 프로퍼티 접근 스크립트의 src가 /acis-src/이면 실행 중단",
+        "scriptlet": "abort-current-inline-script",
+        "scriptletParams": ["acis___ABORTSRC__", "", "/acis-src/"],
+        "target": "<div class='target'><script>(function(){var s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src*/try{window.acis___ABORTSRC__;window.acis_abortResult6=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.acis_abortResult6:undefined"
+    },
+    {
+        "id": "7",
+        "title": "src 매칭 중단 (문자열)",
+        "desc": "지정 프로퍼티 접근 스크립트의 src에 acis-src-str가 포함되면 실행 중단",
+        "scriptlet": "abort-current-inline-script",
+        "scriptletParams": ["acis___ABORTSRC_STR__", "", "acis-src-str"],
+        "target": "<div class='target'><script>(function(){var s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src-str*/try{window.acis___ABORTSRC_STR__;window.acis_abortResult7=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br><pre class='json-result'></pre></div>",
+        "verification": "equals:window.acis_abortResult7:undefined"
     }
 ]
