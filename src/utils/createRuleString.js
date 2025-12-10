@@ -13,6 +13,13 @@ export function createRuleString({ filter, scriptlet, scriptletParams }) {
                 if (param.startsWith('json:')) {
                     return `"${param.replace(/"/g, '\\"')}"`;
                 }
+                if (
+                    param.startsWith('url:') ||
+                    param.startsWith('method:') ||
+                    param.startsWith('war:')
+                ) {
+                    return param;
+                }
                 if (param.includes(',') || param.includes(':')) {
                     return `"${param.replace(/"/g, '\\"')}"`;
                 }

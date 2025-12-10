@@ -200,12 +200,20 @@ const replaceFetchHandlers = Object.keys(replaceFetchMockResponses)
     })
     .flat();
 
-const noXhrIfMockResponses = {
+export const noXhrIfMockResponses = {
     '/api/block1': 'original-response-block1',
     '/api/track-analytics': 'original-response-track',
     '/api/post-data': 'original-response-post',
     '/api/block4': 'original-response-block4',
     '/api/surrogate-data': { content: 'surrogate' },
+    '/api/block-implicit': 'original-response-implicit',
+    '/api/block-json': { content: 'json-response' },
+    '/api/block-buffer': 'buffer-response',
+    '/api/block-blob': 'blob-response',
+    '/api/block-doc': '<html><body><div>doc-response</div></body></html>',
+    '/api/block-multi': 'original-response-multi',
+    '/api/block-rand': 'original-response-rand',
+    '/api/block-method-rand': 'original-response-method-rand',
 };
 
 const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {
