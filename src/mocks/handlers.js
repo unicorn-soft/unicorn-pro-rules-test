@@ -269,6 +269,7 @@ const echoPaths = [
     '/api/edit-xhr-request-6',
 
     '/api/echo',
+    '/api/exclude-16',
 ];
 
 const echoHandlers = echoPaths.map((path) => {

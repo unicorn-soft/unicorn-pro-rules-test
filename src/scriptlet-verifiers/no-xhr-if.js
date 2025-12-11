@@ -34,8 +34,7 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
     const checkMatch = (actualValue) => {
         if (type === 'textBlocked') {
             const path = targetToPath[target];
-            const expectedServerResponse =
-                path && noXhrIfMockResponses[path];
+            const expectedServerResponse = path && noXhrIfMockResponses[path];
 
             if (typeof actualValue === 'string') {
                 if (actualValue.length === 0) return true;
@@ -80,8 +79,7 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
             }
         } else if (type === 'surrogateLoaded') {
             const path = targetToPath[target];
-            const expectedServerResponse =
-                path && noXhrIfMockResponses[path];
+            const expectedServerResponse = path && noXhrIfMockResponses[path];
 
             if (typeof actualValue === 'string') {
                 return (
@@ -102,7 +100,8 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
                 return (
                     Object.keys(actualValue).length > 0 &&
                     expectedServerResponse &&
-                    JSON.stringify(actualValue) !== JSON.stringify(expectedServerResponse)
+                    JSON.stringify(actualValue) !==
+                        JSON.stringify(expectedServerResponse)
                 );
             }
         } else if (type === 'jsonEquals') {

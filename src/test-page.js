@@ -54,7 +54,7 @@ async function enableMocking() {
                             window.copyId = null;
                         }, 300);
                     })
-                    .catch((err) => {});
+                    .catch((err) => { });
             }
         });
     }
@@ -112,7 +112,16 @@ function createTestSection(
         actionBtn.style.cursor = 'pointer';
         divTitle.appendChild(actionBtn);
     }
-
+    if (pageType === 'trusted-json-edit-fetch-request' && String(id) === '14') {
+        const actionBtn = document.createElement('button');
+        actionBtn.id = 'tjefr_14_btn';
+        actionBtn.textContent = '/api/edit-request-14 요청';
+        actionBtn.style.marginLeft = 'auto';
+        actionBtn.style.fontSize = '12px';
+        actionBtn.style.padding = '4px 8px';
+        actionBtn.style.cursor = 'pointer';
+        divTitle.appendChild(actionBtn);
+    }
     section.appendChild(divTitle);
 
     const pDesc = document.createElement('p');
@@ -179,7 +188,7 @@ function createCase(htmlString) {
             const s = document.createElement('script');
             s.text = scriptText;
             node.appendChild(s);
-        } catch (e) {}
+        } catch (e) { }
     });
 
     node.classList.add('case');
