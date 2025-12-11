@@ -259,17 +259,24 @@ const echoPaths = [
     '/api/edit-request-12',
     '/api/edit-request-13',
     '/api/edit-request-14',
-    '/api/edit-request-15',
-    '/api/edit-request-16',
     '/api/edit-xhr-request-1',
     '/api/edit-xhr-request-2',
     '/api/edit-xhr-request-3',
     '/api/edit-xhr-request-4',
     '/api/edit-xhr-request-5',
     '/api/edit-xhr-request-6',
+    '/api/edit-xhr-request-7',
+    '/api/edit-xhr-request-8',
+    '/api/edit-xhr-request-9',
+    '/api/edit-xhr-request-10',
+    '/api/edit-xhr-request-11',
+    '/api/edit-xhr-request-12',
+    '/api/edit-xhr-request-13',
+    '/api/edit-xhr-request-14',
 
     '/api/echo',
-    '/api/exclude-16',
+    '/api/exclude-14',
+    '/api/exclude-xhr-14',
 ];
 
 const echoHandlers = echoPaths.map((path) => {
