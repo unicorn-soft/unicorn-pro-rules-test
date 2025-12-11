@@ -27,8 +27,7 @@ export function verifyNoFetchIf(targetEl, verification, parentBox) {
     const checkMatch = (actualValue) => {
         if (type === 'textBlocked') {
             const path = targetToPath[target];
-            const expectedServerResponse =
-                path && noFetchIfMockResponses[path];
+            const expectedServerResponse = path && noFetchIfMockResponses[path];
 
             if (typeof actualValue === 'string') {
                 if (actualValue.length === 0) return true;

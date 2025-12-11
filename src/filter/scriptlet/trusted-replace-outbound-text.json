@@ -56,7 +56,11 @@
         "title": "json:\"...\" 포맷 치환",
         "desc": "json:\"safe\" 포맷으로 role 값을 safe로 교체",
         "scriptlet": "trusted-replace-outbound-text",
-        "scriptletParams": ["decodeURIComponent", "ads-json-a", "json:\"safe\""],
+        "scriptletParams": [
+            "decodeURIComponent",
+            "ads-json-a",
+            "json:\"safe\""
+        ],
         "target": "<div class='target'><script>window.trpot_4 = null;setTimeout(function(){var out=decodeURIComponent('%7B%22role%22%3A%22ads-json-a%22%7D');window.trpot_4=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.trpot_4:{\"role\":\"safe\"}"
     },

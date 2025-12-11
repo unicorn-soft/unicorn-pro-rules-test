@@ -124,7 +124,17 @@
         "title": "옵션 우선순위: sedCount > stay > quitAfter",
         "desc": "sedCount=1이 우선 적용되어 첫 Target만 치환되고 이후 변화는 그대로 유지(stay/quitAfter 존재)",
         "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "Target", "Hit", "SEDCOUNT", "1", "STAY", "1", "QUITAFTER", "500"],
+        "scriptletParams": [
+            "DIV",
+            "Target",
+            "Hit",
+            "SEDCOUNT",
+            "1",
+            "STAY",
+            "1",
+            "QUITAFTER",
+            "500"
+        ],
         "target": "<div class='target'><script>window.rpnt_11=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Target A';container.appendChild(el);var record=function(){window.rpnt_11=el.textContent;};record();var mo=new MutationObserver(function(){record();});mo.observe(el,{characterData:true,childList:true,subtree:true});setTimeout(function(){el.textContent += ' Target B Target C';},120);setTimeout(function(){el.textContent += ' Target D';},240);}())</script>Node 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
         "verification": "textEquals:window.rpnt_11:Hit A Target B Target C Target D"
     }
