@@ -47,7 +47,7 @@
     {
         "id": "6",
         "title": "배열 필터링과 와일드카드",
-        "desc": "banner 타입 요소 제거 + 남은 요소들의 popup6 속성 제거",
+        "desc": "banner6 속성을 보유한 배열의 요소 제거 + ads6의 모든 하위 객체/요소의 하위 popup6 속성 제거.<br>공백으로 구분해 여러 Path를 적용할 수 있지만, 순서 보장 없이 각 Path는 독립적으로 처리되며 앞 단계 결과를 전제로 하지 않습니다.",
         "scriptlet": "json-prune",
         "scriptletParams": ["ads6.[-].banner6 ads6.*.popup6"],
         "target": "<div class='target'><script>window.jpp_6 = '{\"ads6\": [{\"id6\": 1, \"banner6\": \"top\", \"popup6\": \"modal\"}, {\"id6\": 2, \"video6\": \"play\", \"popup6\": \"overlay\"}, {\"id6\": 3, \"banner6\": \"bottom\", \"popup6\": \"toast\"}]}'; window.jpp_parsed_6 = null; setTimeout(() => { try { window.jpp_parsed_6 = JSON.parse(window.jpp_6); } catch(e) {} }, 100);</script></div>",
