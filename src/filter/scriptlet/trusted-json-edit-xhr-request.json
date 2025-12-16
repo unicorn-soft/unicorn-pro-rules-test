@@ -5,7 +5,7 @@
         "desc": "XHR 요청 body JSON의 tjexr_ads1 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": [".tjexr_ads1"],
-        "target": "<div class='target'><script>window.tjexr_1=null;var xhr1=new XMLHttpRequest();xhr1.open('POST','/api/edit-xhr-request-1');xhr1.setRequestHeader('Content-Type','application/json');xhr1.onload=function(){try{window.tjexr_1=JSON.parse(xhr1.responseText);}catch(e){}};xhr1.send(JSON.stringify({tjexr_ads1:1,tjexr_content1:'keep',tjexr_tracking1:'seoul'}));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_1=null;var xhr1=new XMLHttpRequest();xhr1.open('POST','/api/edit-xhr-request-1');xhr1.setRequestHeader('Content-Type','application/json');xhr1.onload=function(){try{window.tjexr_1=JSON.parse(xhr1.responseText);}catch(e){}};xhr1.send(JSON.stringify({tjexr_ads1:1,tjexr_content1:'keep',tjexr_tracking1:'seoul'}));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_1:{\"tjexr_content1\":\"keep\",\"tjexr_tracking1\":\"seoul\"}"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "tjexr_tracking2 값을 'removed'로 변경합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["$.tjexr_tracking2=\"removed\""],
-        "target": "<div class='target'><script>window.tjexr_2=null;var xhr2=new XMLHttpRequest();xhr2.open('POST','/api/edit-xhr-request-2');xhr2.setRequestHeader('Content-Type','application/json');xhr2.onload=function(){try{window.tjexr_2=JSON.parse(xhr2.responseText);}catch(e){}};xhr2.send(JSON.stringify({tjexr_ads2:1,tjexr_tracking2:'orig',tjexr_content2:'keep'}));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_2=null;var xhr2=new XMLHttpRequest();xhr2.open('POST','/api/edit-xhr-request-2');xhr2.setRequestHeader('Content-Type','application/json');xhr2.onload=function(){try{window.tjexr_2=JSON.parse(xhr2.responseText);}catch(e){}};xhr2.send(JSON.stringify({tjexr_ads2:1,tjexr_tracking2:'orig',tjexr_content2:'keep'}));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_2:{\"tjexr_ads2\":1,\"tjexr_tracking2\":\"removed\",\"tjexr_content2\":\"keep\"}"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "tjexr_config 객체에 tjexr_newKey를 병합합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["$.tjexr_config+={\"tjexr_newKey\":\"value\"}"],
-        "target": "<div class='target'><script>window.tjexr_3=null;var xhr3=new XMLHttpRequest();xhr3.open('POST','/api/edit-xhr-request-3');xhr3.setRequestHeader('Content-Type','application/json');xhr3.onload=function(){try{window.tjexr_3=JSON.parse(xhr3.responseText);}catch(e){}};xhr3.send(JSON.stringify({tjexr_config:{tjexr_old:'keep'},tjexr_content3:'ok'}));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_3=null;var xhr3=new XMLHttpRequest();xhr3.open('POST','/api/edit-xhr-request-3');xhr3.setRequestHeader('Content-Type','application/json');xhr3.onload=function(){try{window.tjexr_3=JSON.parse(xhr3.responseText);}catch(e){}};xhr3.send(JSON.stringify({tjexr_config:{tjexr_old:'keep'},tjexr_content3:'ok'}));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_3:{\"tjexr_config\":{\"tjexr_old\":\"keep\",\"tjexr_newKey\":\"value\"},\"tjexr_content3\":\"ok\"}"
     },
     {
@@ -36,7 +36,7 @@
             "propstomatch",
             "url:/api/edit-xhr-request-4"
         ],
-        "target": "<div class='target'><script>window.tjexr_4=null;var xhr4=new XMLHttpRequest();xhr4.open('POST','/api/edit-xhr-request-4');xhr4.setRequestHeader('Content-Type','application/json');xhr4.onload=function(){try{window.tjexr_4=JSON.parse(xhr4.responseText);}catch(e){}};xhr4.send(JSON.stringify({tjexr_ads4:123,tjexr_content4:'keep',tjexr_tracking4:'seoul'}));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_4=null;var xhr4=new XMLHttpRequest();xhr4.open('POST','/api/edit-xhr-request-4');xhr4.setRequestHeader('Content-Type','application/json');xhr4.onload=function(){try{window.tjexr_4=JSON.parse(xhr4.responseText);}catch(e){}};xhr4.send(JSON.stringify({tjexr_ads4:123,tjexr_content4:'keep',tjexr_tracking4:'seoul'}));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_4:{\"tjexr_content4\":\"keep\",\"tjexr_tracking4\":\"seoul\"}"
     },
     {
@@ -45,7 +45,7 @@
         "desc": "tjexr_tracking5.tjexr_banner5 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": [".tjexr_tracking5.tjexr_banner5"],
-        "target": "<div class='target'><script>window.tjexr_5=null;var xhr5=new XMLHttpRequest();xhr5.open('POST','/api/edit-xhr-request-5');xhr5.setRequestHeader('Content-Type','application/json');xhr5.onload=function(){try{window.tjexr_5=JSON.parse(xhr5.responseText);}catch(e){}};xhr5.send(JSON.stringify({tjexr_tracking5:{tjexr_banner5:'seoul',tjexr_popup5:'kr'},tjexr_content5:'ok'}));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_5=null;var xhr5=new XMLHttpRequest();xhr5.open('POST','/api/edit-xhr-request-5');xhr5.setRequestHeader('Content-Type','application/json');xhr5.onload=function(){try{window.tjexr_5=JSON.parse(xhr5.responseText);}catch(e){}};xhr5.send(JSON.stringify({tjexr_tracking5:{tjexr_banner5:'seoul',tjexr_popup5:'kr'},tjexr_content5:'ok'}));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_5:{\"tjexr_tracking5\":{\"tjexr_popup5\":\"kr\"},\"tjexr_content5\":\"ok\"}"
     },
     {
@@ -54,7 +54,7 @@
         "desc": "배열 첫 요소의 tjexr_ads6를 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["$[0].tjexr_ads6"],
-        "target": "<div class='target'><script>window.tjexr_6=null;var xhr6=new XMLHttpRequest();xhr6.open('POST','/api/edit-xhr-request-6');xhr6.setRequestHeader('Content-Type','application/json');xhr6.onload=function(){try{window.tjexr_6=JSON.parse(xhr6.responseText);}catch(e){}};xhr6.send(JSON.stringify([{tjexr_ads6:1,tjexr_content6:'item1'},{tjexr_ads6:2,tjexr_content6:'item2'}]))</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_6=null;var xhr6=new XMLHttpRequest();xhr6.open('POST','/api/edit-xhr-request-6');xhr6.setRequestHeader('Content-Type','application/json');xhr6.onload=function(){try{window.tjexr_6=JSON.parse(xhr6.responseText);}catch(e){}};xhr6.send(JSON.stringify([{tjexr_ads6:1,tjexr_content6:'item1'},{tjexr_ads6:2,tjexr_content6:'item2'}]))</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_6:[{\"tjexr_content6\":\"item1\"},{\"tjexr_ads6\":2,\"tjexr_content6\":\"item2\"}]"
     },
     {
@@ -63,7 +63,7 @@
         "desc": "모든 depth의 tjexr_tracking7 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["..tjexr_tracking7"],
-        "target": "<div class='target'><script>window.tjexr_7=null;var xhr7=new XMLHttpRequest();xhr7.open('POST','/api/edit-xhr-request-7');xhr7.setRequestHeader('Content-Type','application/json');xhr7.onload=function(){try{window.tjexr_7=JSON.parse(xhr7.responseText);}catch(e){}};xhr7.send(JSON.stringify({tjexr_ads7:1,tjexr_tracking7:'top',tjexr_nested:{tjexr_tracking7:'nested',tjexr_content7:'ok'},tjexr_content7:'ok'}));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_7=null;var xhr7=new XMLHttpRequest();xhr7.open('POST','/api/edit-xhr-request-7');xhr7.setRequestHeader('Content-Type','application/json');xhr7.onload=function(){try{window.tjexr_7=JSON.parse(xhr7.responseText);}catch(e){}};xhr7.send(JSON.stringify({tjexr_ads7:1,tjexr_tracking7:'top',tjexr_nested:{tjexr_tracking7:'nested',tjexr_content7:'ok'},tjexr_content7:'ok'}));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_7:{\"tjexr_ads7\":1,\"tjexr_nested\":{\"tjexr_content7\":\"ok\"},\"tjexr_content7\":\"ok\"}"
     },
     {
@@ -72,7 +72,7 @@
         "desc": "배열 모든 요소에서 tjexr_ads8을 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["$[*].tjexr_ads8"],
-        "target": "<div class='target'><script>window.tjexr_8=null;var xhr8=new XMLHttpRequest();xhr8.open('POST','/api/edit-xhr-request-8');xhr8.setRequestHeader('Content-Type','application/json');xhr8.onload=function(){try{window.tjexr_8=JSON.parse(xhr8.responseText);}catch(e){}};xhr8.send(JSON.stringify([{tjexr_ads8:1,tjexr_content8:'a'},{tjexr_ads8:2,tjexr_content8:'b'},{tjexr_ads8:3,tjexr_content8:'c'}]))</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_8=null;var xhr8=new XMLHttpRequest();xhr8.open('POST','/api/edit-xhr-request-8');xhr8.setRequestHeader('Content-Type','application/json');xhr8.onload=function(){try{window.tjexr_8=JSON.parse(xhr8.responseText);}catch(e){}};xhr8.send(JSON.stringify([{tjexr_ads8:1,tjexr_content8:'a'},{tjexr_ads8:2,tjexr_content8:'b'},{tjexr_ads8:3,tjexr_content8:'c'}]))</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_8:[{\"tjexr_content8\":\"a\"},{\"tjexr_content8\":\"b\"},{\"tjexr_content8\":\"c\"}]"
     },
     {
@@ -81,7 +81,7 @@
         "desc": "배열의 마지막 요소(-1)에서 tjexr_ads9를 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["$[-1].tjexr_ads9"],
-        "target": "<div class='target'><script>window.tjexr_9=null;var xhr9=new XMLHttpRequest();xhr9.open('POST','/api/edit-xhr-request-9');xhr9.setRequestHeader('Content-Type','application/json');xhr9.onload=function(){try{window.tjexr_9=JSON.parse(xhr9.responseText);}catch(e){}};xhr9.send(JSON.stringify([{tjexr_ads9:1,tjexr_content9:'first'},{tjexr_ads9:2,tjexr_content9:'second'},{tjexr_ads9:3,tjexr_content9:'last'}]))</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_9=null;var xhr9=new XMLHttpRequest();xhr9.open('POST','/api/edit-xhr-request-9');xhr9.setRequestHeader('Content-Type','application/json');xhr9.onload=function(){try{window.tjexr_9=JSON.parse(xhr9.responseText);}catch(e){}};xhr9.send(JSON.stringify([{tjexr_ads9:1,tjexr_content9:'first'},{tjexr_ads9:2,tjexr_content9:'second'},{tjexr_ads9:3,tjexr_content9:'last'}]))</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_9:[{\"tjexr_ads9\":1,\"tjexr_content9\":\"first\"},{\"tjexr_ads9\":2,\"tjexr_content9\":\"second\"},{\"tjexr_content9\":\"last\"}]"
     },
     {
@@ -90,7 +90,7 @@
         "desc": "배열 모든 요소의 tjexr_enabled를 'false' 문자열로 설정합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["$[*].tjexr_enabled=\"false\""],
-        "target": "<div class='target'><script>window.tjexr_10=null;var xhr10=new XMLHttpRequest();xhr10.open('POST','/api/edit-xhr-request-10');xhr10.setRequestHeader('Content-Type','application/json');xhr10.onload=function(){try{window.tjexr_10=JSON.parse(xhr10.responseText);}catch(e){}};xhr10.send(JSON.stringify([{tjexr_id:1,tjexr_enabled:true},{tjexr_id:2,tjexr_enabled:true},{tjexr_id:3,tjexr_enabled:true}]))</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_10=null;var xhr10=new XMLHttpRequest();xhr10.open('POST','/api/edit-xhr-request-10');xhr10.setRequestHeader('Content-Type','application/json');xhr10.onload=function(){try{window.tjexr_10=JSON.parse(xhr10.responseText);}catch(e){}};xhr10.send(JSON.stringify([{tjexr_id:1,tjexr_enabled:true},{tjexr_id:2,tjexr_enabled:true},{tjexr_id:3,tjexr_enabled:true}]))</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_10:[{\"tjexr_id\":1,\"tjexr_enabled\":\"false\"},{\"tjexr_id\":2,\"tjexr_enabled\":\"false\"},{\"tjexr_id\":3,\"tjexr_enabled\":\"false\"}]"
     },
     {
@@ -101,7 +101,7 @@
         "scriptletParams": [
             "$.tjexr_data.tjexr_items[0].tjexr_config.tjexr_ads14"
         ],
-        "target": "<div class='target'><script>window.tjexr_11=null;var xhr11=new XMLHttpRequest();xhr11.open('POST','/api/edit-xhr-request-11');xhr11.setRequestHeader('Content-Type','application/json');xhr11.onload=function(){try{window.tjexr_11=JSON.parse(xhr11.responseText);}catch(e){}};xhr11.send(JSON.stringify({tjexr_data:{tjexr_items:[{tjexr_config:{tjexr_ads14:1,tjexr_content14:'keep'}},{tjexr_config:{tjexr_ads14:2,tjexr_content14:'keep2'}}]}}))</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_11=null;var xhr11=new XMLHttpRequest();xhr11.open('POST','/api/edit-xhr-request-11');xhr11.setRequestHeader('Content-Type','application/json');xhr11.onload=function(){try{window.tjexr_11=JSON.parse(xhr11.responseText);}catch(e){}};xhr11.send(JSON.stringify({tjexr_data:{tjexr_items:[{tjexr_config:{tjexr_ads14:1,tjexr_content14:'keep'}},{tjexr_config:{tjexr_ads14:2,tjexr_content14:'keep2'}}]}}))</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_11:{\"tjexr_data\":{\"tjexr_items\":[{\"tjexr_config\":{\"tjexr_content14\":\"keep\"}},{\"tjexr_config\":{\"tjexr_ads14\":2,\"tjexr_content14\":\"keep2\"}}]}}"
     },
     {
@@ -110,7 +110,7 @@
         "desc": "[?.tjexr_hasKey] 존재 시 tjexr_targetKey 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["[?.tjexr_hasKey].tjexr_targetKey"],
-        "target": "<div class='target'><script>window.tjexr_12=null;var xhr12=new XMLHttpRequest();xhr12.open('POST','/api/edit-xhr-request-12');xhr12.setRequestHeader('Content-Type','application/json');xhr12.onload=function(){try{window.tjexr_12=JSON.parse(xhr12.responseText);}catch(e){}};xhr12.send(JSON.stringify({ tjexr_hasKey: true, tjexr_targetKey: 'deleteMe', tjexr_keep: 'me' }));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_12=null;var xhr12=new XMLHttpRequest();xhr12.open('POST','/api/edit-xhr-request-12');xhr12.setRequestHeader('Content-Type','application/json');xhr12.onload=function(){try{window.tjexr_12=JSON.parse(xhr12.responseText);}catch(e){}};xhr12.send(JSON.stringify({ tjexr_hasKey: true, tjexr_targetKey: 'deleteMe', tjexr_keep: 'me' }));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_12:{\"tjexr_hasKey\":true,\"tjexr_keep\":\"me\"}"
     },
     {
@@ -119,7 +119,7 @@
         "desc": "[?.tjexr_type^='target'] 일치 시 tjexr_data 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": ["[?.tjexr_type^='target'].tjexr_data"],
-        "target": "<div class='target'><script>window.tjexr_13=null;var xhr13=new XMLHttpRequest();xhr13.open('POST','/api/edit-xhr-request-13');xhr13.setRequestHeader('Content-Type','application/json');xhr13.onload=function(){try{window.tjexr_13=JSON.parse(xhr13.responseText);}catch(e){}};xhr13.send(JSON.stringify({ tjexr_type: 'target', tjexr_data: 'deleteMe', tjexr_keep: 'me' }));</script>요청 결과: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.tjexr_13=null;var xhr13=new XMLHttpRequest();xhr13.open('POST','/api/edit-xhr-request-13');xhr13.setRequestHeader('Content-Type','application/json');xhr13.onload=function(){try{window.tjexr_13=JSON.parse(xhr13.responseText);}catch(e){}};xhr13.send(JSON.stringify({ tjexr_type: 'target', tjexr_data: 'deleteMe', tjexr_keep: 'me' }));</script>요청 결과: <span class='status'>대기중</span><br></div>",
         "verification": "jsonEquals:window.tjexr_13:{\"tjexr_type\":\"target\",\"tjexr_keep\":\"me\"}"
     },
     {

@@ -5,7 +5,7 @@
         "desc": "XHR 응답에서 중첩된 jpxr_tracking1.banner1 속성 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_tracking1.banner1"],
-        "target": "<div class='target'><script>window.jpxr_1 = null; const xhr1 = new XMLHttpRequest(); xhr1.open('GET', '/api/data1'); xhr1.responseType = 'json'; xhr1.onload = function() { if (xhr1.readyState === 4 && xhr1.status === 200) { try { window.jpxr_1 = xhr1.response; } catch(e) {} } }; xhr1.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_1 = null; const xhr1 = new XMLHttpRequest(); xhr1.open('GET', '/api/data1'); xhr1.responseType = 'json'; xhr1.onload = function() { if (xhr1.readyState === 4 && xhr1.status === 200) { try { window.jpxr_1 = xhr1.response; } catch(e) {} } }; xhr1.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_1:{\"jpxr_ads1\":1,\"jpxr_tracking1\":{\"popup1\":\"kr\"}}"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "jpxr_ads2가 존재할 때만 jpxr_tracking2.banner2 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_tracking2.banner2", "jpxr_ads2"],
-        "target": "<div class='target'><script>window.jpxr_2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/data2'); xhr2.responseType = 'json'; xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { try { window.jpxr_2 = xhr2.response; } catch(e) {} } }; xhr2.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/data2'); xhr2.responseType = 'json'; xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { try { window.jpxr_2 = xhr2.response; } catch(e) {} } }; xhr2.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_2:{\"jpxr_ads2\":1,\"jpxr_tracking2\":{\"popup2\":\"kr\"},\"jpxr_content2\":\"test\"}"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "XHR 응답에서 배열의 모든 요소에서 jpxr_tracking3 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["[].jpxr_tracking3"],
-        "target": "<div class='target'><script>window.jpxr_3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('GET', '/api/data3'); xhr3.responseType = 'json'; xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { try { window.jpxr_3 = xhr3.response; } catch(e) {} } }; xhr3.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('GET', '/api/data3'); xhr3.responseType = 'json'; xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { try { window.jpxr_3 = xhr3.response; } catch(e) {} } }; xhr3.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_3:[{\"jpxr_ads3\":1},{\"jpxr_ads3\":2}]"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "XHR 응답에서 jpxr_tracking4 하위 모든 객체의 ads4 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_tracking4.*.ads4"],
-        "target": "<div class='target'><script>window.jpxr_4 = null; const xhr4 = new XMLHttpRequest(); xhr4.open('GET', '/api/data4'); xhr4.responseType = 'json'; xhr4.onload = function() { if (xhr4.readyState === 4 && xhr4.status === 200) { try { window.jpxr_4 = xhr4.response; } catch(e) {} } }; xhr4.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_4 = null; const xhr4 = new XMLHttpRequest(); xhr4.open('GET', '/api/data4'); xhr4.responseType = 'json'; xhr4.onload = function() { if (xhr4.readyState === 4 && xhr4.status === 200) { try { window.jpxr_4 = xhr4.response; } catch(e) {} } }; xhr4.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_4:{\"jpxr_tracking4\":{\"video4\":{\"content4\":\"집\"},\"display4\":{\"content4\":\"회사\"}}}"
     },
     {
@@ -46,7 +46,7 @@
             "propsToMatch",
             "url:/api/data5"
         ],
-        "target": "<div class='target'><script>window.jpxr_5 = null; const xhr5 = new XMLHttpRequest(); xhr5.open('GET', '/api/data5'); xhr5.responseType = 'json'; xhr5.onload = function() { if (xhr5.readyState === 4 && xhr5.status === 200) { try { window.jpxr_5 = xhr5.response; } catch(e) {} } }; xhr5.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_5 = null; const xhr5 = new XMLHttpRequest(); xhr5.open('GET', '/api/data5'); xhr5.responseType = 'json'; xhr5.onload = function() { if (xhr5.readyState === 4 && xhr5.status === 200) { try { window.jpxr_5 = xhr5.response; } catch(e) {} } }; xhr5.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_5:{\"jpxr_content5\":\"test\"}"
     },
     {
@@ -55,7 +55,7 @@
         "desc": "XHR 응답 배열에서 조건 매칭 요소 제거 후 popup6 속성 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_ads6.[-].banner6 jpxr_ads6.*.popup6"],
-        "target": "<div class='target'><script>window.jpxr_6 = null; const xhr6 = new XMLHttpRequest(); xhr6.open('GET', '/api/data6'); xhr6.responseType = 'json'; xhr6.onload = function() { if (xhr6.readyState === 4 && xhr6.status === 200) { try { window.jpxr_6 = xhr6.response; } catch(e) {} } }; xhr6.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_6 = null; const xhr6 = new XMLHttpRequest(); xhr6.open('GET', '/api/data6'); xhr6.responseType = 'json'; xhr6.onload = function() { if (xhr6.readyState === 4 && xhr6.status === 200) { try { window.jpxr_6 = xhr6.response; } catch(e) {} } }; xhr6.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_6:{\"jpxr_ads6\":[{\"id6\":2,\"video6\":\"play\"}]}"
     },
     {
@@ -64,7 +64,7 @@
         "desc": "URL 접두어 없이 경로만 매칭해 jpxr_ads7 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_ads7", "", "propsToMatch", "/api/data7"],
-        "target": "<div class='target'><script>window.jpxr_7 = null; const xhr7 = new XMLHttpRequest(); xhr7.open('GET', '/api/data7'); xhr7.responseType = 'json'; xhr7.onload = function() { if (xhr7.readyState === 4 && xhr7.status === 200) { try { window.jpxr_7 = xhr7.response; } catch(e) {} } }; xhr7.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_7 = null; const xhr7 = new XMLHttpRequest(); xhr7.open('GET', '/api/data7'); xhr7.responseType = 'json'; xhr7.onload = function() { if (xhr7.readyState === 4 && xhr7.status === 200) { try { window.jpxr_7 = xhr7.response; } catch(e) {} } }; xhr7.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_7:{\"jpxr_content7\":\"keep\",\"jpxr_tracking7\":\"seoul\"}"
     },
     {
@@ -73,7 +73,7 @@
         "desc": "POST 요청(method:POST)일 때만 jpxr_ads8 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_ads8", "", "propsToMatch", "method:POST"],
-        "target": "<div class='target'><script>window.jpxr_8 = null; const xhr8 = new XMLHttpRequest(); xhr8.open('POST', '/api/data8'); xhr8.responseType = 'json'; xhr8.onload = function() { if (xhr8.readyState === 4 && xhr8.status === 200) { try { window.jpxr_8 = xhr8.response; } catch(e) {} } }; xhr8.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_8 = null; const xhr8 = new XMLHttpRequest(); xhr8.open('POST', '/api/data8'); xhr8.responseType = 'json'; xhr8.onload = function() { if (xhr8.readyState === 4 && xhr8.status === 200) { try { window.jpxr_8 = xhr8.response; } catch(e) {} } }; xhr8.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_8:{\"jpxr_content8\":\"keep\",\"jpxr_tracking8\":\"kr\"}"
     },
     {
@@ -82,7 +82,7 @@
         "desc": "초기에 /api/skip으로 조건 불일치 응답을 보고, 버튼 클릭 시 /api/data9로 광고 제거 여부를 확인",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_ads9", "", "propsToMatch", "url:!/api/skip"],
-        "target": "<div class='target'><div class='compare'><div>/api/skip 결과(광고 유지 예상):<span class='status'>대기중</span><br><pre class='json-result' id='jpxr_9_skip'></pre></div><div>/api/data9 결과(버튼 클릭):<span class='status'>대기중</span><br><pre class='json-result' id='jpxr_9_data9'></pre></div></div><script>window.jpxr_9=null;window.jpxr_9_skip=null;(function(){const preData9=document.getElementById('jpxr_9_data9');const preSkip=document.getElementById('jpxr_9_skip');const btn=document.getElementById('jpxr_9_btn');const loadSkip=()=>{const xhr=new XMLHttpRequest();xhr.open('GET','/api/skip');xhr.responseType='json';xhr.onload=()=>{if(xhr.readyState===4&&xhr.status===200){try{window.jpxr_9_skip=xhr.response;preSkip.textContent=JSON.stringify(window.jpxr_9_skip);}catch(e){}}};xhr.send();};const loadData9=()=>{const xhr=new XMLHttpRequest();xhr.open('GET','/api/data9');xhr.responseType='json';xhr.onload=()=>{if(xhr.readyState===4&&xhr.status===200){try{window.jpxr_9=xhr.response;preData9.textContent=JSON.stringify(window.jpxr_9);}catch(e){}}};xhr.send();};if(btn){btn.addEventListener('click',loadData9);}loadSkip();})();</script></div>",
+        "target": "<div class='target'><div class='compare'><div>/api/skip 결과(광고 유지 예상):<span class='status'>대기중</span></div><div>/api/data9 결과(버튼 클릭):<span class='status'>대기중</span></div></div><script>window.jpxr_9=null;window.jpxr_9_skip=null;(function(){const btn=document.getElementById('jpxr_9_btn');const loadSkip=()=>{const xhr=new XMLHttpRequest();xhr.open('GET','/api/skip');xhr.responseType='json';xhr.onload=()=>{if(xhr.readyState===4&&xhr.status===200){try{window.jpxr_9_skip=xhr.response;}catch(e){}}};xhr.send();};const loadData9=()=>{const xhr=new XMLHttpRequest();xhr.open('GET','/api/data9');xhr.responseType='json';xhr.onload=()=>{if(xhr.readyState===4&&xhr.status===200){try{window.jpxr_9=xhr.response;}catch(e){}}};xhr.send();};if(btn){btn.addEventListener('click',()=>{window.jpxr_9=null;window.__jpxr9_resetPolling=true;if(Array.isArray(window.__jpxr9_restartList)){window.__jpxr9_restartList.forEach(fn=>{try{fn();}catch(e){}});}loadData9();},{once:true});}loadSkip();})();</script></div>",
         "verification": "jsonEquals:window.jpxr_9:{\"jpxr_content9\":\"keep\",\"jpxr_tracking9\":\"ok\"}"
     },
     {
@@ -91,7 +91,7 @@
         "desc": "URL 정규식(/data10$/) 매칭 시 jpxr_ads10 제거",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_ads10", "", "propsToMatch", "url:/data10$/"],
-        "target": "<div class='target'><script>window.jpxr_10 = null; const xhr10 = new XMLHttpRequest(); xhr10.open('GET', '/api/data10'); xhr10.responseType = 'json'; xhr10.onload = function() { if (xhr10.readyState === 4 && xhr10.status === 200) { try { window.jpxr_10 = xhr10.response; } catch(e) {} } }; xhr10.send();</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.jpxr_10 = null; const xhr10 = new XMLHttpRequest(); xhr10.open('GET', '/api/data10'); xhr10.responseType = 'json'; xhr10.onload = function() { if (xhr10.readyState === 4 && xhr10.status === 200) { try { window.jpxr_10 = xhr10.response; } catch(e) {} } }; xhr10.send();</script></div>",
         "verification": "jsonEquals:window.jpxr_10:{\"jpxr_content10\":\"keep\",\"jpxr_tracking10\":\"ok\"}"
     }
 ]

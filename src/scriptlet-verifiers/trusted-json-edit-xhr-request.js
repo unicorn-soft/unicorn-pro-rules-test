@@ -17,13 +17,6 @@ export function verifyTrustedJsonEditXhrRequest(
         expected = expectedRaw;
     }
 
-    const updateUI = (actualValue) => {
-        const jsonResultEl = targetEl.querySelector('.json-result');
-        if (jsonResultEl && actualValue !== undefined) {
-            jsonResultEl.textContent = JSON.stringify(actualValue, null, 2);
-        }
-    };
-
     const deepEqual = (a, b) => {
         if (a === b) return true;
         if (typeof a !== typeof b) return false;
@@ -51,8 +44,6 @@ export function verifyTrustedJsonEditXhrRequest(
         try {
             const actualValue = eval(target);
             if (actualValue === null || actualValue === undefined) return false;
-
-            updateUI(actualValue);
 
             if (type === 'jsonEquals') {
                 if (!deepEqual(actualValue, expected)) return false;

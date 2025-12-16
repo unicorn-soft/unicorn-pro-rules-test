@@ -5,7 +5,7 @@
         "desc": "DIV 노드에서 'ads' 텍스트가 포함된 경우 전체 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "rnt_ads"],
-        "target": "<div class='target'><script>window.removeNodeTextData1 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has rnt_ads content';container.appendChild(el);var update=function(){window.removeNodeTextData1=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData1 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has rnt_ads content';container.appendChild(el);var update=function(){window.removeNodeTextData1=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData1"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "DIV 노드에서 'ads-alias' 텍스트가 포함된 경우 전체 텍스트 제거",
         "scriptlet": "rmnt",
         "scriptletParams": ["DIV", "rnt_ads-alias"],
-        "target": "<div class='target'><script>window.removeNodeTextData1alias = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has rnt_ads-alias content';container.appendChild(el);var update=function(){window.removeNodeTextData1alias=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData1alias = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has rnt_ads-alias content';container.appendChild(el);var update=function(){window.removeNodeTextData1alias=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData1alias"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "SPAN 노드에서 정규식 패턴(/track.*/)에 매칭되는 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["SPAN", "/rnt_track.*/"],
-        "target": "<div class='target'><script>window.removeNodeTextData2 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('span');el.textContent='This has rnt_tracking code';container.appendChild(el);var update=function(){window.removeNodeTextData2=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData2 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('span');el.textContent='This has rnt_tracking code';container.appendChild(el);var update=function(){window.removeNodeTextData2=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData2"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "P 노드에서 'promo'가 있고 'special'이 포함된 경우만 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["P", "rnt_promo", "INCLUDES", "rnt_special"],
-        "target": "<div class='target'><script>window.removeNodeTextData3 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('p');el.textContent='rnt_special rnt_promo code';container.appendChild(el);var update=function(){window.removeNodeTextData3=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData3 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('p');el.textContent='rnt_special rnt_promo code';container.appendChild(el);var update=function(){window.removeNodeTextData3=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData3"
     },
     {
@@ -41,7 +41,7 @@
         "desc": "B 노드에서 'remove' 텍스트를 1회만 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["B", "rnt_remove", "SEDCOUNT", 1],
-        "target": "<div class='target'><script>window.removeNodeTextData4 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('b');el.textContent='rnt_remove this text';container.appendChild(el);var el2=null;var update=function(){window.removeNodeTextData4=el.textContent + (el2 ? '|' + el2.textContent : '');};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el2=document.createElement('b');el2.textContent='rnt_remove again';container.appendChild(el2);update=function(){window.removeNodeTextData4=el.textContent + '|' + el2.textContent;};update();var mo2=new MutationObserver(function(){update();mo2.disconnect();});mo2.observe(el2,{characterData:true,subtree:true,childList:true});},200);}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData4 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('b');el.textContent='rnt_remove this text';container.appendChild(el);var el2=null;var update=function(){window.removeNodeTextData4=el.textContent + (el2 ? '|' + el2.textContent : '');};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el2=document.createElement('b');el2.textContent='rnt_remove again';container.appendChild(el2);update=function(){window.removeNodeTextData4=el.textContent + '|' + el2.textContent;};update();var mo2=new MutationObserver(function(){update();mo2.disconnect();});mo2.observe(el2,{characterData:true,subtree:true,childList:true});},200);}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData4:|rnt_remove again"
     },
     {
@@ -50,7 +50,7 @@
         "desc": "DIV 노드에서 'skip'이 없을 때만 'remove' 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "rnt_remove", "EXCLUDES", "rnt_skip"],
-        "target": "<div class='target'><script>window.removeNodeTextData5 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='rnt_remove this content ready';container.appendChild(el);var update=function(){window.removeNodeTextData5=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData5 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='rnt_remove this content ready';container.appendChild(el);var update=function(){window.removeNodeTextData5=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData5:"
     },
     {
@@ -59,7 +59,7 @@
         "desc": "변경이 늦게 일어나도 제거 유지(stay)",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "rnt_Later", "STAY", "1"],
-        "target": "<div class='target'><script>window.removeNodeTextData6 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='rnt_Later change pending';container.appendChild(el);var update=function(){window.removeNodeTextData6=el.textContent;};update();var mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='rnt_Later arrived';if(el.parentNode){var parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData6 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='rnt_Later change pending';container.appendChild(el);var update=function(){window.removeNodeTextData6=el.textContent;};update();var mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='rnt_Later arrived';if(el.parentNode){var parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData6:"
     },
     {
@@ -68,7 +68,7 @@
         "desc": "DOMContentLoaded 후 감시 종료(quitAfter)로 늦은 변경은 제거 안됨",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "rnt_Later", "QUITAFTER", "100"],
-        "target": "<div class='target'><script>window.removeNodeTextData7 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='rnt_Later change pending';container.appendChild(el);var mo=new MutationObserver(function(){window.removeNodeTextData7=el.textContent;mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el.textContent='rnt_Later arrived';},500);}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData7 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='rnt_Later change pending';container.appendChild(el);var mo=new MutationObserver(function(){window.removeNodeTextData7=el.textContent;mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el.textContent='rnt_Later arrived';},500);}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData7:"
     },
     {
@@ -86,7 +86,7 @@
             "QUITAFTER",
             "50"
         ],
-        "target": "<div class='target'><script>window.removeNodeTextData8 = null;(function(){var container=document.currentScript.parentElement;var first=document.createElement('div');first.textContent='rnt_priority first';container.appendChild(first);var second=null;var update=function(){window.removeNodeTextData8=first.textContent+(second?'|'+second.textContent:'');};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(first,{characterData:true,subtree:true,childList:true});setTimeout(function(){second=document.createElement('div');second.textContent='rnt_priority second';container.appendChild(second);update=function(){window.removeNodeTextData8=first.textContent+'|'+second.textContent;};update();var mo2=new MutationObserver(function(){update();mo2.disconnect();});mo2.observe(second,{characterData:true,subtree:true,childList:true});},250);}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData8 = null;(function(){var container=document.currentScript.parentElement;var first=document.createElement('div');first.textContent='rnt_priority first';container.appendChild(first);var second=null;var update=function(){window.removeNodeTextData8=first.textContent+(second?'|'+second.textContent:'');};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(first,{characterData:true,subtree:true,childList:true});setTimeout(function(){second=document.createElement('div');second.textContent='rnt_priority second';container.appendChild(second);update=function(){window.removeNodeTextData8=first.textContent+'|'+second.textContent;};update();var mo2=new MutationObserver(function(){update();mo2.disconnect();});mo2.observe(second,{characterData:true,subtree:true,childList:true});},250);}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData8:|rnt_priority second"
     },
     {
@@ -102,7 +102,7 @@
             "QUITAFTER",
             "10"
         ],
-        "target": "<div class='target'><script>window.removeNodeTextData9 = null;(function(){var container=document.currentScript.parentElement;window.removeNodeTextData9='value:NOT_ADDED';setTimeout(function(){var el=document.createElement('div');el.textContent='rnt_stay_late appears';container.appendChild(el);var mo=new MutationObserver(function(){window.removeNodeTextData9='value:'+el.textContent;mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});window.removeNodeTextData9='value:'+el.textContent;},200);}())</script><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData9 = null;(function(){var container=document.currentScript.parentElement;window.removeNodeTextData9='value:NOT_ADDED';setTimeout(function(){var el=document.createElement('div');el.textContent='rnt_stay_late appears';container.appendChild(el);var mo=new MutationObserver(function(){window.removeNodeTextData9='value:'+el.textContent;mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});window.removeNodeTextData9='value:'+el.textContent;},200);}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData9:value:"
     }
 ]
