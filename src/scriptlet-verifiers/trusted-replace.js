@@ -1,9 +1,13 @@
+import { runWithPolling } from './polling.js';
+import { createOnceLogger } from './logger.js';
+
 export function verifyTrustedReplaceBase(
     targetEl,
     verification,
     parentBox,
     { logLabel = 'trusted-replace' } = {}
 ) {
+    const logger = createOnceLogger(`[${logLabel}]`);
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
@@ -14,9 +18,7 @@ export function verifyTrustedReplaceBase(
             const actualValue = eval(target);
             if (actualValue === null || actualValue === undefined) return false;
 
-            if (actualValue !== undefined) {
-                console.log(`[${logLabel}] value:`, actualValue);
-            }
+            logger.logInitial(actualValue);
 
             let isMatch = false;
             switch (type) {
@@ -30,6 +32,7 @@ export function verifyTrustedReplaceBase(
             }
 
             if (isMatch) {
+                logger.logSuccess(actualValue);
                 parentBox.setAttribute('success', '');
                 return true;
             }
@@ -37,11 +40,5 @@ export function verifyTrustedReplaceBase(
         return false;
     };
 
-    if (runCheck()) return;
-
-    const checkInterval = setInterval(() => {
-        if (runCheck()) clearInterval(checkInterval);
-    }, 100);
-
-    setTimeout(() => clearInterval(checkInterval), 10000);
+    runWithPolling(runCheck);
 }

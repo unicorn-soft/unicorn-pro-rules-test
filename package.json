@@ -2,12 +2,12 @@
   "name": "unicorn-pro-rules-test",
   "version": "1.0.3",
   "author": "Somfist",
-  "scripts": {
-    "dev": "npx msw init public/ && webpack serve --mode development",
-    "build": "npx msw init public/ && webpack --mode production",
-    "deploy": "npm run build && npx gh-pages -d dist",
-    "format": "prettier --write ."
-  },
+    "scripts": {
+        "dev": "npx msw init public/ --save && webpack serve --mode development",
+        "build": "npx msw init public/ --save && webpack --mode production",
+        "deploy": "npm run build && npx gh-pages -d dist",
+        "format": "prettier --write ."
+    },
   "devDependencies": {
     "copy-webpack-plugin": "^13.0.1",
     "css-loader": "^7.1.2",
