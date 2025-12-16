@@ -25,6 +25,8 @@ async function enableMocking() {
     const currentCase = testCase[type];
     if (Array.isArray(currentCase) === false) return;
 
+    renderRulesCopy(type, currentCase);
+
     const buildPage = () => {
         currentCase.forEach((c) => createTestSection(c, type));
     };
@@ -59,6 +61,80 @@ async function enableMocking() {
         });
     }
 })();
+
+function renderRulesCopy(type, currentCase) {
+    if (!Array.isArray(currentCase) || currentCase.length === 0) return;
+
+    const rules = [`! type : ${type}`];
+    currentCase.forEach((c) => {
+        const ruleString = createRuleString(c);
+        if (ruleString) rules.push(ruleString);
+    });
+    const rulesText = rules.join('\n');
+
+    const section = document.createElement('section');
+    section.className = 'rules-copy-section';
+
+    const title = document.createElement('h1');
+    title.className = 'copy-title';
+    title.textContent = `${type} 규칙 복사`;
+
+    const desc = document.createElement('p');
+    desc.className = 'copy-desc';
+    desc.textContent =
+        '이 페이지에 포함된 모든 테스트 규칙을 확인하고 복사할 수 있습니다.';
+
+    const buttons = document.createElement('div');
+    buttons.className = 'buttons';
+
+    const toggleButton = document.createElement('button');
+    toggleButton.type = 'button';
+    toggleButton.textContent = '모두보기';
+
+    const copyButton = document.createElement('button');
+    copyButton.type = 'button';
+    copyButton.textContent = '복사하기';
+
+    buttons.appendChild(toggleButton);
+    buttons.appendChild(copyButton);
+
+    const rulesContainer = document.createElement('div');
+    rulesContainer.className = 'rules-container';
+    const pre = document.createElement('pre');
+    pre.textContent = rulesText;
+    rulesContainer.appendChild(pre);
+
+    let isOpen = false;
+    toggleButton.addEventListener('click', () => {
+        isOpen = !isOpen;
+        if (isOpen) {
+            rulesContainer.classList.add('open');
+            toggleButton.textContent = '숨기기';
+        } else {
+            rulesContainer.classList.remove('open');
+            toggleButton.textContent = '모두보기';
+        }
+    });
+
+    if (navigator && navigator.clipboard) {
+        copyButton.addEventListener('click', () => {
+            const textToCopy = rulesText.trim();
+            navigator.clipboard
+                .writeText(textToCopy)
+                .then(() => {
+                    alert('규칙이 복사되었습니다!');
+                })
+                .catch((err) => {});
+        });
+    }
+
+    section.appendChild(title);
+    section.appendChild(desc);
+    section.appendChild(buttons);
+    section.appendChild(rulesContainer);
+
+    document.body.insertBefore(section, document.body.firstChild);
+}
 
 function createTestSection(
     {

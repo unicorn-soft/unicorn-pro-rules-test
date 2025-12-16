@@ -13,15 +13,42 @@ section {
     align-items: center;
 }
 
+.rules-copy-section .title {
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
 .title h1 {
     margin: 0;
     font-size: 1.25rem;
+}
+
+.rules-copy-section .description {
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .description {
     margin: 1rem 0;
     font-size: 0.9rem;
     color: #333;
+}
+
+.copy-title {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.copy-desc {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
 }
 
 .content-row {
@@ -83,4 +110,32 @@ code,
 
 .filter-code {
     cursor: pointer;
+}
+
+.rules-container {
+    display: none;
+    overflow: auto;
+    margin-top: 0.5rem;
+}
+
+.rules-container.open {
+    display: block;
+}
+
+.rules-container pre {
+    margin: 0;
+    font-size: 0.9rem;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    overflow: auto;
+    white-space: pre;
+}
+
+pre,
+.rules-container pre {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
