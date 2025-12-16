@@ -1,3 +1,5 @@
+import { runWithPolling } from './polling.js';
+
 export function verifyTrustedJsonEditXhrRequest(
     targetEl,
     verification,
@@ -66,13 +68,5 @@ export function verifyTrustedJsonEditXhrRequest(
         return false;
     };
 
-    if (check()) return;
-
-    const interval = setInterval(() => {
-        if (check()) {
-            clearInterval(interval);
-        }
-    }, 100);
-
-    setTimeout(() => clearInterval(interval), 10000);
+    runWithPolling(check);
 }

@@ -1,3 +1,5 @@
+import { runWithPolling } from './polling.js';
+
 export function verifyRemoveNodeText(targetEl, verification, parentBox) {
     const parts = verification.split(':');
     const type = parts[0];
@@ -33,20 +35,5 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
         return false;
     };
 
-    if (runCheck()) return;
-
-    const checkInterval = setInterval(() => {
-        try {
-            const actualValue = eval(target);
-            if (actualValue === null || actualValue === undefined) return;
-
-            updateUI(actualValue);
-            if (checkMatch(actualValue)) {
-                parentBox.setAttribute('success', '');
-                clearInterval(checkInterval);
-            }
-        } catch (e) {}
-    }, 100);
-
-    setTimeout(() => clearInterval(checkInterval), 10000);
+    runWithPolling(runCheck);
 }

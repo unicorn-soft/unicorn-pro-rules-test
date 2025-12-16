@@ -1,4 +1,5 @@
 import { noXhrIfMockResponses } from '../mocks/handlers.js';
+import { runWithPolling } from './polling.js';
 
 const targetToPath = {
     'window.nxif_noXhrIfTestData1': '/api/block1',
@@ -125,20 +126,5 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
         return false;
     };
 
-    if (runCheck()) return;
-
-    const checkInterval = setInterval(() => {
-        try {
-            const actualValue = eval(target);
-            if (actualValue === null || actualValue === undefined) return;
-
-            updateUI(actualValue);
-            if (checkMatch(actualValue)) {
-                parentBox.setAttribute('success', '');
-                clearInterval(checkInterval);
-            }
-        } catch (e) {}
-    }, 100);
-
-    setTimeout(() => clearInterval(checkInterval), 10000);
+    runWithPolling(runCheck);
 }

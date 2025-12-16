@@ -1,14 +1,12 @@
+import { runWithPolling } from './polling.js';
+import { createOnceLogger } from './logger.js';
+
 export function verifyJsonPrune(targetEl, verification, parentBox) {
+    const logger = createOnceLogger('[json-prune]');
     const parts = verification.split(':');
     const type = parts[0];
     const target = parts[1];
     const expected = parts.slice(2).join(':');
-
-    const updateUI = (actualValue) => {
-        if (actualValue !== undefined) {
-            console.log('[json-prune] value:', actualValue);
-        }
-    };
 
     const runCheck = () => {
         try {
@@ -17,13 +15,14 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
                 return false;
             }
 
-            updateUI(actualValue);
+            logger.logInitial(actualValue);
 
             const isMatch =
                 type === 'jsonEquals' &&
                 JSON.stringify(actualValue) === expected;
 
             if (isMatch) {
+                logger.logSuccess(actualValue);
                 parentBox.setAttribute('success', '');
 
                 return true;
@@ -32,13 +31,5 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
         return false;
     };
 
-    if (runCheck()) return;
-
-    const checkInterval = setInterval(() => {
-        if (runCheck()) clearInterval(checkInterval);
-    }, 100);
-
-    setTimeout(() => {
-        clearInterval(checkInterval);
-    }, 10000);
+    runWithPolling(runCheck);
 }

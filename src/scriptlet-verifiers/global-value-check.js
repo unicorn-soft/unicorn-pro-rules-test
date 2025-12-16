@@ -1,7 +1,9 @@
+import { runWithPolling } from './polling.js';
+
 export function verifyGlobalValue(targetEl, verification, parentBox) {
     const [type, target, expected] = verification.split(':');
 
-    const checkInterval = setInterval(() => {
+    const runCheck = () => {
         try {
             const actualValue = eval(target);
             let isMatch = false;
@@ -50,12 +52,11 @@ export function verifyGlobalValue(targetEl, verification, parentBox) {
 
             if (isMatch) {
                 parentBox.setAttribute('success', '');
-                clearInterval(checkInterval);
+                return true;
             }
         } catch (e) {}
-    }, 100);
+        return false;
+    };
 
-    setTimeout(() => {
-        clearInterval(checkInterval);
-    }, 10000);
+    runWithPolling(runCheck);
 }
