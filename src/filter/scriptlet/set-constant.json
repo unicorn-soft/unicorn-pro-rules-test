@@ -1,8 +1,8 @@
 [
     {
         "id": "1",
-        "title": "adBlockDetected false 고정 (풀네임 'set-constant' 사용)",
-        "desc": "window.adBlockDetected 값을 false로 고정",
+        "title": "set_adBlockDetected false 고정 (풀네임 'set-constant' 사용)",
+        "desc": "window.set_adBlockDetected 값을 false로 고정",
         "scriptlet": "set-constant",
         "scriptletParams": ["set_adBlockDetected", "false"],
         "target": "<div class='target'><script>window.set_adBlockDetected = true;</script></div>",
@@ -10,8 +10,8 @@
     },
     {
         "id": "1-alias",
-        "title": "adBlockDetected false 고정 (별칭 'set' 사용)",
-        "desc": "window.adBlockDetected 값을 false로 고정",
+        "title": "set_adBlockDetected2 false 고정 (별칭 'set' 사용)",
+        "desc": "window.set_adBlockDetected2 값을 false로 고정",
         "scriptlet": "set",
         "scriptletParams": ["set_adBlockDetected2", "false"],
         "target": "<div class='target'><script>window.set_adBlockDetected2 = true;</script></div>",
@@ -19,8 +19,8 @@
     },
     {
         "id": "2",
-        "title": "setConstantTestObjectKeys trueFunc 고정",
-        "desc": "setConstantTestObjectKeys를 trueFunc로 고정",
+        "title": "set_setConstantTestObjectKeys trueFunc 고정",
+        "desc": "set_setConstantTestObjectKeys를 trueFunc로 고정",
         "scriptlet": "set-constant",
         "scriptletParams": ["set_setConstantTestObjectKeys", "trueFunc"],
         "target": "<div class='target'><script>window.set_setConstantTestObjectKeys = function () { return false; };</script></div>",
@@ -28,8 +28,8 @@
     },
     {
         "id": "3",
-        "title": "premium true 고정",
-        "desc": "window.premium을 true로 고정",
+        "title": "set_premium true 고정",
+        "desc": "window.set_premium을 true로 고정",
         "scriptlet": "set-constant",
         "scriptletParams": ["set_premium", "true"],
         "target": "<div class='target'><script>window.set_premium = false;</script></div>",
@@ -103,44 +103,35 @@
         "title": "지정 문자열 고정",
         "desc": "window.set_customString을 'sample-string'으로 고정",
         "scriptlet": "set-constant",
-        "scriptletParams": ["set_customString", "'sample-string'"],
+        "scriptletParams": ["set_customString", "\"'sample-string'\""],
         "target": "<div class='target'><script>window.set_customString = 'orig';</script></div>",
         "verification": "equals:window.set_customString:sample-string"
     },
     {
         "id": "12",
-        "title": "초기 undefined 고정 유지",
-        "desc": "original이 undefined일 때 문자열로 고정하고 동일 타입 재정의를 무시",
+        "title": "타입 불일치 시 고정 안 됨",
+        "desc": "문자열 프로퍼티(window.document.title)에 숫자 고정 시도 → 타입 불일치로 고정되지 않음을 확인<br>타입 불일치로 인해 고정되지 않기 때문에 규칙을 추가해도 테스트 실패가 정상입니다.",
         "scriptlet": "set-constant",
-        "scriptletParams": ["set_lockValue", "'locked'"],
-        "target": "<div class='target'><script>setTimeout(() => { window.set_lockValue = 'site-reassign'; }, 50);</script></div>",
-        "verification": "equals:window.set_lockValue:locked"
+        "scriptletParams": ["document.title", "0"],
+        "target": "<div class='target'><script>(function(){window.set_typeMismatchAttempted=false;var orig=document.title;try{Object.defineProperty(document,'title',{configurable:true,get:function(){return orig;},set:function(v){window.set_typeMismatchAttempted=true;orig=v;}});}catch(e){window.set_typeMismatchAttempted=true;}window.checkSetTypeMismatch=function(){var flag=window.set_typeMismatchAttempted===true;var same=document.title===orig;return flag && same;};})();</script></div>",
+        "verification": "functionCall:checkSetTypeMismatch:true"
     },
     {
         "id": "13",
-        "title": "초기 null 고정 유지",
-        "desc": "original이 null일 때 trueFunc로 고정하고 동일 타입 재정의를 무시",
+        "title": "undefined 고정 후 사이트 재정의 무시",
+        "desc": "set으로 undefined로 고정한 뒤 사이트가 다른 값으로 바꾸려 해도 유지되는지 확인",
         "scriptlet": "set-constant",
-        "scriptletParams": ["set_lockFunc", "trueFunc"],
-        "target": "<div class='target'><script>window.set_lockFunc = null; setTimeout(() => { window.set_lockFunc = function () { return 'site-reassign'; }; }, 50);</script></div>",
-        "verification": "functionCall:set_lockFunc:true"
+        "scriptletParams": ["set_lockUndefined", "undefined"],
+        "target": "<div class='target'><script>(function(){window.set_lockUndefined='site-original';setTimeout(function(){window.set_lockUndefined='override';},50);})();</script></div>",
+        "verification": "equals:window.set_lockUndefined:undefined"
     },
     {
         "id": "14",
-        "title": "타입 불일치 시 고정 안함",
-        "desc": "기존 값이 number일 때 string으로 고정 시도 시 기존 값 유지",
+        "title": "타입 일치 고정 시도 후 다른 타입 재정의 허용",
+        "desc": "기존 문자열 프로퍼티에 빈 문자열로 고정 시도(타입 일치) 후, 실제 값이 빈 문자열일 때만 숫자로 재정의 시도",
         "scriptlet": "set-constant",
-        "scriptletParams": ["set_typeMismatch", "'locked'"],
-        "target": "<div class='target'><script>window.set_typeMismatch = 123;</script></div>",
-        "verification": "equals:window.set_typeMismatch:123"
-    },
-    {
-        "id": "15",
-        "title": "null/undefined 재정의 후에도 고정 유지",
-        "desc": "고정 후 null/undefined 재정의 시 무시되고 고정 유지",
-        "scriptlet": "set-constant",
-        "scriptletParams": ["set_reassignAfterNull", "'locked'"],
-        "target": "<div class='target'><script>setTimeout(() => { window.set_reassignAfterNull = undefined; setTimeout(() => { window.set_reassignAfterNull = 'override'; }, 50); }, 20);</script></div>",
-        "verification": "equals:window.set_reassignAfterNull:locked"
+        "scriptletParams": ["set_allowOverride", "''"],
+        "target": "<div class='target'><script>(function(){window.set_allowOverride='site-string';setTimeout(function(){if(window.set_allowOverride===''){window.set_allowOverride=10;}},50);})();</script></div>",
+        "verification": "equals:window.set_allowOverride:10"
     }
 ]
