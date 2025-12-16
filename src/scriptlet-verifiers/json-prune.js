@@ -27,9 +27,29 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
 
                 return true;
             }
-        } catch (e) {}
+        } catch (e) { }
         return false;
     };
 
-    runWithPolling(runCheck);
+    const startPolling = () => {
+        runWithPolling(runCheck, { interval: 100, timeout: 10000 });
+    };
+
+    startPolling();
+
+    window.__jpxr9_restartList = window.__jpxr9_restartList || [];
+    window.__jpfr9_restartList = window.__jpfr9_restartList || [];
+    window.__jpxr9_restartList.push(startPolling);
+    window.__jpfr9_restartList.push(startPolling);
+
+    const resetFlagKeys = ['__jpxr9_resetPolling', '__jpfr9_resetPolling'];
+    const flagChecker = setInterval(() => {
+        const hasReset = resetFlagKeys.some((key) => window[key]);
+        if (hasReset) {
+            resetFlagKeys.forEach((key) => {
+                if (window[key]) window[key] = false;
+            });
+            startPolling();
+        }
+    }, 200);
 }

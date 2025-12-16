@@ -139,3 +139,19 @@ pre,
     -moz-user-select: text;
     -ms-user-select: text;
 }
+
+.compare {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.compare > div {
+    flex: 1 1 240px;
+    min-width: 200px;
+}
+
+.compare pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+}
