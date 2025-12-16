@@ -5,7 +5,7 @@
         "desc": "특정 URL(/api/fetch-block1)에 대한 Fetch 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-fetch-if",
         "scriptletParams": ["url:/api/fetch-block1"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData1 = null; fetch('/api/fetch-block1').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData1 = null; fetch('/api/fetch-block1').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData1 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData1"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "정규식 패턴(/api/fetch-track.*)에 매칭되는 Fetch 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-fetch-if",
         "scriptletParams": ["url:/\\/api\\/fetch-track.*/"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData2 = null; fetch('/api/fetch-track-analytics').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData2 = null; fetch('/api/fetch-track-analytics').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData2 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData2"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "POST 메서드 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-fetch-if",
         "scriptletParams": ["method:POST"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData3 = null; fetch('/api/fetch-post-data', {method: 'POST'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData3 = null; fetch('/api/fetch-post-data', {method: 'POST'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData3"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "url: 생략하고 문자열만 전달해도 차단 후 빈 응답 반환",
         "scriptlet": "no-fetch-if",
         "scriptletParams": ["/api/fetch-block-implicit"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData4 = null; fetch('/api/fetch-block-implicit').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData4 = null; fetch('/api/fetch-block-implicit').then(res => res.text()).then(data => { window.nfif_noFetchIfTestData4 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData4"
     },
     {
@@ -41,7 +41,7 @@
         "desc": "첫번째 파라미터에 url, method를 공백으로 동시에 작성해 차단 후 빈 응답 반환",
         "scriptlet": "no-fetch-if",
         "scriptletParams": ["url:/api/fetch-block-multi method:GET"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData5 = null; fetch('/api/fetch-block-multi', {method: 'GET'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData5 = data; }).catch(e => {});</script>Fetch 응답 결과:<br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData5 = null; fetch('/api/fetch-block-multi', {method: 'GET'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData5 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData5"
     }
 ]

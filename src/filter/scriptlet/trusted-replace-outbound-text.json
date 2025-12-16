@@ -5,7 +5,7 @@
         "desc": "decodeURIComponent 결과 문자열에서 'ads-basic'을 'removed-basic'으로 치환",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": ["decodeURIComponent", "ads-basic", "removed-basic"],
-        "target": "<div class='target'><script>window.trpot_1 = null;setTimeout(function(){var out=decodeURIComponent('ads-basic%20content');window.trpot_1=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_1 = null;setTimeout(function(){var out=decodeURIComponent('ads-basic%20content');window.trpot_1=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_1:removed-basic content"
     },
     {
@@ -18,7 +18,7 @@
             "alias-only",
             "alias-removed"
         ],
-        "target": "<div class='target'><script>window.trpot_1a = null;setTimeout(function(){var out=decodeURIComponent('alias-only%20content');window.trpot_1a=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_1a = null;setTimeout(function(){var out=decodeURIComponent('alias-only%20content');window.trpot_1a=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_1a:alias-removed content"
     },
     {
@@ -33,7 +33,7 @@
             "CONDITION",
             "Price"
         ],
-        "target": "<div class='target'><script>window.trpot_2 = null;(function(){var container=document.currentScript.parentElement;var enc=encodeURIComponent('Price 123');try{window.trpot_2=decodeURIComponent(enc);}catch(e){window.trpot_2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_2 = null;(function(){var container=document.currentScript.parentElement;var enc=encodeURIComponent('Price 123');try{window.trpot_2=decodeURIComponent(enc);}catch(e){window.trpot_2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_2:Price "
     },
     {
@@ -48,7 +48,7 @@
             "CONDITION",
             "promo="
         ],
-        "target": "<div class='target'><script>window.trpot_3 = null;setTimeout(function(){var dec=decodeURIComponent('promo%3Dads');window.trpot_3=dec;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_3 = null;setTimeout(function(){var dec=decodeURIComponent('promo%3Dads');window.trpot_3=dec;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_3:promo=removed"
     },
     {
@@ -61,7 +61,7 @@
             "ads-json-a",
             "json:\"safe\""
         ],
-        "target": "<div class='target'><script>window.trpot_4 = null;setTimeout(function(){var out=decodeURIComponent('%7B%22role%22%3A%22ads-json-a%22%7D');window.trpot_4=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_4 = null;setTimeout(function(){var out=decodeURIComponent('%7B%22role%22%3A%22ads-json-a%22%7D');window.trpot_4=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_4:{\"role\":\"safe\"}"
     },
     {
@@ -70,7 +70,7 @@
         "desc": "정규식 캡처와 $& 패턴으로 ads123을 [ads-ads123]로 변환",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": ["decodeURIComponent", "/(ads)(\\d+)/", "[$1-$&]"],
-        "target": "<div class='target'><script>window.trpot_5 = null;setTimeout(function(){var out=decodeURIComponent('ads123');window.trpot_5=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_5 = null;setTimeout(function(){var out=decodeURIComponent('ads123');window.trpot_5=out;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_5:[ads-ads123]"
     },
     {
@@ -79,7 +79,7 @@
         "desc": "JSON.stringify 결과에서 \"isAd\":true를 false로 치환",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": ["JSON.stringify", "isAd\":true", "isAd\":false"],
-        "target": "<div class='target'><script>window.trpot_6 = null;(function(){var container=document.currentScript.parentElement;var obj={isAd:true, content:'keep'};window.trpot_6=JSON.stringify(obj);}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_6 = null;(function(){var container=document.currentScript.parentElement;var obj={isAd:true, content:'keep'};window.trpot_6=JSON.stringify(obj);}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_6:{\"isAd\":false,\"content\":\"keep\"}"
     },
     {
@@ -94,7 +94,7 @@
             "CONDITION",
             "contentPlaybackContext"
         ],
-        "target": "<div class='target'><script>window.trpot_7 = null;(function(){var container=document.currentScript.parentElement;var obj={contentPlaybackContext:{context:{video:'id123'}}, other:'keep'};window.trpot_7=JSON.stringify(obj);}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_7 = null;(function(){var container=document.currentScript.parentElement;var obj={contentPlaybackContext:{context:{video:'id123'}}, other:'keep'};window.trpot_7=JSON.stringify(obj);}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_7:{\"contentPlaybackContext\":{\"isInlinePlaybackNoAd\":true,\"context\":{\"video\":\"id123\"}},\"other\":\"keep\"}"
     },
     {
@@ -109,7 +109,7 @@
             "encoding",
             "base64"
         ],
-        "target": "<div class='target'><script>window.trpot_10 = null;(function(){var enc=btoa('ads:true');var out=eval('\"'+enc+'\"');window.trpot_10=out;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br><pre class='json-result'></pre></div>",
+        "target": "<div class='target'><script>window.trpot_10 = null;(function(){var enc=btoa('ads:true');var out=eval('\"'+enc+'\"');window.trpot_10=out;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_10:YWRzOmZhbHNl"
     }
 ]

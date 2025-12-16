@@ -6,13 +6,6 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
     const target = parts[1];
     const expected = parts.slice(2).join(':');
 
-    const updateUI = (actualValue) => {
-        const jsonResultEl = targetEl.querySelector('.json-result');
-        if (jsonResultEl && actualValue !== undefined && actualValue !== null) {
-            jsonResultEl.textContent = String(actualValue);
-        }
-    };
-
     const checkMatch = (actualValue) => {
         if (type === 'textEquals') {
             return String(actualValue) === expected;
@@ -25,7 +18,6 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
             const actualValue = eval(target);
             if (actualValue === null || actualValue === undefined) return false;
 
-            updateUI(actualValue);
             if (checkMatch(actualValue)) {
                 parentBox.setAttribute('success', '');
 

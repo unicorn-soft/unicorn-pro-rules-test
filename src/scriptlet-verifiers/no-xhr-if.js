@@ -22,16 +22,6 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
     const target = parts[1];
     const expected = parts.slice(2).join(':');
 
-    const updateUI = (actualValue) => {
-        const jsonResultEl = targetEl.querySelector('.json-result');
-        if (jsonResultEl) {
-            jsonResultEl.textContent =
-                typeof actualValue === 'object' && actualValue !== null
-                    ? JSON.stringify(actualValue, null, 2)
-                    : actualValue || '';
-        }
-    };
-
     const checkMatch = (actualValue) => {
         if (type === 'textBlocked') {
             const path = targetToPath[target];
@@ -116,7 +106,6 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
             const actualValue = eval(target);
             if (actualValue === null || actualValue === undefined) return false;
 
-            updateUI(actualValue);
             if (checkMatch(actualValue)) {
                 parentBox.setAttribute('success', '');
 
