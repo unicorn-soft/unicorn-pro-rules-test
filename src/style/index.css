@@ -5,6 +5,11 @@
     padding: 1rem;
 }
 
+.container.copy-all {
+    display: none;
+}
+
+
 .title {
     margin: 0;
     font-size: 1.5rem;
