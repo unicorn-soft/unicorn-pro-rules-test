@@ -5,7 +5,7 @@
         "desc": "DIV에 포함된 'ads-base'를 'removed'로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "ads-base", "removed"],
-        "target": "<div class='target'><script>window.rpnt_1 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads-base content';container.appendChild(el);var update=function(){window.rpnt_1=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-base content';container.appendChild(el);const update=function(){window.rpnt_1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.rpnt_1:This content has removed content"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "DIV에 포함된 'ads-alias_first'을 'removed'로 치환",
         "scriptlet": "trusted-rpnt",
         "scriptletParams": ["DIV", "ads-alias_first", "removed"],
-        "target": "<div class='target'><script>window.rpnt_1a1 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads-alias_first content';container.appendChild(el);var update=function(){window.rpnt_1a1=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_1a1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-alias_first content';container.appendChild(el);const update=function(){window.rpnt_1a1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.rpnt_1a1:This content has removed content"
     },
     {
@@ -23,56 +23,47 @@
         "desc": "DIV에 포함된 'ads-alias_second'를 'removed'로 치환",
         "scriptlet": "rpnt",
         "scriptletParams": ["DIV", "ads-alias_second", "removed"],
-        "target": "<div class='target'><script>window.rpnt_1a2 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This content has ads-alias_second content';container.appendChild(el);var update=function(){window.rpnt_1a2=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_1a2 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-alias_second content';container.appendChild(el);const update=function(){window.rpnt_1a2=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.rpnt_1a2:This content has removed content"
     },
     {
         "id": "2",
-        "title": "정규식 치환(숫자 제거)",
-        "desc": "DIV 텍스트에서 모든 숫자 제거",
-        "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "/\\d+/"],
-        "target": "<div class='target'><script>window.rpnt_2 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Price is 123 dollars';container.appendChild(el);var update=function(){window.rpnt_2=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_2:Price is  dollars"
-    },
-    {
-        "id": "3",
         "title": "SEDCOUNT 옵션 1회 치환(키워드: first_change)",
         "desc": "DIV 텍스트에서 첫 1회만 'first_change'를 'clean'으로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "first_change", "clean", "SEDCOUNT", 1],
-        "target": "<div class='target'><script>window.rpnt_3 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='first_change here and keep';container.appendChild(el);var update=function(){window.rpnt_3=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_3:clean here and keep"
+        "target": "<div class='target'><script>window.rpnt_2 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='first_change here and keep';container.appendChild(el);const update=function(){window.rpnt_2=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_2:clean here and keep"
     },
     {
-        "id": "4",
+        "id": "3",
         "title": "정규식 치환(키워드: promo)",
         "desc": "DIV 텍스트의 'promo'를 정규식 /promo/로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "/promo/", "removed"],
-        "target": "<div class='target'><script>window.rpnt_4 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='This has promo marker';container.appendChild(el);var update=function(){window.rpnt_4=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_4:This has removed marker"
+        "target": "<div class='target'><script>window.rpnt_3 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This has promo marker';container.appendChild(el);const update=function(){window.rpnt_3=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_3:This has removed marker"
+    },
+    {
+        "id": "4",
+        "title": "SCRIPT 소스 평가 영향 테스트",
+        "desc": "스크립트가 실행(평가)되기 전에 소스가 바뀌어 실행 결과가 달라지는지 확인 (isTestText → isChangeText)",
+        "scriptlet": "trusted-replace-node-text",
+        "scriptletParams": ["SCRIPT", "isTestText", "isChangeText"],
+        "target": "<div class='target'><script>window.rpnt_4=null;delete window.isTestText;delete window.isChangeText;(function(){const container=document.currentScript.parentElement;const el=document.createElement('script');el.type='application/json';el.textContent='window.isTestText = \"tester\";';container.appendChild(el);setTimeout(function(){try{Function(el.textContent)();}catch(e){}const ok=(window.isTestText===undefined)&&(window.isChangeText===\"tester\");window.rpnt_4=ok?\"ok\":\"fail\";},200);}())</script>Script 평가 결과: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_4:ok"
     },
     {
         "id": "5",
-        "title": "SCRIPT 태그 내 텍스트 치환",
-        "desc": "script(type=text/plain) 내용의 'ads-script'를 'clean'으로 치환",
-        "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["SCRIPT", "ads-script", "clean"],
-        "target": "<div class='target'><script>window.rpnt_5 = null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('script');el.type='text/plain';el.textContent='var ads-script = true;';container.appendChild(el);var update=function(){window.rpnt_5=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Script 내용: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_5:var clean = true;"
-    },
-    {
-        "id": "6",
         "title": "#text 노드 치환",
         "desc": "텍스트 노드의 'ads-text'를 'removed'로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["#text", "ads-text", "removed"],
-        "target": "<div class='target'><div id='rpnt_6_wrap'></div><script>window.rpnt_6 = null;(function(){var wrap=document.getElementById('rpnt_6_wrap');if(!wrap)return;var textNode=document.createTextNode('This has ads-text here');wrap.appendChild(textNode);var update=function(){window.rpnt_6=textNode.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(textNode,{characterData:true});}())</script>Text 노드: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_6:This has removed here"
+        "target": "<div class='target'><div id='rpnt_5_wrap'></div><script>window.rpnt_5 = null;(function(){const wrap=document.getElementById('rpnt_5_wrap');if(!wrap)return;const textNode=document.createTextNode('This has ads-text here');wrap.appendChild(textNode);const update=function(){window.rpnt_5=textNode.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(textNode,{characterData:true});}())</script>Text 노드: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_5:This has removed here"
     },
     {
-        "id": "7",
+        "id": "6",
         "title": "includes 옵션",
         "desc": "텍스트에 'main'이 포함될 때만 치환",
         "scriptlet": "trusted-replace-node-text",
@@ -83,11 +74,11 @@
             "includes",
             "main"
         ],
-        "target": "<div class='target'><script>window.rpnt_7=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example_first in main content';container.appendChild(el);var update=function(){window.rpnt_7=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_7:Success in main content"
+        "target": "<div class='target'><script>window.rpnt_6=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Example_first in main content';container.appendChild(el);const update=function(){window.rpnt_6=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_6:Success in main content"
     },
     {
-        "id": "8",
+        "id": "7",
         "title": "excludes 옵션",
         "desc": "텍스트에 'skip'이 없을 때만 치환",
         "scriptlet": "trusted-replace-node-text",
@@ -98,29 +89,29 @@
             "excludes",
             "skip"
         ],
-        "target": "<div class='target'><script>window.rpnt_8=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Example_second content ready';container.appendChild(el);var update=function(){window.rpnt_8=el.textContent;};update();var mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_8:Done content ready"
+        "target": "<div class='target'><script>window.rpnt_7=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Example_second content ready';container.appendChild(el);const update=function(){window.rpnt_7=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_7:Done content ready"
     },
     {
-        "id": "9",
+        "id": "8",
         "title": "stay 옵션 (지속 감시)",
         "desc": "변경이 늦게 일어나도 치환 유지(stay)",
         "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "Later", "Replaced", "STAY", "1"],
-        "target": "<div class='target'><script>window.rpnt_9=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Later change pending';container.appendChild(el);var update=function(){window.rpnt_9=el.textContent;};update();var mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='Later arrived';if(el.parentNode){var parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_9:Replaced arrived"
+        "scriptletParams": ["DIV", "LaterStay", "ReplacedStay", "STAY", "1"],
+        "target": "<div class='target'><script>window.rpnt_8=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='LaterStay change pending';container.appendChild(el);const update=function(){window.rpnt_8=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='LaterStay arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_8:ReplacedStay arrived"
+    },
+    {
+        "id": "9",
+        "title": "quitAfter 옵션",
+        "desc": "quitAfter=100ms: 최초 치환이 발생한 뒤( RPNT_QA_TXT → RPNT_QA_REPL ), 200ms 시점에 RPNT_QA_REPL일 때만 RPNT_QA_FALSE로 변경하고, 1000ms 최종값이 RPNT_QA_FALSE인지 확인",
+        "scriptlet": "trusted-replace-node-text",
+        "scriptletParams": ["DIV", "RPNT_QA_TXT", "RPNT_QA_REPL", "QUITAFTER", "100"],
+        "target": "<div class='target'><script>window.rpnt_9_flag=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.id='rpnt_9_el';el.textContent='RPNT_QA_TXT';container.appendChild(el);setTimeout(function(){if(el.textContent==='RPNT_QA_REPL'){el.textContent='RPNT_QA_FALSE';}},200);setTimeout(function(){window.rpnt_9_flag=el.textContent;},1000);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_FALSE"
     },
     {
         "id": "10",
-        "title": "quitAfter 옵션",
-        "desc": "DOMContentLoaded 후 감시 종료(quitAfter)로 늦은 변경은 치환 안됨",
-        "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "Later", "Replaced", "QUITAFTER", "100"],
-        "target": "<div class='target'><script>window.rpnt_10=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Later change pending';container.appendChild(el);var mo=new MutationObserver(function(mutations){window.rpnt_10=el.textContent;mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el.textContent='Later arrived';},500);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_10:Replaced change pending"
-    },
-    {
-        "id": "11",
         "title": "옵션 우선순위: sedCount > stay > quitAfter",
         "desc": "sedCount=1이 우선 적용되어 첫 Target만 치환되고 이후 변화는 그대로 유지(stay/quitAfter 존재)",
         "scriptlet": "trusted-replace-node-text",
@@ -135,7 +126,7 @@
             "QUITAFTER",
             "500"
         ],
-        "target": "<div class='target'><script>window.rpnt_11=null;(function(){var container=document.currentScript.parentElement;var el=document.createElement('div');el.textContent='Target A';container.appendChild(el);var record=function(){window.rpnt_11=el.textContent;};record();var mo=new MutationObserver(function(){record();});mo.observe(el,{characterData:true,childList:true,subtree:true});setTimeout(function(){el.textContent += ' Target B Target C';},120);setTimeout(function(){el.textContent += ' Target D';},240);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_11:Hit A Target B Target C Target D"
+        "target": "<div class='target'><script>window.rpnt_10=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Target A';container.appendChild(el);const record=function(){window.rpnt_10=el.textContent;};record();const mo=new MutationObserver(function(){record();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent += ' Target B Target C';},120);setTimeout(function(){el.textContent += ' Target D';},240);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_10:Hit A Target B Target C Target D"
     }
 ]
