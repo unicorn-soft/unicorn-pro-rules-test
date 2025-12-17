@@ -99,17 +99,17 @@
     },
     {
         "id": "8",
-        "title": "base64 인코딩 eval 치환",
-        "desc": "eval 반환 base64 문자열에서 ads:true→ads:false 치환",
+        "title": "base64 인코딩 btoa 치환",
+        "desc": "btoa 반환 base64 문자열에서 ads:true→ads:false 치환",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": [
-            "eval",
+            "btoa",
             "ads:true",
             "ads:false",
             "encoding",
             "base64"
         ],
-        "target": "<div class='target'><script>window.trpot_10 = null;(function(){var enc=btoa('ads:true');var out=eval('\"'+enc+'\"');window.trpot_10=out;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.trpot_10 = null;(function(){window.trpot_10=btoa('ads:true');}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trpot_10:YWRzOmZhbHNl"
     }
 ]
