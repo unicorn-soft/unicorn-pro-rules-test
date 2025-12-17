@@ -23,8 +23,8 @@
     },
     {
         "id": "2",
-        "title": "decodeURIComponent 숫자 제거",
-        "desc": "decodeURIComponent 결과에서 숫자 제거",
+        "title": "decodeURIComponent + CONDITION(정규식): 숫자 제거",
+        "desc": "CONDITION=Price일 때만 /\\d+/ 제거가 적용되고, 조건 불만족(Cost)은 원본을 유지",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": [
             "decodeURIComponent",
@@ -33,23 +33,23 @@
             "CONDITION",
             "Price"
         ],
-        "target": "<div class='target'><script>window.trpot_2 = null;(function(){var container=document.currentScript.parentElement;var enc=encodeURIComponent('Price 123');try{window.trpot_2=decodeURIComponent(enc);}catch(e){window.trpot_2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trpot_2:Price "
+        "target": "<div class='target'><script>window.trpot_2 = null;(function(){try{var withCond=decodeURIComponent(encodeURIComponent('Price 123'));var withoutCond=decodeURIComponent(encodeURIComponent('Cost 123'));window.trpot_2=withCond+'||'+withoutCond;}catch(e){window.trpot_2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trpot_2:Price ||Cost 123"
     },
     {
         "id": "3",
-        "title": "decodeURIComponent + CONDITION",
-        "desc": "'promo='가 포함될 때만 ads→removed 치환",
+        "title": "decodeURIComponent + CONDITION(문자열): 토큰 치환",
+        "desc": "CONDITION=TRPOT3_COND일 때만 TRPOT3_ADS→TRPOT3_REPL 치환이 적용되고, 조건 불만족 입력은 원본을 유지",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": [
             "decodeURIComponent",
-            "ads",
-            "removed",
+            "TRPOT3_ADS",
+            "TRPOT3_REPL",
             "CONDITION",
-            "promo="
+            "TRPOT3_COND"
         ],
-        "target": "<div class='target'><script>window.trpot_3 = null;setTimeout(function(){var dec=decodeURIComponent('promo%3Dads');window.trpot_3=dec;},50);</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trpot_3:promo=removed"
+        "target": "<div class='target'><script>window.trpot_3 = null;(function(){try{var withCond=decodeURIComponent(encodeURIComponent('TRPOT3_COND TRPOT3_ADS'));var withoutCond=decodeURIComponent(encodeURIComponent('TRPOT3_ADS'));window.trpot_3=withCond+'||'+withoutCond;}catch(e){window.trpot_3='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trpot_3:TRPOT3_COND TRPOT3_REPL||TRPOT3_ADS"
     },
     {
         "id": "4",
@@ -89,13 +89,13 @@
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": [
             "JSON.stringify",
-            "contentPlaybackContext\":{\"",
-            "contentPlaybackContext\":{\"isInlinePlaybackNoAd\":true,\"",
+            "context\":{\"",
+            "context\":{\"isInlinePlaybackNoAd\":true,\"",
             "CONDITION",
             "contentPlaybackContext"
         ],
-        "target": "<div class='target'><script>window.trpot_7 = null;(function(){var container=document.currentScript.parentElement;var obj={contentPlaybackContext:{context:{video:'id123'}}, other:'keep'};window.trpot_7=JSON.stringify(obj);}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trpot_7:{\"contentPlaybackContext\":{\"isInlinePlaybackNoAd\":true,\"context\":{\"video\":\"id123\"}},\"other\":\"keep\"}"
+        "target": "<div class='target'><script>window.trpot_7 = null;(function(){var withCondObj={contentPlaybackContext:{context:{video:'id123'}}, other:'keep'};var withoutCondObj={otherContext:{context:{video:'id123'}}, other:'keep'};var withCond=JSON.stringify(withCondObj);var withoutCond=JSON.stringify(withoutCondObj);window.trpot_7=withCond+'||'+withoutCond;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trpot_7:{\"contentPlaybackContext\":{\"context\":{\"isInlinePlaybackNoAd\":true,\"video\":\"id123\"}},\"other\":\"keep\"}||{\"otherContext\":{\"context\":{\"video\":\"id123\"}},\"other\":\"keep\"}"
     },
     {
         "id": "8",
