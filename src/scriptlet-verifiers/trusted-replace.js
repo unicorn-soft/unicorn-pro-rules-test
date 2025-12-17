@@ -1,4 +1,4 @@
-import { runWithPolling } from './polling.js';
+import { runWithRestartablePolling } from './polling.js';
 import { createOnceLogger } from './logger.js';
 
 export function verifyTrustedReplaceBase(
@@ -40,5 +40,8 @@ export function verifyTrustedReplaceBase(
         return false;
     };
 
-    runWithPolling(runCheck);
+    runWithRestartablePolling(runCheck, {
+        resetFlagKeys: ['__trfr_resetPolling'],
+        restartListKeys: ['__trfr_restartList'],
+    });
 }

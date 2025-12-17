@@ -1,4 +1,4 @@
-import { runWithPolling } from './polling.js';
+import { runWithRestartablePolling } from './polling.js';
 
 export function verifyTrustedJsonEditXhrRequest(
     targetEl,
@@ -59,5 +59,8 @@ export function verifyTrustedJsonEditXhrRequest(
         return false;
     };
 
-    runWithPolling(check);
+    runWithRestartablePolling(check, {
+        resetFlagKeys: ['__tjexr_resetPolling'],
+        restartListKeys: ['__tjexr_restartList'],
+    });
 }

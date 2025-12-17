@@ -1,4 +1,4 @@
-import { runWithPolling } from './polling.js';
+import { runWithRestartablePolling } from './polling.js';
 import { createOnceLogger } from './logger.js';
 
 export function verifyJsonPrune(targetEl, verification, parentBox) {
@@ -31,25 +31,10 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
         return false;
     };
 
-    const startPolling = () => {
-        runWithPolling(runCheck, { interval: 100, timeout: 10000 });
-    };
-
-    startPolling();
-
-    window.__jpxr9_restartList = window.__jpxr9_restartList || [];
-    window.__jpfr9_restartList = window.__jpfr9_restartList || [];
-    window.__jpxr9_restartList.push(startPolling);
-    window.__jpfr9_restartList.push(startPolling);
-
-    const resetFlagKeys = ['__jpxr9_resetPolling', '__jpfr9_resetPolling'];
-    const flagChecker = setInterval(() => {
-        const hasReset = resetFlagKeys.some((key) => window[key]);
-        if (hasReset) {
-            resetFlagKeys.forEach((key) => {
-                if (window[key]) window[key] = false;
-            });
-            startPolling();
-        }
-    }, 200);
+    runWithRestartablePolling(runCheck, {
+        interval: 100,
+        timeout: 10000,
+        resetFlagKeys: ['__jpxr9_resetPolling', '__jpfr9_resetPolling'],
+        restartListKeys: ['__jpxr9_restartList', '__jpfr9_restartList'],
+    });
 }
