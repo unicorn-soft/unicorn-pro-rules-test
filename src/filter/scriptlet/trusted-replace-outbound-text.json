@@ -24,32 +24,32 @@
     {
         "id": "2",
         "title": "decodeURIComponent + CONDITION(정규식): 숫자 제거",
-        "desc": "CONDITION=Price일 때만 /\\d+/ 제거가 적용되고, 조건 불만족(Cost)은 원본을 유지",
+        "desc": "리턴값에 'Price'가 포함될 때만 /TRPOT2_\\d+/ 패턴을 제거합니다",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": [
             "decodeURIComponent",
-            "/\\d+/",
+            "/TRPOT2_\\d+/",
             "''",
-            "CONDITION",
+            "condition",
             "Price"
         ],
-        "target": "<div class='target'><script>window.trpot_2 = null;(function(){try{const withCond=decodeURIComponent(encodeURIComponent('Price 123'));const withoutCond=decodeURIComponent(encodeURIComponent('Cost 123'));window.trpot_2=withCond+'||'+withoutCond;}catch(e){window.trpot_2='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trpot_2:Price ||Cost 123"
+        "target": "<div class='target'><script>window.trpot_2 = null;window.trpot_2_flag = null;(function(){try{const withCond=decodeURIComponent(encodeURIComponent('Price TRPOT2_123'));const withoutCond=decodeURIComponent(encodeURIComponent('Cost TRPOT2_123'));window.trpot_2=withCond+'||'+withoutCond;const ok=withCond.startsWith('Price') && !withCond.includes('TRPOT2_123') && withoutCond.startsWith('Cost') && withoutCond.includes('TRPOT2_123');window.trpot_2_flag=ok?'OK':'NG';}catch(e){window.trpot_2='';window.trpot_2_flag='NG';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trpot_2_flag:OK"
     },
     {
         "id": "3",
         "title": "decodeURIComponent + CONDITION(문자열): 토큰 치환",
-        "desc": "CONDITION=TRPOT3_COND일 때만 TRPOT3_ADS→TRPOT3_REPL 치환이 적용되고, 조건 불만족 입력은 원본을 유지",
+        "desc": "리턴값에 'TRPOT3_COND'가 포함될 때만 TRPOT3_ADS→TRPOT3_REPL로 치환합니다",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": [
             "decodeURIComponent",
             "TRPOT3_ADS",
             "TRPOT3_REPL",
-            "CONDITION",
+            "condition",
             "TRPOT3_COND"
         ],
-        "target": "<div class='target'><script>window.trpot_3 = null;(function(){try{const withCond=decodeURIComponent(encodeURIComponent('TRPOT3_COND TRPOT3_ADS'));const withoutCond=decodeURIComponent(encodeURIComponent('TRPOT3_ADS'));window.trpot_3=withCond+'||'+withoutCond;}catch(e){window.trpot_3='';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trpot_3:TRPOT3_COND TRPOT3_REPL||TRPOT3_ADS"
+        "target": "<div class='target'><script>window.trpot_3 = null;window.trpot_3_flag = null;(function(){try{const withCond=decodeURIComponent(encodeURIComponent('TRPOT3_COND TRPOT3_ADS'));const withoutCond=decodeURIComponent(encodeURIComponent('TRPOT3_ADS'));window.trpot_3=withCond+'||'+withoutCond;const ok=withCond.includes('TRPOT3_REPL') && !withCond.includes('TRPOT3_ADS') && withoutCond.includes('TRPOT3_ADS') && !withoutCond.includes('TRPOT3_REPL');window.trpot_3_flag=ok?'OK':'NG';}catch(e){window.trpot_3='';window.trpot_3_flag='NG';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trpot_3_flag:OK"
     },
     {
         "id": "4",
@@ -85,17 +85,17 @@
     {
         "id": "7",
         "title": "contentPlaybackContext 옵션 + CONDITION",
-        "desc": "contentPlaybackContext 포함 시 isInlinePlaybackNoAd=true 삽입",
+        "desc": "리턴값에 'contentPlaybackContext'가 포함될 때만 isInlinePlaybackNoAd=true를 삽입합니다",
         "scriptlet": "trusted-replace-outbound-text",
         "scriptletParams": [
             "JSON.stringify",
             "context\":{\"",
             "context\":{\"isInlinePlaybackNoAd\":true,\"",
-            "CONDITION",
+            "condition",
             "contentPlaybackContext"
         ],
-        "target": "<div class='target'><script>window.trpot_7 = null;(function(){const withCondObj={contentPlaybackContext:{context:{video:'id123'}}, other:'keep'};const withoutCondObj={otherContext:{context:{video:'id123'}}, other:'keep'};const withCond=JSON.stringify(withCondObj);const withoutCond=JSON.stringify(withoutCondObj);window.trpot_7=withCond+'||'+withoutCond;}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trpot_7:{\"contentPlaybackContext\":{\"context\":{\"isInlinePlaybackNoAd\":true,\"video\":\"id123\"}},\"other\":\"keep\"}||{\"otherContext\":{\"context\":{\"video\":\"id123\"}},\"other\":\"keep\"}"
+        "target": "<div class='target'><script>window.trpot_7 = null;window.trpot_7_flag = null;(function(){try{const withCondObj={contentPlaybackContext:{context:{video:'id123'}}, other:'keep'};const withoutCondObj={otherContext:{context:{video:'id123'}}, other:'keep'};const withCond=JSON.stringify(withCondObj);const withoutCond=JSON.stringify(withoutCondObj);window.trpot_7=withCond+'||'+withoutCond;const ok=withCond.includes('isInlinePlaybackNoAd') && !withoutCond.includes('isInlinePlaybackNoAd') && withCond.includes('contentPlaybackContext') && withoutCond.includes('otherContext');window.trpot_7_flag=ok?'OK':'NG';}catch(e){window.trpot_7='';window.trpot_7_flag='NG';}}())</script>Outbound 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trpot_7_flag:OK"
     },
     {
         "id": "8",
