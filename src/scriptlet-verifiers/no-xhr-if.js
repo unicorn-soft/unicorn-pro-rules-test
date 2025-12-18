@@ -23,17 +23,12 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
     const expected = parts.slice(2).join(':');
 
     const checkMatch = (actualValue) => {
-        if (type === 'textBlocked') {
+        const isEmptyBlocked = () => {
             const path = targetToPath[target];
             const expectedServerResponse = path && noXhrIfMockResponses[path];
 
             if (typeof actualValue === 'string') {
-                if (actualValue.length === 0) return true;
-                const isRandomString = /^[a-z0-9]{1,10}$/i.test(actualValue);
-                const isDifferentFromServer =
-                    expectedServerResponse &&
-                    actualValue !== expectedServerResponse;
-                return isDifferentFromServer && isRandomString;
+                return actualValue.length === 0;
             }
 
             if (
@@ -68,7 +63,35 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
                         : '';
                 return text.length === 0;
             }
-        } else if (type === 'surrogateLoaded') {
+            return false;
+        };
+
+        const isRandomBlocked = () => {
+            const path = targetToPath[target];
+            const expectedServerResponse = path && noXhrIfMockResponses[path];
+            if (typeof actualValue !== 'string') return false;
+
+            const isRandomString = /^[a-z0-9]{1,10}$/i.test(actualValue);
+            const isDifferentFromServer =
+                expectedServerResponse &&
+                actualValue !== expectedServerResponse;
+            return isRandomString && isDifferentFromServer;
+        };
+
+        if (type === 'textBlocked') {
+            // Backward compatible: treat as "empty blocked".
+            return isEmptyBlocked();
+        }
+
+        if (type === 'textBlockedEmpty') {
+            return isEmptyBlocked();
+        }
+
+        if (type === 'textBlockedRandom') {
+            return isRandomBlocked();
+        }
+
+        if (type === 'surrogateLoaded') {
             const path = targetToPath[target];
             const expectedServerResponse = path && noXhrIfMockResponses[path];
 
@@ -95,7 +118,10 @@ export function verifyNoXhrIf(targetEl, verification, parentBox) {
                         JSON.stringify(expectedServerResponse)
                 );
             }
-        } else if (type === 'jsonEquals') {
+            return false;
+        }
+
+        if (type === 'jsonEquals') {
             return JSON.stringify(actualValue) === expected;
         }
         return false;
