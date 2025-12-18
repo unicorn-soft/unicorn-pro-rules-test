@@ -36,7 +36,9 @@ export function verifyTrustedReplaceBase(
                 parentBox.setAttribute('success', '');
                 return true;
             }
+            parentBox.removeAttribute('success');
         } catch (e) {}
+        parentBox.removeAttribute('success');
         return false;
     };
 
