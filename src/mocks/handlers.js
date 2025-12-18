@@ -25,6 +25,11 @@ const xhrMockResponses = {
         jpxr_content5: 'test',
         jpxr_tracking5: 'seoul',
     },
+    '/api/control-data5': {
+        jpxr_ads5: 123,
+        jpxr_content5: 'test',
+        jpxr_tracking5: 'seoul',
+    },
     '/api/data6': {
         jpxr_ads6: [
             { id6: 1, banner6: 'top', popup6: 'modal' },
@@ -48,6 +53,11 @@ const xhrMockResponses = {
         jpxr_tracking9: 'ok',
     },
     '/api/data10': {
+        jpxr_ads10: 1,
+        jpxr_content10: 'keep',
+        jpxr_tracking10: 'ok',
+    },
+    '/api/data10x': {
         jpxr_ads10: 1,
         jpxr_content10: 'keep',
         jpxr_tracking10: 'ok',
@@ -109,6 +119,11 @@ const fetchMockResponses = {
         jpfr_content5: 'test',
         jpfr_tracking5: 'seoul',
     },
+    '/api/control-fetch-data5': {
+        jpfr_ads5: 123,
+        jpfr_content5: 'test',
+        jpfr_tracking5: 'seoul',
+    },
     '/api/fetch-data6': {
         jpfr_ads6: [
             {
@@ -133,6 +148,11 @@ const fetchMockResponses = {
         jpfr_content7: 'keep',
         jpfr_tracking7: 'seoul',
     },
+    '/api/control-fetch-data7': {
+        jpfr_ads7: 1,
+        jpfr_content7: 'keep',
+        jpfr_tracking7: 'seoul',
+    },
     '/api/fetch-data8': {
         jpfr_ads8: 1,
         jpfr_content8: 'keep',
@@ -148,6 +168,12 @@ const fetchMockResponses = {
         jpfr_content10: 'keep',
         jpfr_tracking10: 'ok',
     },
+    '/api/fetch-data10x': {
+        jpfr_ads10: 1,
+        jpfr_content10: 'keep',
+        jpfr_tracking10: 'ok',
+    },
+    '/api/fetch-put-data': 'original-response-fetch-put',
 };
 
 const skipMockResponse = {
@@ -174,10 +200,14 @@ const replaceFetchMockResponses = {
     '/api/replace-data1': 'This content has ads content',
     '/api/replace-data2': 'Price is 123 dollars',
     '/api/replace-data3': 'This has tracking code',
+    '/api/replace-control3': 'Control has tracking code',
     '/api/replace-data4': 'secret information',
-    '/api/replace-data5': 'This is bad content with ads items',
-    '/api/replace-data6': 'secret information',
+    '/api/replace-data5': 'secret information',
+    '/api/replace-control5': 'secret information',
+    '/api/replace-data6': '{"role":"user"}',
+    '/api/replace-control6': '{"role":"user"}',
     '/api/replace-data7': '{"role":"user"}',
+    '/api/replace-control7': '{"role":"user"}',
     '/api/replace-skip': 'Skip request with ads inside',
 };
 
@@ -204,6 +234,9 @@ export const noXhrIfMockResponses = {
     '/api/block1': 'original-response-block1',
     '/api/track-analytics': 'original-response-track',
     '/api/post-data': 'original-response-post',
+    '/api/put-data': 'original-response-put',
+    '/api/other-post': 'original-response-other-post',
+    '/api/post-data-request': 'original-response-post-request',
     '/api/block4': 'original-response-block4',
     '/api/surrogate-data': { content: 'surrogate' },
     '/api/block-implicit': 'original-response-implicit',
@@ -228,12 +261,18 @@ const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {
 
 export const noFetchIfMockResponses = {
     '/api/fetch-block1': 'original-response-fetch-block1',
-    '/api/fetch-block1-request': 'original-response-fetch-block1-request',
+    '/api/fetch-block6-request': 'original-response-fetch-block6-request',
+    '/api/fetch-allow6-request': 'original-response-fetch-allow6-request',
     '/api/fetch-track-analytics': 'original-response-fetch-track',
     '/api/fetch-post-data': 'original-response-fetch-post',
+    '/api/fetch-put-data': 'original-response-fetch-put',
     '/api/fetch-post-data-request': 'original-response-fetch-post-request',
+    '/api/fetch-allow-post-request': 'original-response-fetch-allow-post-request',
+    '/api/fetch-block7-request': 'original-response-fetch-block7-request',
+    '/api/fetch-allow7-request': 'original-response-fetch-allow7-request',
     '/api/fetch-block-implicit': 'original-response-fetch-implicit',
     '/api/fetch-block-multi': 'original-response-fetch-multi',
+    '/api/fetch-allow-multi': 'original-response-fetch-allow-multi',
 };
 
 const noFetchIfHandlers = Object.keys(noFetchIfMockResponses).map((path) => {
@@ -252,6 +291,7 @@ const echoPaths = [
     '/api/edit-request-3',
     '/api/edit-request-4',
     '/api/edit-request-5',
+    '/api/edit-control-request-5',
     '/api/edit-request-6',
     '/api/edit-request-7',
     '/api/edit-request-8',
@@ -265,6 +305,7 @@ const echoPaths = [
     '/api/edit-xhr-request-2',
     '/api/edit-xhr-request-3',
     '/api/edit-xhr-request-4',
+    '/api/edit-control-xhr-request-4',
     '/api/edit-xhr-request-5',
     '/api/edit-xhr-request-6',
     '/api/edit-xhr-request-7',

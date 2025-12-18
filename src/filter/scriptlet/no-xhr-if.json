@@ -20,10 +20,10 @@
     {
         "id": "3",
         "title": "Method 매칭 차단 (빈 응답)",
-        "desc": "POST 메서드 요청을 차단하고 빈 응답 반환",
+        "desc": "PUT 메서드일 때만 차단 (URL 제한 없음, 다른 메서드 영향 없음)",
         "scriptlet": "no-xhr-if",
-        "scriptletParams": ["method:POST url:/api/post-data"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('POST', '/api/post-data'); xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { window.nxif_noXhrIfTestData3 = xhr3.responseText; } }; xhr3.send();</script>XHR 응답 결과:<br></div>",
+        "scriptletParams": ["method:PUT"],
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('PUT', '/api/put-data'); xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { window.nxif_noXhrIfTestData3 = xhr3.responseText; } }; xhr3.send();</script>XHR 응답 결과:<br></div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData3"
     },
     {
@@ -83,11 +83,13 @@
     {
         "id": "10",
         "title": "다중 옵션(url+method) 매칭 (빈 응답)",
-        "desc": "url이 /api/block-multi 이면서 method가 GET인 요청을 차단하고, responseType 미지정(기본) 기준으로 빈 문자열 응답을 반환",
+        "desc": "POST 메서드 + 특정 URL(/api/post-data)일 때만 차단하고, 같은 URL의 GET과 다른 POST는 유지",
         "scriptlet": "no-xhr-if",
-        "scriptletParams": ["url:/api/block-multi method:GET"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData10 = null; const xhr10 = new XMLHttpRequest(); xhr10.open('GET', '/api/block-multi'); xhr10.onload = function() { if (xhr10.readyState === 4 && xhr10.status === 200) { window.nxif_noXhrIfTestData10 = xhr10.responseText; } }; xhr10.send();</script>XHR 응답 결과:<br></div>",
-        "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData10"
+        "scriptletParams": [
+            "method:POST url:/api/post-data"
+        ],
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData10 = null; const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/post-data'),doReq('GET','/api/post-data'),doReq('POST','/api/other-post')]).then(([blockedPostData,allowedGetSameUrl,allowedPostOther])=>{window.nxif_noXhrIfTestData10=[blockedPostData,allowedGetSameUrl,allowedPostOther];}).catch(()=>{});</script>XHR 응답 결과:<br></div>",
+        "verification": "jsonEquals:window.nxif_noXhrIfTestData10:[\"\",\"original-response-post\",\"original-response-other-post\"]"
     },
     {
         "id": "11",
