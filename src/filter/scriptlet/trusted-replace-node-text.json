@@ -32,8 +32,8 @@
         "desc": "DIV 텍스트에서 첫 1회만 'first_change'를 'clean'으로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "first_change", "clean", "SEDCOUNT", 1],
-        "target": "<div class='target'><script>window.rpnt_2 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='first_change here and keep';container.appendChild(el);const update=function(){window.rpnt_2=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_2:clean here and keep"
+        "target": "<div class='target'><script>window.rpnt_2=null;(function(){const container=document.currentScript.parentElement;const el1=document.createElement('div');el1.textContent='first_change A';container.appendChild(el1);const el2=document.createElement('div');el2.textContent='first_change B';container.appendChild(el2);const update=function(){window.rpnt_2=el1.textContent+'||'+el2.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(container,{childList:true,subtree:true,characterData:true});setTimeout(function(){update();mo.disconnect();},600);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_2:clean A||first_change B"
     },
     {
         "id": "3",
