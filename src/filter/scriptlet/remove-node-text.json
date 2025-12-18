@@ -59,7 +59,7 @@
         "desc": "변경이 늦게 일어나도 제거 유지(stay)",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "rnt_Later6", "STAY", "1"],
-        "target": "<div class='target'><script>window.removeNodeTextData6 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='rnt_Later6 change pending';container.appendChild(el);const update=function(){window.removeNodeTextData6=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='rnt_Later6 arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script></div>",
+        "target": "<div class='target'><script>window.removeNodeTextData6=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='waiting';container.appendChild(el);const update=function(){window.removeNodeTextData6=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{characterData:true,subtree:true,childList:true});const onDcl=function(){setTimeout(function(){el.textContent='rnt_Later6 arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },200);};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',onDcl,{once:true});}else{onDcl();}}())</script></div>",
         "verification": "textEquals:window.removeNodeTextData6:"
     },
     {
