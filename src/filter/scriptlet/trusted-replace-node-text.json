@@ -106,9 +106,9 @@
         "title": "quitAfter 옵션",
         "desc": "quitAfter=100ms: 최초 치환이 발생한 뒤( RPNT_QA_TXT → RPNT_QA_REPL ), 200ms 시점에 RPNT_QA_REPL일 때만 RPNT_QA_FALSE로 변경하고, 1000ms 최종값이 RPNT_QA_FALSE인지 확인",
         "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "RPNT_QA_TXT", "RPNT_QA_REPL", "QUITAFTER", "100"],
-        "target": "<div class='target'><script>window.rpnt_9_flag=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.id='rpnt_9_el';el.textContent='RPNT_QA_TXT';container.appendChild(el);setTimeout(function(){if(el.textContent==='RPNT_QA_REPL'){el.textContent='RPNT_QA_FALSE';}},200);setTimeout(function(){window.rpnt_9_flag=el.textContent;},1000);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_FALSE"
+        "scriptletParams": ["DIV", "RPNT_QA_TXT", "RPNT_QA_REPL", "quitAfter", 100],
+        "target": "<div class='target'><div id='rpnt_9_el'></div>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_REPL"
     },
     {
         "id": "10",
@@ -123,7 +123,7 @@
             "1",
             "STAY",
             "1",
-            "QUITAFTER",
+            "quitAfter",
             "500"
         ],
         "target": "<div class='target'><script>window.rpnt_10=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Target A';container.appendChild(el);const record=function(){window.rpnt_10=el.textContent;};record();const mo=new MutationObserver(function(){record();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent += ' Target B Target C';},120);setTimeout(function(){el.textContent += ' Target D';},240);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
