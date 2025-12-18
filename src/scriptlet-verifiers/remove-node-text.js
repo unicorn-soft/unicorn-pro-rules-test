@@ -24,6 +24,9 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
                 return true;
             }
         } catch (e) {}
+        try {
+            parentBox.removeAttribute('success');
+        } catch (e) {}
         return false;
     };
 

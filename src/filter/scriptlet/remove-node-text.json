@@ -32,8 +32,8 @@
         "desc": "P 노드에서 'promo'가 있고 'special'이 포함된 경우만 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["P", "rnt_promo", "INCLUDES", "rnt_special"],
-        "target": "<div class='target'><script>window.removeNodeTextData3 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('p');el.textContent='rnt_special rnt_promo code';container.appendChild(el);const update=function(){window.removeNodeTextData3=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData3"
+        "target": "<div class='target'><script>window.removeNodeTextData3=null;(function(){const container=document.currentScript.parentElement;const p1=document.createElement('p');p1.textContent='rnt_special rnt_promo code';container.appendChild(p1);const p2=document.createElement('p');p2.textContent='rnt_promo code';container.appendChild(p2);setTimeout(function(){window.removeNodeTextData3=p1.textContent+'|'+p2.textContent;},400);}())</script></div>",
+        "verification": "textEquals:window.removeNodeTextData3:|rnt_promo code"
     },
     {
         "id": "4",
