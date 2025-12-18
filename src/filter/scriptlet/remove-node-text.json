@@ -67,8 +67,8 @@
         "title": "QUITAFTER 옵션",
         "desc": "DOMContentLoaded 후 감시 종료(quitAfter)로 늦은 변경은 제거 안됨",
         "scriptlet": "remove-node-text",
-        "scriptletParams": ["DIV", "rnt_Later7", "QUITAFTER", "100"],
-        "target": "<div class='target'><script>window.removeNodeTextData7 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='rnt_Later7 change pending';container.appendChild(el);const mo=new MutationObserver(function(){window.removeNodeTextData7=el.textContent;mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});setTimeout(function(){el.textContent='rnt_Later7 arrived';},500);}())</script></div>",
+        "scriptletParams": ["DIV", "rnt_Later7", "quitAfter", 100],
+        "target": "<div class='target'><div id='rnt_7_el'><div id='rnt_7_child'>INIT</div></div></div>",
         "verification": "textEquals:window.removeNodeTextData7:"
     },
     {
@@ -83,7 +83,7 @@
             1,
             "STAY",
             "1",
-            "QUITAFTER",
+            "quitAfter",
             "50"
         ],
         "target": "<div class='target'><script>window.removeNodeTextData8 = null;(function(){const container=document.currentScript.parentElement;const first=document.createElement('div');first.textContent='rnt_priority first';container.appendChild(first);let second=null;let update=function(){window.removeNodeTextData8=first.textContent+(second?'|'+second.textContent:'');};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(first,{characterData:true,subtree:true,childList:true});setTimeout(function(){second=document.createElement('div');second.textContent='rnt_priority second';container.appendChild(second);update=function(){window.removeNodeTextData8=first.textContent+'|'+second.textContent;};update();const mo2=new MutationObserver(function(){update();mo2.disconnect();});mo2.observe(second,{characterData:true,subtree:true,childList:true});},250);}())</script></div>",
@@ -99,7 +99,7 @@
             "rnt_stay_late",
             "STAY",
             "1",
-            "QUITAFTER",
+            "quitAfter",
             "10"
         ],
         "target": "<div class='target'><script>window.removeNodeTextData9 = null;(function(){const container=document.currentScript.parentElement;window.removeNodeTextData9='value:NOT_ADDED';setTimeout(function(){const el=document.createElement('div');el.textContent='rnt_stay_late appears';container.appendChild(el);const mo=new MutationObserver(function(){window.removeNodeTextData9='value:'+el.textContent;mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});window.removeNodeTextData9='value:'+el.textContent;},200);}())</script></div>",
