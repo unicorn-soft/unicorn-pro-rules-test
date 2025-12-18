@@ -89,8 +89,8 @@
             "excludes",
             "skip"
         ],
-        "target": "<div class='target'><script>window.rpnt_7=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Example_second content ready';container.appendChild(el);const update=function(){window.rpnt_7=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_7:Done content ready"
+        "target": "<div class='target'><script>window.rpnt_7=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='Example_second content ready';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='Example_second skip content';container.appendChild(d2);setTimeout(function(){window.rpnt_7=d1.textContent+'||'+d2.textContent;},400);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_7:Done content ready||Example_second skip content"
     },
     {
         "id": "8",

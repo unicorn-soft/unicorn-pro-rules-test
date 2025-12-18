@@ -50,8 +50,8 @@
         "desc": "DIV 노드에서 'skip'이 없을 때만 'remove' 텍스트 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "rnt_remove", "EXCLUDES", "rnt_skip"],
-        "target": "<div class='target'><script>window.removeNodeTextData5 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='rnt_remove this content ready';container.appendChild(el);const update=function(){window.removeNodeTextData5=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData5:"
+        "target": "<div class='target'><script>window.removeNodeTextData5=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='rnt_remove this content ready';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='rnt_remove this content rnt_skip';container.appendChild(d2);setTimeout(function(){window.removeNodeTextData5=d1.textContent+'|'+d2.textContent;},400);}())</script></div>",
+        "verification": "textEquals:window.removeNodeTextData5:|rnt_remove this content rnt_skip"
     },
     {
         "id": "6",
