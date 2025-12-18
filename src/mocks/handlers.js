@@ -228,8 +228,10 @@ const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {
 
 export const noFetchIfMockResponses = {
     '/api/fetch-block1': 'original-response-fetch-block1',
+    '/api/fetch-block1-request': 'original-response-fetch-block1-request',
     '/api/fetch-track-analytics': 'original-response-fetch-track',
     '/api/fetch-post-data': 'original-response-fetch-post',
+    '/api/fetch-post-data-request': 'original-response-fetch-post-request',
     '/api/fetch-block-implicit': 'original-response-fetch-implicit',
     '/api/fetch-block-multi': 'original-response-fetch-multi',
 };

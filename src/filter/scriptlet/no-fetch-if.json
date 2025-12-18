@@ -43,5 +43,23 @@
         "scriptletParams": ["url:/api/fetch-block-multi method:GET"],
         "target": "<div class='target'><script>window.nfif_noFetchIfTestData5 = null; fetch('/api/fetch-block-multi', {method: 'GET'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData5 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData5"
+    },
+    {
+        "id": "6",
+        "title": "Request 인스턴스 URL 매칭 차단 (빈 응답)",
+        "desc": "fetch() 첫 번째 인자를 Request 객체로 전달해도 url:/api/fetch-block1-request 조건이 매칭되면 차단 후 빈 응답 반환",
+        "scriptlet": "no-fetch-if",
+        "scriptletParams": ["url:/api/fetch-block1-request"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData6 = null; const req6 = new Request('/api/fetch-block1-request'); fetch(req6).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData6 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
+        "verification": "textBlocked:window.nfif_noFetchIfTestData6"
+    },
+    {
+        "id": "7",
+        "title": "Request 인스턴스 Method 매칭 차단 (빈 응답)",
+        "desc": "fetch() 첫 번째 인자를 Request 객체로 전달했을 때 method:POST 조건이 매칭되면 차단 후 빈 응답 반환",
+        "scriptlet": "no-fetch-if",
+        "scriptletParams": ["method:POST url:/api/fetch-post-data-request"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData7 = null; const req7 = new Request('/api/fetch-post-data-request', { method: 'POST' }); fetch(req7).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData7 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
+        "verification": "textBlocked:window.nfif_noFetchIfTestData7"
     }
 ]

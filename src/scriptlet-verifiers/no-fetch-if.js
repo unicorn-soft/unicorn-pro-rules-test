@@ -7,6 +7,8 @@ const targetToPath = {
     'window.nfif_noFetchIfTestData3': '/api/fetch-post-data',
     'window.nfif_noFetchIfTestData4': '/api/fetch-block-implicit',
     'window.nfif_noFetchIfTestData5': '/api/fetch-block-multi',
+    'window.nfif_noFetchIfTestData6': '/api/fetch-block1-request',
+    'window.nfif_noFetchIfTestData7': '/api/fetch-post-data-request',
 };
 
 export function verifyNoFetchIf(targetEl, verification, parentBox) {
