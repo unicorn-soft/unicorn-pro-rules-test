@@ -115,12 +115,12 @@
     },
     {
         "id": "13",
-        "title": "엄격 동등 비교 후 수정 (tjefr_matchValue)",
-        "desc": "[?.tjefr_type^='target'] 일치 시 tjefr_data 속성을 삭제합니다",
+        "title": "문자열 시작(^=) 비교 후 수정 (tjefr_matchValue)",
+        "desc": "tjefr_type이 'target'으로 시작(^=)하면 tjefr_data 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["[?.tjefr_type^='target'].tjefr_data"],
-        "target": "<div class=\"target\"><script>window.tjefr_13=null;fetch('/api/edit-request-13',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ tjefr_type: 'target', tjefr_data: 'deleteMe', tjefr_keep: 'me' })}).then(r=>r.json()).then(d=>{window.tjefr_13=d;}).catch(()=>{});</script>요청 결과: <span class=\"status\">대기중</span><br><pre class=\"json-result\"></pre></div>",
-        "verification": "jsonEquals:window.tjefr_13:{\"tjefr_type\":\"target\",\"tjefr_keep\":\"me\"}"
+        "target": "<div class=\"target\"><script>window.tjefr_13=null;fetch('/api/edit-request-13',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ tjefr_type: 'target-123', tjefr_data: 'deleteMe', tjefr_keep: 'me' })}).then(r=>r.json()).then(d=>{window.tjefr_13=d;}).catch(()=>{});</script>요청 결과: <span class=\"status\">대기중</span><br><pre class=\"json-result\"></pre></div>",
+        "verification": "jsonEquals:window.tjefr_13:{\"tjefr_type\":\"target-123\",\"tjefr_keep\":\"me\"}"
     },
     {
         "id": "14",

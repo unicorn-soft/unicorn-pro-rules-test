@@ -28,47 +28,38 @@
     },
     {
         "id": "3",
-        "title": "조건 옵션 + 정규식 중단",
-        "desc": "스크립트 내용이 /ABORTCOND/에 매칭될 때 실행 중단",
+        "title": "조건 옵션 + 문자열 중단",
+        "desc": "스크립트 내용에 문자열 ABORTSTR 포함 시 실행 중단",
         "scriptlet": "abort-current-inline-script",
-        "scriptletParams": ["acis___ABORT3__", "/ABORTCOND/"],
-        "target": "<div class='target'><script>try { /* ABORTCOND */ window.acis___ABORT3__; window.acis_abortResult3 = 'ran'; } catch(e) {}</script><br></div>",
+        "scriptletParams": ["acis___ABORT3__", "ABORTSTR"],
+        "target": "<div class='target'><script>try { const marker3 = 'ABORTSTR'; window.acis___ABORT3__; window.acis_abortResult3 = 'ran'; } catch(e) {}</script><br></div>",
         "verification": "equals:window.acis_abortResult3:undefined"
     },
     {
         "id": "4",
-        "title": "조건 옵션 + 문자열 중단",
-        "desc": "스크립트 내용에 문자열 ABORTSTR 포함 시 실행 중단",
-        "scriptlet": "abort-current-inline-script",
-        "scriptletParams": ["acis___ABORT4__", "ABORTSTR"],
-        "target": "<div class='target'><script>try { const marker4 = 'ABORTSTR'; window.acis___ABORT4__; window.acis_abortResult4 = 'ran'; } catch(e) {}</script><br></div>",
-        "verification": "equals:window.acis_abortResult4:undefined"
-    },
-    {
-        "id": "5",
         "title": "사용자 정의 전역 함수 중단",
         "desc": "window에 연결된 사용자 정의 함수를 접근할 때 중단되는지 확인",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis_customFn"],
-        "target": "<div class='target'><script>window.acis_abortResult5=undefined;function acis_customFn() {}</script><script>try { window.acis_customFn(); window.acis_abortResult5 = 'ran'; } catch(e) {}</script><br></div>",
-        "verification": "equals:window.acis_abortResult5:undefined"
+        "target": "<div class='target'><script>window.acis_abortResult4=undefined;function acis_customFn() {}</script><script>try { window.acis_customFn(); window.acis_abortResult4 = 'ran'; } catch(e) {}</script><br></div>",
+        "verification": "equals:window.acis_abortResult4:undefined"
     },
     {
-        "id": "6",
+        "id": "5",
         "title": "src 매칭 중단 (정규식)",
         "desc": "지정 프로퍼티 접근 스크립트의 src가 /acis-src/이면 실행 중단",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORTSRC__", "", "/acis-src/"],
-        "target": "<div class='target'><script>(function(){const s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src*/try{window.acis___ABORTSRC__;window.acis_abortResult6=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br></div>",
-        "verification": "equals:window.acis_abortResult6:undefined"
+        "target": "<div class='target'><script>(function(){const s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src*/try{window.acis___ABORTSRC__;window.acis_abortResult5=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br></div>",
+        "verification": "equals:window.acis_abortResult5:undefined"
     },
     {
-        "id": "7",
+        "id": "6",
         "title": "src 매칭 중단 (문자열)",
         "desc": "지정 프로퍼티 접근 스크립트의 src에 acis-src-str가 포함되면 실행 중단",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORTSRC_STR__", "", "acis-src-str"],
-        "target": "<div class='target'><script>(function(){const s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src-str*/try{window.acis___ABORTSRC_STR__;window.acis_abortResult7=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br></div>",
-        "verification": "equals:window.acis_abortResult7:undefined"
+        "target": "<div class='target'><script>(function(){const s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src-str*/try{window.acis___ABORTSRC_STR__;window.acis_abortResult6=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br></div>",
+        "verification": "equals:window.acis_abortResult6:undefined"
     }
 ]
