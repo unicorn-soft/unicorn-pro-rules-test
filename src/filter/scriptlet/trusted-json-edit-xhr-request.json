@@ -33,11 +33,11 @@
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": [
             "['tjexr_ads4']",
-            "propstomatch",
+            "propsToMatch",
             "url:/api/edit-xhr-request-4"
         ],
-        "target": "<div class='target'><script>window.tjexr_4=null;const xhr4=new XMLHttpRequest();xhr4.open('POST','/api/edit-xhr-request-4');xhr4.setRequestHeader('Content-Type','application/json');xhr4.onload=function(){try{window.tjexr_4=JSON.parse(xhr4.responseText);}catch(e){}};xhr4.send(JSON.stringify({tjexr_ads4:123,tjexr_content4:'keep',tjexr_tracking4:'seoul'}));</script>요청 결과: <span class='status'>대기중</span><br></div>",
-        "verification": "jsonEquals:window.tjexr_4:{\"tjexr_content4\":\"keep\",\"tjexr_tracking4\":\"seoul\"}"
+        "target": "<div class='target'><script>window.tjexr_4=null;(function(){const body={tjexr_ads4:123,tjexr_content4:'keep',tjexr_tracking4:'seoul'};const post=(url)=>new Promise((resolve,reject)=>{try{const xhr=new XMLHttpRequest();xhr.open('POST',url);xhr.setRequestHeader('Content-Type','application/json');xhr.onload=()=>{try{resolve(JSON.parse(xhr.responseText));}catch(e){reject(e);}};xhr.onerror=reject;xhr.send(JSON.stringify(body));}catch(e){reject(e);}});Promise.all([post('/api/edit-xhr-request-4'),post('/api/edit-control-xhr-request-4')]).then(([a,b])=>{window.tjexr_4=[a,b];}).catch(()=>{});})();</script>요청 결과: <span class='status'>대기중</span><br></div>",
+        "verification": "jsonEquals:window.tjexr_4:[{\"tjexr_content4\":\"keep\",\"tjexr_tracking4\":\"seoul\"},{\"tjexr_ads4\":123,\"tjexr_content4\":\"keep\",\"tjexr_tracking4\":\"seoul\"}]"
     },
     {
         "id": "5",

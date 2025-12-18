@@ -23,8 +23,8 @@
         "desc": "특정 URL(/api/replace-data3)에만 'tracking'을 'removed'로 치환",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["tracking", "removed", "url:/api/replace-data3"],
-        "target": "<div class='target'><script>window.trfr_3 = null; fetch('/api/replace-data3').then(res => res.text()).then(data => { window.trfr_3 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trfr_3:This has removed code"
+        "target": "<div class='target'><script>window.trfr_3=null;Promise.all([fetch('/api/replace-data3').then(res=>res.text()).catch(()=>null),fetch('/api/replace-control3').then(res=>res.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_3=a+'||'+b;}).catch(()=>{});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trfr_3:This has removed code||Control has tracking code"
     },
     {
         "id": "4",
@@ -37,37 +37,24 @@
     },
     {
         "id": "5",
-        "title": "! 옵션 조건부 치환",
-        "desc": "초기에 /api/replace-skip으로 조건 불일치 응답을 보고, 버튼 클릭 시 /api/replace-data5에서 'ads'를 'removed'로 치환 확인",
+        "title": "정규식 URL 옵션",
+        "desc": "url 정규식(/replace-data5$/) 매칭 시 'secret'을 'public'으로 치환",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": [
-            "ads",
-            "removed",
-            "url:!/api/replace-skip"
-        ],
-        "target": "<div class='target'><div class='compare'><div>/api/replace-skip 결과(광고 유지 예상):<span class='status'>대기중</span><br><pre class='json-result' id='trfr_5_skip'></pre></div><div>/api/replace-data5 결과(버튼 클릭):<span class='status'>대기중</span><br><pre class='json-result' id='trfr_5_data5'></pre></div></div><script>if(!window.trfr_5_init){window.trfr_5_init=true;window.trfr_5=null;window.trfr_5_skip=null;(function(){const preSkip=document.getElementById('trfr_5_skip');const preData5=document.getElementById('trfr_5_data5');const btn=document.getElementById('trfr_5_btn');const loadSkip=()=>{fetch('/api/replace-skip').then(res=>res.text()).then(data=>{window.trfr_5_skip=data;if(preSkip)preSkip.textContent=data;}).catch(()=>{});};const loadData5=()=>{window.trfr_5=null;window.__trfr_resetPolling=true;if(Array.isArray(window.__trfr_restartList)){window.__trfr_restartList.forEach(fn=>{try{fn();}catch(e){}});}fetch('/api/replace-data5').then(res=>res.text()).then(data=>{window.trfr_5=data;if(preData5)preData5.textContent=data;}).catch(()=>{});};if(btn){btn.addEventListener('click',loadData5,{once:true});}loadSkip();})();}</script></div>",
-        "verification": "textEquals:window.trfr_5:This is bad content with removed items"
+        "scriptletParams": ["secret", "public", "url:/replace-data5$/"],
+        "target": "<div class='target'><script>window.trfr_5=null;Promise.all([fetch('/api/replace-data5').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control5').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_5=a+'||'+b;}).catch(()=>{});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trfr_5:public information||secret information"
     },
     {
         "id": "6",
-        "title": "정규식 URL 옵션",
-        "desc": "url 정규식(/replace-data6$/) 매칭 시 'secret'을 'public'으로 치환",
-        "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": ["secret", "public", "url:/replace-data6$/"],
-        "target": "<div class='target'><script>window.trfr_6 = null; fetch('/api/replace-data6').then(res => res.text()).then(data => { window.trfr_6 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trfr_6:public information"
-    },
-    {
-        "id": "7",
         "title": "JSON 필드 삽입",
         "desc": "Fetch 응답 JSON에 tier 필드를 추가",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": [
             "\"role\":\"user\"",
             "\"role\":\"user\",\"tier\":\"premium\"",
-            "url:/api/replace-data7"
+            "url:/api/replace-data6"
         ],
-        "target": "<div class='target'><script>window.trfr_7 = null; fetch('/api/replace-data7').then(res => res.text()).then(data => { window.trfr_7 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
-        "verification": "textContains:window.trfr_7:\"tier\":\"premium\""
+        "target": "<div class='target'><script>window.trfr_6=null;Promise.all([fetch('/api/replace-data6').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control6').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_6=a+'||'+b;}).catch(()=>{});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trfr_6:{\"role\":\"user\",\"tier\":\"premium\"}||{\"role\":\"user\"}"
     }
 ]

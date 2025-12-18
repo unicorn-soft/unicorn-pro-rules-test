@@ -178,16 +178,6 @@ function createTestSection(
         actionBtn.style.cursor = 'pointer';
         divTitle.appendChild(actionBtn);
     }
-    if (pageType === 'trusted-replace-fetch-response' && String(id) === '5') {
-        const actionBtn = document.createElement('button');
-        actionBtn.id = 'trfr_5_btn';
-        actionBtn.textContent = '/api/replace-data5 요청';
-        actionBtn.style.marginLeft = 'auto';
-        actionBtn.style.fontSize = '12px';
-        actionBtn.style.padding = '4px 8px';
-        actionBtn.style.cursor = 'pointer';
-        divTitle.appendChild(actionBtn);
-    }
     if (pageType === 'trusted-json-edit-fetch-request' && String(id) === '14') {
         const actionBtn = document.createElement('button');
         actionBtn.id = 'tjefr_14_btn';

@@ -42,11 +42,11 @@
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": [
             "['tjefr_ads5']",
-            "propstomatch",
+            "propsToMatch",
             "url:/api/edit-request-5"
         ],
-        "target": "<div class=\"target\"><script>window.tjefr_5=null;fetch('/api/edit-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads5:123,tjefr_content5:'keep',tjefr_tracking5:'seoul'})}).then(r=>r.json()).then(d=>{window.tjefr_5=d;}).catch(()=>{});</script>요청 결과: <span class=\"status\">대기중</span><br><pre class=\"json-result\"></pre></div>",
-        "verification": "jsonEquals:window.tjefr_5:{\"tjefr_content5\":\"keep\",\"tjefr_tracking5\":\"seoul\"}"
+        "target": "<div class=\"target\"><script>window.tjefr_5=null;const body={tjefr_ads5:123,tjefr_content5:'keep',tjefr_tracking5:'seoul'};Promise.all([fetch('/api/edit-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).catch(()=>null),fetch('/api/edit-control-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.tjefr_5=[a,b];}).catch(()=>{});</script>요청 결과: <span class=\"status\">대기중</span><br><pre class=\"json-result\"></pre></div>",
+        "verification": "jsonEquals:window.tjefr_5:[{\"tjefr_content5\":\"keep\",\"tjefr_tracking5\":\"seoul\"},{\"tjefr_ads5\":123,\"tjefr_content5\":\"keep\",\"tjefr_tracking5\":\"seoul\"}]"
     },
     {
         "id": "6",

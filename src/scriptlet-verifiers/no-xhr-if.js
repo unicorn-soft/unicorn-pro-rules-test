@@ -4,14 +4,14 @@ import { runWithPolling } from './polling.js';
 const targetToPath = {
     'window.nxif_noXhrIfTestData1': '/api/block1',
     'window.nxif_noXhrIfTestData2': '/api/track-analytics',
-    'window.nxif_noXhrIfTestData3': '/api/post-data',
+    'window.nxif_noXhrIfTestData3': '/api/put-data',
     'window.nxif_noXhrIfTestData4': '/api/block4',
     'window.nxif_noXhrIfTestData5': '/api/block-implicit',
     'window.nxif_noXhrIfTestData6': '/api/block-json',
     'window.nxif_noXhrIfTestData7': '/api/block-buffer',
     'window.nxif_noXhrIfTestData8': '/api/block-blob',
     'window.nxif_noXhrIfTestData9': '/api/block-doc',
-    'window.nxif_noXhrIfTestData10': '/api/block-multi',
+    'window.nxif_noXhrIfTestData10': '/api/post-data',
     'window.nxif_noXhrIfTestData11': '/api/block-rand',
     'window.nxif_noXhrIfTestData12': '/api/block-method-rand',
 };

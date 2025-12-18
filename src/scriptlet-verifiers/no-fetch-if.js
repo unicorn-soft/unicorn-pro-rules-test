@@ -4,11 +4,11 @@ import { runWithPolling } from './polling.js';
 const targetToPath = {
     'window.nfif_noFetchIfTestData1': '/api/fetch-block1',
     'window.nfif_noFetchIfTestData2': '/api/fetch-track-analytics',
-    'window.nfif_noFetchIfTestData3': '/api/fetch-post-data',
+    'window.nfif_noFetchIfTestData3': '/api/fetch-put-data',
     'window.nfif_noFetchIfTestData4': '/api/fetch-block-implicit',
     'window.nfif_noFetchIfTestData5': '/api/fetch-block-multi',
-    'window.nfif_noFetchIfTestData6': '/api/fetch-block1-request',
-    'window.nfif_noFetchIfTestData7': '/api/fetch-post-data-request',
+    'window.nfif_noFetchIfTestData6': '/api/fetch-block6-request',
+    'window.nfif_noFetchIfTestData7': '/api/fetch-block7-request',
 };
 
 export function verifyNoFetchIf(targetEl, verification, parentBox) {

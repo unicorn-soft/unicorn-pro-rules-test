@@ -20,10 +20,10 @@
     {
         "id": "3",
         "title": "Method 매칭 차단 (빈 응답)",
-        "desc": "POST 메서드 요청을 차단하고 빈 응답 반환",
+        "desc": "PUT 메서드 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": ["method:POST"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData3 = null; fetch('/api/fetch-post-data', {method: 'POST'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
+        "scriptletParams": ["method:PUT"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData3 = null; fetch('/api/fetch-put-data', {method: 'PUT'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData3 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
         "verification": "textBlocked:window.nfif_noFetchIfTestData3"
     },
     {
@@ -38,28 +38,28 @@
     {
         "id": "5",
         "title": "다중 옵션(url+method) 매칭 (빈 응답)",
-        "desc": "첫번째 파라미터에 url, method를 공백으로 동시에 작성해 차단 후 빈 응답 반환",
+        "desc": "url과 method를 동시에 매칭해야 차단 (POST + /api/fetch-block-multi만 차단)",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": ["url:/api/fetch-block-multi method:GET"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData5 = null; fetch('/api/fetch-block-multi', {method: 'GET'}).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData5 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
-        "verification": "textBlocked:window.nfif_noFetchIfTestData5"
+        "scriptletParams": ["url:/api/fetch-block-multi method:POST"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData5 = null; const doReq=(method,url)=>fetch(url,{method}).then(res=>res.text()).catch(()=>null);Promise.all([doReq('POST','/api/fetch-block-multi'),doReq('GET','/api/fetch-block-multi'),doReq('POST','/api/fetch-allow-multi')]).then(([blockedPost,allowedGetSameUrl,allowedPostOther])=>{window.nfif_noFetchIfTestData5=[blockedPost,allowedGetSameUrl,allowedPostOther];}).catch(()=>{});</script>Fetch 응답 결과:<br></div>",
+        "verification": "jsonEquals:window.nfif_noFetchIfTestData5:[\"\",\"original-response-fetch-multi\",\"original-response-fetch-allow-multi\"]"
     },
     {
         "id": "6",
         "title": "Request 인스턴스 URL 매칭 차단 (빈 응답)",
-        "desc": "fetch() 첫 번째 인자를 Request 객체로 전달해도 url:/api/fetch-block1-request 조건이 매칭되면 차단 후 빈 응답 반환",
+        "desc": "fetch() 첫 번째 인자를 Request 객체로 전달해도 url:/api/fetch-block1-request 조건이 매칭되면 차단 후 빈 응답 반환 (다른 URL은 허용)",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": ["url:/api/fetch-block1-request"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData6 = null; const req6 = new Request('/api/fetch-block1-request'); fetch(req6).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData6 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
-        "verification": "textBlocked:window.nfif_noFetchIfTestData6"
+        "scriptletParams": ["url:/api/fetch-block6-request"],
+        "target": "<div class='target'><script>window.nfif_noFetchIfTestData6 = null; const reqBlock=new Request('/api/fetch-block6-request');const reqAllow=new Request('/api/fetch-allow6-request');Promise.all([fetch(reqBlock).then(res=>res.text()).catch(()=>null),fetch(reqAllow).then(res=>res.text()).catch(()=>null)]).then(([blocked,allowed])=>{window.nfif_noFetchIfTestData6=[blocked,allowed];}).catch(()=>{});</script>Fetch 응답 결과:<br></div>",
+        "verification": "jsonEquals:window.nfif_noFetchIfTestData6:[\"\",\"original-response-fetch-allow6-request\"]"
     },
     {
         "id": "7",
-        "title": "Request 인스턴스 Method 매칭 차단 (빈 응답)",
-        "desc": "fetch() 첫 번째 인자를 Request 객체로 전달했을 때 method:POST 조건이 매칭되면 차단 후 빈 응답 반환",
+        "title": "Request 인스턴스 Method+URL 매칭 차단 (빈 응답)",
+        "desc": "Request 객체로 전달했을 때 method:POST + 특정 URL이 모두 일치해야 차단 (POST만 차단, 다른 POST는 허용)",
         "scriptlet": "no-fetch-if",
-        "scriptletParams": ["method:POST url:/api/fetch-post-data-request"],
-        "target": "<div class='target'><script>window.nfif_noFetchIfTestData7 = null; const req7 = new Request('/api/fetch-post-data-request', { method: 'POST' }); fetch(req7).then(res => res.text()).then(data => { window.nfif_noFetchIfTestData7 = data; }).catch(e => {});</script>Fetch 응답 결과:<br></div>",
-        "verification": "textBlocked:window.nfif_noFetchIfTestData7"
+        "scriptletParams": ["url:/api/fetch-block7-request method:POST"],
+        "target": "<div class='target'><script>(function(){window.nfif_noFetchIfTestData7=[];const doReq=(req)=>fetch(req).then(res=>res.text()).catch(()=>null);const reqBlock=new Request('/api/fetch-block7-request',{method:'POST'});const reqAllowSameUrl=new Request('/api/fetch-block7-request',{method:'GET'});const reqAllowOther=new Request('/api/fetch-allow7-request',{method:'POST'});Promise.all([doReq(reqBlock),doReq(reqAllowSameUrl),doReq(reqAllowOther)]).then(([blockedPost,allowedGetSameUrl,allowedPostOther])=>{window.nfif_noFetchIfTestData7=[blockedPost,allowedGetSameUrl,allowedPostOther];}).catch(()=>{window.nfif_noFetchIfTestData7=['error'];});})();</script>Fetch 응답 결과:<br></div>",
+        "verification": "jsonEquals:window.nfif_noFetchIfTestData7:[\"\",\"original-response-fetch-block7-request\",\"original-response-fetch-allow7-request\"]"
     }
 ]
