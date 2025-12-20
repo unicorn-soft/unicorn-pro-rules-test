@@ -29,18 +29,18 @@
     {
         "id": "4",
         "title": "Method 옵션 조건부 치환",
-        "desc": "POST method에만 'secret'을 'public'으로 치환",
+        "desc": "POST method에만 'secret'을 'public'으로 치환, 동일 URL GET은 그대로 유지",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["secret", "public", "method:POST"],
-        "target": "<div class='target'><script>window.trfr_4 = null; fetch('/api/replace-data4', {method: 'POST'}).then(res => res.text()).then(data => { window.trfr_4 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.trfr_4:public information"
+        "target": "<div class='target'><script>window.trfr_4=null;(function(){const doFetch=(method,url)=>fetch(url,{method}).then(res=>res.text()).catch(()=>null);Promise.all([doFetch('POST','/api/replace-data4'),doFetch('GET','/api/replace-data4')]).then(([postData,getData])=>{if(postData===null||getData===null)return;window.trfr_4=postData+'||'+getData;}).catch(()=>{});})();</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.trfr_4:public information||secret information"
     },
     {
         "id": "5",
         "title": "정규식 URL 옵션",
         "desc": "url 정규식(/replace-data5$/) 매칭 시 'secret'을 'public'으로 치환",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": ["secret", "public", "url:/replace-data5$/"],
+        "scriptletParams": ["secret", "public", "url:/^\\/api\\/replace-data5$/"],
         "target": "<div class='target'><script>window.trfr_5=null;Promise.all([fetch('/api/replace-data5').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control5').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_5=a+'||'+b;}).catch(()=>{});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
         "verification": "textEquals:window.trfr_5:public information||secret information"
     },
