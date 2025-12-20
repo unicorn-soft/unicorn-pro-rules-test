@@ -47,19 +47,19 @@
     {
         "id": "5",
         "title": "src 매칭 중단 (정규식)",
-        "desc": "지정 프로퍼티 접근 스크립트의 src가 /acis-src/이면 실행 중단",
+        "desc": "지정 프로퍼티 접근 스크립트의 src가 /acis-src/이면 실행 중단(미매칭 src는 통과)",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORTSRC__", "", "/acis-src/"],
-        "target": "<div class='target'><script>(function(){const s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src*/try{window.acis___ABORTSRC__;window.acis_abortResult5=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br></div>",
-        "verification": "equals:window.acis_abortResult5:undefined"
+        "target": "<div class='target'><script>(function(){window.acis_abortResult5_pair=[null,null];const makeScript=(label,idx)=>{const s=document.createElement('script');s.async=false;s.src=`data:text/javascript,/*${label}*/try{window.acis___ABORTSRC__;window.acis_abortResult5_pair[${idx}]=\"ran\";}catch(e){}`;document.currentScript.parentElement.appendChild(s);};makeScript('acis-src',0);makeScript('nomatch-src',1);})();</script><br></div>",
+        "verification": "jsonEquals:window.acis_abortResult5_pair:[null,\"ran\"]"
     },
     {
         "id": "6",
         "title": "src 매칭 중단 (문자열)",
-        "desc": "지정 프로퍼티 접근 스크립트의 src에 acis-src-str가 포함되면 실행 중단",
+        "desc": "지정 프로퍼티 접근 스크립트의 src에 acis-src-str가 포함되면 실행 중단(미매칭 src는 통과)",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORTSRC_STR__", "", "acis-src-str"],
-        "target": "<div class='target'><script>(function(){const s=document.createElement('script');s.async=false;s.src='data:text/javascript,/*acis-src-str*/try{window.acis___ABORTSRC_STR__;window.acis_abortResult6=\"ran\";}catch(e){}';document.currentScript.parentElement.appendChild(s);}());</script><br></div>",
-        "verification": "equals:window.acis_abortResult6:undefined"
+        "target": "<div class='target'><script>(function(){window.acis_abortResult6_pair=[null,null];const makeScript=(label,idx)=>{const s=document.createElement('script');s.async=false;s.src=`data:text/javascript,/*${label}*/try{window.acis___ABORTSRC_STR__;window.acis_abortResult6_pair[${idx}]=\"ran\";}catch(e){}`;document.currentScript.parentElement.appendChild(s);};makeScript('acis-src-str',0);makeScript('nomatch-src-str',1);})();</script><br></div>",
+        "verification": "jsonEquals:window.acis_abortResult6_pair:[null,\"ran\"]"
     }
 ]
