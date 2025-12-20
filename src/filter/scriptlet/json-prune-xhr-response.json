@@ -61,20 +61,20 @@
     {
         "id": "7",
         "title": "propsToMatch: 접두어 없음",
-        "desc": "URL 접두어 없이 경로만 매칭해 jpxr_ads7 제거",
+        "desc": "URL 접두어 없이 경로만 매칭해 jpxr_ads7 제거(매칭되지 않는 control 응답은 유지)",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_ads7", "", "propsToMatch", "/api/data7"],
-        "target": "<div class='target'><script>window.jpxr_7 = null; const xhr7 = new XMLHttpRequest(); xhr7.open('GET', '/api/data7'); xhr7.responseType = 'json'; xhr7.onload = function() { if (xhr7.readyState === 4 && xhr7.status === 200) { try { window.jpxr_7 = xhr7.response; } catch(e) {} } }; xhr7.send();</script></div>",
-        "verification": "jsonEquals:window.jpxr_7:{\"jpxr_content7\":\"keep\",\"jpxr_tracking7\":\"seoul\"}"
+        "target": "<div class='target'><script>window.jpxr_7=null;(function(){const getJson=(url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open('GET',url);xhr.responseType='json';xhr.onload=()=>{if(xhr.readyState===4&&xhr.status===200){resolve(xhr.response);}else{resolve(null);}};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([getJson('/api/data7'),getJson('/api/control-data7')]).then(([a,b])=>{if(a===null||b===null)return;window.jpxr_7=[a,b];}).catch(()=>{});})();</script></div>",
+        "verification": "jsonEquals:window.jpxr_7:[{\"jpxr_content7\":\"keep\",\"jpxr_tracking7\":\"seoul\"},{\"jpxr_ads7\":1,\"jpxr_content7\":\"keep\",\"jpxr_tracking7\":\"seoul\"}]"
     },
     {
         "id": "8",
         "title": "propsToMatch: method 접두어",
-        "desc": "POST 요청(method:POST)일 때만 jpxr_ads8 제거",
+        "desc": "POST 요청(method:POST)일 때만 jpxr_ads8 제거되고, 동일 URL GET은 유지",
         "scriptlet": "json-prune-xhr-response",
         "scriptletParams": ["jpxr_ads8", "", "propsToMatch", "method:POST"],
-        "target": "<div class='target'><script>window.jpxr_8 = null; const xhr8 = new XMLHttpRequest(); xhr8.open('POST', '/api/data8'); xhr8.responseType = 'json'; xhr8.onload = function() { if (xhr8.readyState === 4 && xhr8.status === 200) { try { window.jpxr_8 = xhr8.response; } catch(e) {} } }; xhr8.send();</script></div>",
-        "verification": "jsonEquals:window.jpxr_8:{\"jpxr_content8\":\"keep\",\"jpxr_tracking8\":\"kr\"}"
+        "target": "<div class='target'><script>window.jpxr_8=null;(function(){const getJson=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.responseType='json';xhr.onload=()=>{if(xhr.readyState===4&&xhr.status===200){resolve(xhr.response);}else{resolve(null);}};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([getJson('POST','/api/data8'),getJson('GET','/api/data8')]).then(([postData,getData])=>{if(postData===null||getData===null)return;window.jpxr_8=[postData,getData];}).catch(()=>{});})();</script></div>",
+        "verification": "jsonEquals:window.jpxr_8:[{\"jpxr_content8\":\"keep\",\"jpxr_tracking8\":\"kr\"},{\"jpxr_ads8\":1,\"jpxr_content8\":\"keep\",\"jpxr_tracking8\":\"kr\"}]"
     },
     {
         "id": "9",

@@ -42,6 +42,11 @@ const xhrMockResponses = {
         jpxr_content7: 'keep',
         jpxr_tracking7: 'seoul',
     },
+    '/api/control-data7': {
+        jpxr_ads7: 1,
+        jpxr_content7: 'keep',
+        jpxr_tracking7: 'seoul',
+    },
     '/api/data8': {
         jpxr_ads8: 1,
         jpxr_content8: 'keep',
@@ -67,9 +72,9 @@ const xhrMockResponses = {
 const xhrHandlers = Object.keys(xhrMockResponses)
     .map((path) => {
         const responder = () => HttpResponse.json(xhrMockResponses[path]);
-        // /api/data8: method:POST 매칭 케이스 전용으로 POST만 응답
+        // /api/data8: method:POST 매칭 케이스 검증을 위해 POST/GET 모두 응답
         if (path === '/api/data8') {
-            return http.post(path, responder);
+            return [http.post(path, responder), http.get(path, responder)];
         }
         return http.get(path, responder);
     })
@@ -189,7 +194,8 @@ const fetchHandlers = Object.keys(fetchMockResponses)
     .map((path) => {
         const responder = () => HttpResponse.json(fetchMockResponses[path]);
         if (path === '/api/fetch-data8') {
-            return http.post(path, responder);
+            // method:POST 매칭 검증을 위해 POST/GET 모두 응답
+            return [http.post(path, responder), http.get(path, responder)];
         }
         return http.get(path, responder);
     })
