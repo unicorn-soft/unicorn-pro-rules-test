@@ -75,11 +75,11 @@
     {
         "id": "8",
         "title": "propsToMatch: method 접두어",
-        "desc": "POST 요청(method:POST)일 때만 jpfr_ads8 제거",
+        "desc": "POST 요청(method:POST)일 때만 jpfr_ads8 제거되고, 동일 URL GET은 유지",
         "scriptlet": "json-prune-fetch-response",
         "scriptletParams": ["jpfr_ads8", "", "propsToMatch", "method:POST"],
-        "target": "<div class='target'><script>window.jpfr_8 = null; fetch('/api/fetch-data8', { method: 'POST' }).then(res => res.json()).then(data => { window.jpfr_8 = data; }).catch(e => {});</script></div>",
-        "verification": "jsonEquals:window.jpfr_8:{\"jpfr_content8\":\"keep\",\"jpfr_tracking8\":\"kr\"}"
+        "target": "<div class='target'><script>window.jpfr_8=null;(function(){const doFetch=(method,url)=>fetch(url,{method}).then(res=>res.json()).catch(()=>null);Promise.all([doFetch('POST','/api/fetch-data8'),doFetch('GET','/api/fetch-data8')]).then(([postData,getData])=>{if(postData===null||getData===null)return;window.jpfr_8=[postData,getData];}).catch(()=>{});})();</script></div>",
+        "verification": "jsonEquals:window.jpfr_8:[{\"jpfr_content8\":\"keep\",\"jpfr_tracking8\":\"kr\"},{\"jpfr_ads8\":1,\"jpfr_content8\":\"keep\",\"jpfr_tracking8\":\"kr\"}]"
     },
     {
         "id": "9",
