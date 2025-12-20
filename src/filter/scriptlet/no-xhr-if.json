@@ -102,11 +102,11 @@
     },
     {
         "id": "12",
-        "title": "method 타입 + 랜덤 문자열 반환",
-        "desc": "method:POST 지정 후 랜덤 문자열 반환 기능 확인 (param2가 true일 때)",
+        "title": "method+url 동시 매칭 차단 (빈 응답)",
+        "desc": "POST + /api/block-method-rand 조합일 때만 차단(랜덤 문자열), 같은 URL GET과 다른 POST는 유지하면 성공",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["method:POST url:/api/block-method-rand", "true"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData12 = null; const xhr12 = new XMLHttpRequest(); xhr12.open('POST', '/api/block-method-rand'); xhr12.onload = function() { if (xhr12.readyState === 4 && xhr12.status === 200) { window.nxif_noXhrIfTestData12 = xhr12.responseText; } }; xhr12.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData12=null;(function(){const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/block-method-rand'),doReq('GET','/api/block-method-rand'),doReq('POST','/api/other-post')]).then(([blockedPostRand,allowedGetSameUrl,allowedPostOther])=>{if(allowedGetSameUrl==='original-response-method-rand' && allowedPostOther==='original-response-other-post'){window.nxif_noXhrIfTestData12=blockedPostRand;}else{window.nxif_noXhrIfTestData12=null;}}).catch(()=>{});})();</script>XHR 응답 결과:<br></div>",
         "verification": "textBlockedRandom:window.nxif_noXhrIfTestData12"
     }
 ]
