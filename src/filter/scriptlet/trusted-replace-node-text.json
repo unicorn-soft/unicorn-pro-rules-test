@@ -113,7 +113,7 @@
     {
         "id": "10",
         "title": "옵션 우선순위: sedCount > stay > quitAfter",
-        "desc": "sedCount=1이 우선 적용되어 첫 Target만 치환되고 이후 변화는 그대로 유지(stay/quitAfter 존재)",
+        "desc": "sedCount=1이 먼저 적용되고, stay로 감시 유지, quitAfter 이후 변화는 치환하지 않음",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": [
             "DIV",
@@ -126,7 +126,7 @@
             "quitAfter",
             "500"
         ],
-        "target": "<div class='target'><script>window.rpnt_10=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Target A';container.appendChild(el);const record=function(){window.rpnt_10=el.textContent;};record();const mo=new MutationObserver(function(){record();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent += ' Target B Target C';},120);setTimeout(function(){el.textContent += ' Target D';},240);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
-        "verification": "textEquals:window.rpnt_10:Hit A Target B Target C Target D"
+        "target": "<div class='target'><script>window.rpnt_10=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Target A';container.appendChild(el);const record=function(){window.rpnt_10=el.textContent;};record();const mo=new MutationObserver(function(){record();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent+=' Target B';},150);setTimeout(function(){el.textContent+=' Target C';},700);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "verification": "textEquals:window.rpnt_10:Hit A Target B Target C"
     }
 ]
