@@ -5,7 +5,7 @@
         "desc": "Fetch 응답에서 'ads' 문자열을 'removed'로 치환",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["ads", "removed"],
-        "target": "<div class='target'><script>window.trfr_1 = null; fetch('/api/replace-data1').then(res => res.text()).then(data => { window.trfr_1 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.trfr_1 = null; fetch('/api/replace-data1').then(res => res.text()).then(data => { window.trfr_1 = data; }).catch(e => {});</script></div>",
         "verification": "textEquals:window.trfr_1:This content has removed content"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "Fetch 응답에서 숫자를 모두 제거",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["/\\d+/"],
-        "target": "<div class='target'><script>window.trfr_2 = null; fetch('/api/replace-data2').then(res => res.text()).then(data => { window.trfr_2 = data; }).catch(e => {});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.trfr_2 = null; fetch('/api/replace-data2').then(res => res.text()).then(data => { window.trfr_2 = data; }).catch(e => {});</script></div>",
         "verification": "textEquals:window.trfr_2:Price is  dollars"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "특정 URL(/api/replace-data3)에만 'tracking'을 'removed'로 치환",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["tracking", "removed", "url:/api/replace-data3"],
-        "target": "<div class='target'><script>window.trfr_3=null;Promise.all([fetch('/api/replace-data3').then(res=>res.text()).catch(()=>null),fetch('/api/replace-control3').then(res=>res.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_3=a+'||'+b;}).catch(()=>{});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.trfr_3=null;Promise.all([fetch('/api/replace-data3').then(res=>res.text()).catch(()=>null),fetch('/api/replace-control3').then(res=>res.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_3=a+'||'+b;}).catch(()=>{});</script></div>",
         "verification": "textEquals:window.trfr_3:This has removed code||Control has tracking code"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "POST method에만 'secret'을 'public'으로 치환, 동일 URL GET은 그대로 유지",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["secret", "public", "method:POST"],
-        "target": "<div class='target'><script>window.trfr_4=null;(function(){const doFetch=(method,url)=>fetch(url,{method}).then(res=>res.text()).catch(()=>null);Promise.all([doFetch('POST','/api/replace-data4'),doFetch('GET','/api/replace-data4')]).then(([postData,getData])=>{if(postData===null||getData===null)return;window.trfr_4=postData+'||'+getData;}).catch(()=>{});})();</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.trfr_4=null;(function(){const doFetch=(method,url)=>fetch(url,{method}).then(res=>res.text()).catch(()=>null);Promise.all([doFetch('POST','/api/replace-data4'),doFetch('GET','/api/replace-data4')]).then(([postData,getData])=>{if(postData===null||getData===null)return;window.trfr_4=postData+'||'+getData;}).catch(()=>{});})();</script></div>",
         "verification": "textEquals:window.trfr_4:public information||secret information"
     },
     {
@@ -41,7 +41,7 @@
         "desc": "url 정규식(/replace-data5$/) 매칭 시 'secret'을 'public'으로 치환",
         "scriptlet": "trusted-replace-fetch-response",
         "scriptletParams": ["secret", "public", "url:/^\\/api\\/replace-data5$/"],
-        "target": "<div class='target'><script>window.trfr_5=null;Promise.all([fetch('/api/replace-data5').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control5').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_5=a+'||'+b;}).catch(()=>{});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.trfr_5=null;Promise.all([fetch('/api/replace-data5').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control5').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_5=a+'||'+b;}).catch(()=>{});</script></div>",
         "verification": "textEquals:window.trfr_5:public information||secret information"
     },
     {
@@ -54,7 +54,7 @@
             "\"role\":\"user\",\"tier\":\"premium\"",
             "url:/api/replace-data6"
         ],
-        "target": "<div class='target'><script>window.trfr_6=null;Promise.all([fetch('/api/replace-data6').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control6').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_6=a+'||'+b;}).catch(()=>{});</script>Fetch 응답 결과: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.trfr_6=null;Promise.all([fetch('/api/replace-data6').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control6').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_6=a+'||'+b;}).catch(()=>{});</script></div>",
         "verification": "textEquals:window.trfr_6:{\"role\":\"user\",\"tier\":\"premium\"}||{\"role\":\"user\"}"
     }
 ]
