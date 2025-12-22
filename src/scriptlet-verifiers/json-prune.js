@@ -27,7 +27,7 @@ export function verifyJsonPrune(targetEl, verification, parentBox) {
 
                 return true;
             }
-        } catch (e) { }
+        } catch (e) {}
         return false;
     };
 

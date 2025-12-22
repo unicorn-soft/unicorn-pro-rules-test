@@ -15,7 +15,11 @@ export function verifyTrustedReplaceNodeText(
         update();
 
         const mo = new MutationObserver(() => update());
-        mo.observe(qaEl, { characterData: true, subtree: true, childList: true });
+        mo.observe(qaEl, {
+            characterData: true,
+            subtree: true,
+            childList: true,
+        });
 
         const onDcl = () => {
             setTimeout(() => {
@@ -32,7 +36,9 @@ export function verifyTrustedReplaceNodeText(
         };
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', onDcl, { once: true });
+            document.addEventListener('DOMContentLoaded', onDcl, {
+                once: true,
+            });
         } else {
             onDcl();
         }

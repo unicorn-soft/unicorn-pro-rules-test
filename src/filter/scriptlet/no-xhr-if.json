@@ -85,9 +85,7 @@
         "title": "다중 옵션(url+method) 매칭 (빈 응답)",
         "desc": "POST 메서드 + 특정 URL(/api/post-data)일 때만 차단하고, 같은 URL의 GET과 다른 POST는 유지",
         "scriptlet": "no-xhr-if",
-        "scriptletParams": [
-            "method:POST url:/api/post-data"
-        ],
+        "scriptletParams": ["method:POST url:/api/post-data"],
         "target": "<div class='target'><script>window.nxif_noXhrIfTestData10 = null; const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/post-data'),doReq('GET','/api/post-data'),doReq('POST','/api/other-post')]).then(([blockedPostData,allowedGetSameUrl,allowedPostOther])=>{window.nxif_noXhrIfTestData10=[blockedPostData,allowedGetSameUrl,allowedPostOther];}).catch(()=>{});</script>XHR 응답 결과:<br></div>",
         "verification": "jsonEquals:window.nxif_noXhrIfTestData10:[\"\",\"original-response-post\",\"original-response-other-post\"]"
     },
