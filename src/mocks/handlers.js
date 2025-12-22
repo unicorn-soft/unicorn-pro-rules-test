@@ -273,7 +273,8 @@ export const noFetchIfMockResponses = {
     '/api/fetch-post-data': 'original-response-fetch-post',
     '/api/fetch-put-data': 'original-response-fetch-put',
     '/api/fetch-post-data-request': 'original-response-fetch-post-request',
-    '/api/fetch-allow-post-request': 'original-response-fetch-allow-post-request',
+    '/api/fetch-allow-post-request':
+        'original-response-fetch-allow-post-request',
     '/api/fetch-block7-request': 'original-response-fetch-block7-request',
     '/api/fetch-allow7-request': 'original-response-fetch-allow7-request',
     '/api/fetch-block-implicit': 'original-response-fetch-implicit',

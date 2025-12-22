@@ -40,7 +40,11 @@
         "title": "정규식 URL 옵션",
         "desc": "url 정규식(/replace-data5$/) 매칭 시 'secret'을 'public'으로 치환",
         "scriptlet": "trusted-replace-fetch-response",
-        "scriptletParams": ["secret", "public", "url:/^\\/api\\/replace-data5$/"],
+        "scriptletParams": [
+            "secret",
+            "public",
+            "url:/^\\/api\\/replace-data5$/"
+        ],
         "target": "<div class='target'><script>window.trfr_5=null;Promise.all([fetch('/api/replace-data5').then(r=>r.text()).catch(()=>null),fetch('/api/replace-control5').then(r=>r.text()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.trfr_5=a+'||'+b;}).catch(()=>{});</script></div>",
         "verification": "textEquals:window.trfr_5:public information||secret information"
     },

@@ -106,7 +106,13 @@
         "title": "quitAfter 옵션",
         "desc": "quitAfter=100ms: 최초 치환이 발생한 뒤( RPNT_QA_TXT → RPNT_QA_REPL ), 200ms 시점에 RPNT_QA_REPL일 때만 RPNT_QA_FALSE로 변경하고, 1000ms 최종값이 RPNT_QA_FALSE인지 확인",
         "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": ["DIV", "RPNT_QA_TXT", "RPNT_QA_REPL", "quitAfter", 100],
+        "scriptletParams": [
+            "DIV",
+            "RPNT_QA_TXT",
+            "RPNT_QA_REPL",
+            "quitAfter",
+            100
+        ],
         "target": "<div class='target'><div id='rpnt_9_el'></div></div>",
         "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_REPL"
     },
