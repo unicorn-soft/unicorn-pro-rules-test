@@ -5,7 +5,7 @@
         "desc": "DIV에 포함된 'ads-base'를 'removed'로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "ads-base", "removed"],
-        "target": "<div class='target'><script>window.rpnt_1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-base content';container.appendChild(el);const update=function(){window.rpnt_1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-base content';container.appendChild(el);const update=function(){window.rpnt_1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script></div>",
         "verification": "textEquals:window.rpnt_1:This content has removed content"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "DIV에 포함된 'ads-alias_first'을 'removed'로 치환",
         "scriptlet": "trusted-rpnt",
         "scriptletParams": ["DIV", "ads-alias_first", "removed"],
-        "target": "<div class='target'><script>window.rpnt_1a1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-alias_first content';container.appendChild(el);const update=function(){window.rpnt_1a1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_1a1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-alias_first content';container.appendChild(el);const update=function(){window.rpnt_1a1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script></div>",
         "verification": "textEquals:window.rpnt_1a1:This content has removed content"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "DIV에 포함된 'ads-alias_second'를 'removed'로 치환",
         "scriptlet": "rpnt",
         "scriptletParams": ["DIV", "ads-alias_second", "removed"],
-        "target": "<div class='target'><script>window.rpnt_1a2 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-alias_second content';container.appendChild(el);const update=function(){window.rpnt_1a2=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_1a2 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has ads-alias_second content';container.appendChild(el);const update=function(){window.rpnt_1a2=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script></div>",
         "verification": "textEquals:window.rpnt_1a2:This content has removed content"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "DIV 텍스트에서 첫 1회만 'first_change'를 'clean'으로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "first_change", "clean", "SEDCOUNT", 1],
-        "target": "<div class='target'><script>window.rpnt_2=null;(function(){const container=document.currentScript.parentElement;const el1=document.createElement('div');el1.textContent='first_change A';container.appendChild(el1);const el2=document.createElement('div');el2.textContent='first_change B';container.appendChild(el2);const update=function(){window.rpnt_2=el1.textContent+'||'+el2.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(container,{childList:true,subtree:true,characterData:true});setTimeout(function(){update();mo.disconnect();},600);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_2=null;(function(){const container=document.currentScript.parentElement;const el1=document.createElement('div');el1.textContent='first_change A';container.appendChild(el1);const el2=document.createElement('div');el2.textContent='first_change B';container.appendChild(el2);const update=function(){window.rpnt_2=el1.textContent+'||'+el2.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(container,{childList:true,subtree:true,characterData:true});setTimeout(function(){update();mo.disconnect();},600);}())</script></div>",
         "verification": "textEquals:window.rpnt_2:clean A||first_change B"
     },
     {
@@ -41,7 +41,7 @@
         "desc": "DIV 텍스트의 'promo'를 정규식 /promo/로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "/promo/", "removed"],
-        "target": "<div class='target'><script>window.rpnt_3 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This has promo marker';container.appendChild(el);const update=function(){window.rpnt_3=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_3 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This has promo marker';container.appendChild(el);const update=function(){window.rpnt_3=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{childList:true,subtree:true});}())</script></div>",
         "verification": "textEquals:window.rpnt_3:This has removed marker"
     },
     {
@@ -50,7 +50,7 @@
         "desc": "스크립트가 실행(평가)되기 전에 소스가 바뀌어 실행 결과가 달라지는지 확인 (isTestText → isChangeText)",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["SCRIPT", "isTestText", "isChangeText"],
-        "target": "<div class='target'><script>window.rpnt_4=null;delete window.isTestText;delete window.isChangeText;(function(){const container=document.currentScript.parentElement;const el=document.createElement('script');el.type='application/json';el.textContent='window.isTestText = \"tester\";';container.appendChild(el);setTimeout(function(){try{Function(el.textContent)();}catch(e){}const ok=(window.isTestText===undefined)&&(window.isChangeText===\"tester\");window.rpnt_4=ok?\"ok\":\"fail\";},200);}())</script>Script 평가 결과: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_4=null;delete window.isTestText;delete window.isChangeText;(function(){const container=document.currentScript.parentElement;const el=document.createElement('script');el.type='application/json';el.textContent='window.isTestText = \"tester\";';container.appendChild(el);setTimeout(function(){try{Function(el.textContent)();}catch(e){}const ok=(window.isTestText===undefined)&&(window.isChangeText===\"tester\");window.rpnt_4=ok?\"ok\":\"fail\";},200);}())</script></div>",
         "verification": "textEquals:window.rpnt_4:ok"
     },
     {
@@ -59,7 +59,7 @@
         "desc": "텍스트 노드의 'ads-text'를 'removed'로 치환",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["#text", "ads-text", "removed"],
-        "target": "<div class='target'><div id='rpnt_5_wrap'></div><script>window.rpnt_5 = null;(function(){const wrap=document.getElementById('rpnt_5_wrap');if(!wrap)return;const textNode=document.createTextNode('This has ads-text here');wrap.appendChild(textNode);const update=function(){window.rpnt_5=textNode.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(textNode,{characterData:true});}())</script>Text 노드: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><div id='rpnt_5_wrap'></div><script>window.rpnt_5 = null;(function(){const wrap=document.getElementById('rpnt_5_wrap');if(!wrap)return;const textNode=document.createTextNode('This has ads-text here');wrap.appendChild(textNode);const update=function(){window.rpnt_5=textNode.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(textNode,{characterData:true});}())</script></div>",
         "verification": "textEquals:window.rpnt_5:This has removed here"
     },
     {
@@ -74,7 +74,7 @@
             "includes",
             "main"
         ],
-        "target": "<div class='target'><script>window.rpnt_6=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='Example_first in main content';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='Example_first in other content';container.appendChild(d2);setTimeout(function(){window.rpnt_6=d1.textContent+'||'+d2.textContent;},400);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_6=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='Example_first in main content';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='Example_first in other content';container.appendChild(d2);setTimeout(function(){window.rpnt_6=d1.textContent+'||'+d2.textContent;},400);}())</script></div>",
         "verification": "textEquals:window.rpnt_6:Success in main content||Example_first in other content"
     },
     {
@@ -89,7 +89,7 @@
             "excludes",
             "skip"
         ],
-        "target": "<div class='target'><script>window.rpnt_7=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='Example_second content ready';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='Example_second skip content';container.appendChild(d2);setTimeout(function(){window.rpnt_7=d1.textContent+'||'+d2.textContent;},400);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_7=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='Example_second content ready';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='Example_second skip content';container.appendChild(d2);setTimeout(function(){window.rpnt_7=d1.textContent+'||'+d2.textContent;},400);}())</script></div>",
         "verification": "textEquals:window.rpnt_7:Done content ready||Example_second skip content"
     },
     {
@@ -98,7 +98,7 @@
         "desc": "변경이 늦게 일어나도 치환 유지(stay)",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "LaterStay", "ReplacedStay", "STAY", "1"],
-        "target": "<div class='target'><script>window.rpnt_8=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='LaterStay change pending';container.appendChild(el);const update=function(){window.rpnt_8=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='LaterStay arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_8=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='LaterStay change pending';container.appendChild(el);const update=function(){window.rpnt_8=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='LaterStay arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script></div>",
         "verification": "textEquals:window.rpnt_8:ReplacedStay arrived"
     },
     {
@@ -107,7 +107,7 @@
         "desc": "quitAfter=100ms: 최초 치환이 발생한 뒤( RPNT_QA_TXT → RPNT_QA_REPL ), 200ms 시점에 RPNT_QA_REPL일 때만 RPNT_QA_FALSE로 변경하고, 1000ms 최종값이 RPNT_QA_FALSE인지 확인",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "RPNT_QA_TXT", "RPNT_QA_REPL", "quitAfter", 100],
-        "target": "<div class='target'><div id='rpnt_9_el'></div>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><div id='rpnt_9_el'></div></div>",
         "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_REPL"
     },
     {
@@ -126,7 +126,7 @@
             "quitAfter",
             "500"
         ],
-        "target": "<div class='target'><script>window.rpnt_10=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Target A';container.appendChild(el);const record=function(){window.rpnt_10=el.textContent;};record();const mo=new MutationObserver(function(){record();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent+=' Target B';},150);setTimeout(function(){el.textContent+=' Target C';},700);}())</script>Node 텍스트: <span class='status'>대기중</span><br></div>",
+        "target": "<div class='target'><script>window.rpnt_10=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Target A';container.appendChild(el);const record=function(){window.rpnt_10=el.textContent;};record();const mo=new MutationObserver(function(){record();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent+=' Target B';},150);setTimeout(function(){el.textContent+=' Target C';},700);}())</script></div>",
         "verification": "textEquals:window.rpnt_10:Hit A Target B Target C"
     }
 ]
