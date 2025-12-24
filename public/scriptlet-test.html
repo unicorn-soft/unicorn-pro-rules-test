@@ -4,9 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Scriptlet Test Page</title>
+        <script src="./test.js"></script>
         <script>
             (function() {
                 const params = new URLSearchParams(location.search);
+                const script = document.currentScript;
                 
                 // rpnt_4 테스트 (trusted-replace-node-text 페이지에서 실행)
                 if (params.get('type') === 'trusted-replace-node-text') {
@@ -18,8 +20,18 @@
                     const changeKey = 'is' + 'Change' + 'Text';
                     const ok = (window[testKey] === undefined) && (window[changeKey] === "tester");
                     window.rpnt_4 = ok ? "ok" : "fail";
+                } else {
+                    script.remove();
                 }
             })();
+        </script>
+        <script>
+            var rnt_script_marker;
+            if (new URLSearchParams(location.search).get('type') === 'remove-node-text') {
+                window.rnt_4 = "executed";
+            } else {
+                document.currentScript.remove();
+            }
         </script>
     </head>
     <body>
