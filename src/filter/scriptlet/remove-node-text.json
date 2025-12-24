@@ -1,74 +1,92 @@
 [
     {
         "id": "1",
-        "title": "기본 텍스트 제거 (DIV) (풀네임 'remove-node-text' 사용)",
-        "desc": "DIV 노드에서 'ads' 텍스트가 포함된 경우 전체 텍스트 제거",
+        "title": "DIV 텍스트 기본 제거 (풀네임 'remove-node-text' 사용)",
+        "desc": "DIV에 포함된 'rnt_ads' 제거",
         "scriptlet": "remove-node-text",
         "scriptletParams": ["DIV", "rnt_ads"],
-        "target": "<div class='target'><script>window.removeNodeTextData1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has rnt_ads content';container.appendChild(el);const update=function(){window.removeNodeTextData1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData1"
+        "target": "<div class='target'><script>window.rnt_1 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has rnt_ads content';container.appendChild(el);const update=function(){window.rnt_1=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
+        "verification": "textEquals:window.rnt_1:"
     },
     {
         "id": "1-alias",
-        "title": "기본 텍스트 제거 (DIV) (별칭 'rmnt' 사용)",
-        "desc": "DIV 노드에서 'ads-alias' 텍스트가 포함된 경우 전체 텍스트 제거",
+        "title": "DIV 텍스트 기본 제거 (별칭 'rmnt' 사용)",
+        "desc": "DIV에 포함된 'rnt_ads_alias' 제거",
         "scriptlet": "rmnt",
-        "scriptletParams": ["DIV", "rnt_ads-alias"],
-        "target": "<div class='target'><script>window.removeNodeTextData1alias = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has rnt_ads-alias content';container.appendChild(el);const update=function(){window.removeNodeTextData1alias=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData1alias"
+        "scriptletParams": ["DIV", "rnt_ads_alias"],
+        "target": "<div class='target'><script>window.rnt_1a = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This content has rnt_ads_alias content';container.appendChild(el);const update=function(){window.rnt_1a=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
+        "verification": "textEquals:window.rnt_1a:"
     },
     {
         "id": "2",
-        "title": "정규식 매칭 제거 (SPAN)",
-        "desc": "SPAN 노드에서 정규식 패턴(/track.*/)에 매칭되는 텍스트 제거",
+        "title": "SEDCOUNT 옵션 1회 제거(키워드: rnt_remove)",
+        "desc": "DIV 텍스트에서 첫 1회만 'rnt_remove' 포함 시 제거",
         "scriptlet": "remove-node-text",
-        "scriptletParams": ["SPAN", "/rnt_track.*/"],
-        "target": "<div class='target'><script>window.removeNodeTextData2 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('span');el.textContent='This has rnt_tracking code';container.appendChild(el);const update=function(){window.removeNodeTextData2=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData2"
+        "scriptletParams": ["DIV", "rnt_remove", "SEDCOUNT", 1],
+        "target": "<div class='target'><script>window.rnt_2=null;(function(){const container=document.currentScript.parentElement;const el1=document.createElement('div');el1.textContent='rnt_remove A';container.appendChild(el1);const el2=document.createElement('div');el2.textContent='rnt_remove B';container.appendChild(el2);const update=function(){window.rnt_2=el1.textContent+'||'+el2.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(container,{childList:true,subtree:true,characterData:true});setTimeout(function(){update();mo.disconnect();},600);}())</script></div>",
+        "verification": "textEquals:window.rnt_2:||rnt_remove B"
     },
     {
         "id": "3",
-        "title": "INCLUDES 옵션 (P)",
-        "desc": "P 노드에서 'promo'가 있고 'special'이 포함된 경우만 텍스트 제거",
+        "title": "정규식 제거(키워드: rnt_track)",
+        "desc": "DIV 텍스트에서 정규식 /rnt_track.*/에 매칭 시 제거",
         "scriptlet": "remove-node-text",
-        "scriptletParams": ["P", "rnt_promo", "INCLUDES", "rnt_special"],
-        "target": "<div class='target'><script>window.removeNodeTextData3=null;(function(){const container=document.currentScript.parentElement;const p1=document.createElement('p');p1.textContent='rnt_special rnt_promo code';container.appendChild(p1);const p2=document.createElement('p');p2.textContent='rnt_promo code';container.appendChild(p2);setTimeout(function(){window.removeNodeTextData3=p1.textContent+'|'+p2.textContent;},400);}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData3:|rnt_promo code"
+        "scriptletParams": ["DIV", "/rnt_track.*/"],
+        "target": "<div class='target'><script>window.rnt_3 = null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='This has rnt_tracking code';container.appendChild(el);const update=function(){window.rnt_3=el.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(el,{characterData:true,subtree:true,childList:true});}())</script></div>",
+        "verification": "textEquals:window.rnt_3:"
     },
     {
         "id": "4",
-        "title": "SEDCOUNT 옵션 (B)",
-        "desc": "B 노드에서 'remove' 텍스트를 1회만 제거",
+        "title": "SCRIPT 텍스트 제거 테스트",
+        "desc": "정적 SCRIPT에서만 동작. 스크립트 내용이 제거되어 실행되지 않는지 확인",
         "scriptlet": "remove-node-text",
-        "scriptletParams": ["B", "rnt_remove", "SEDCOUNT", 1],
-        "target": "<div class='target'><script>window.removeNodeTextData4=null;(function(){const container=document.currentScript.parentElement;const el1=document.createElement('b');el1.textContent='rnt_remove A';container.appendChild(el1);const el2=document.createElement('b');el2.textContent='rnt_remove B';container.appendChild(el2);const update=function(){window.removeNodeTextData4=el1.textContent+'|'+el2.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(container,{childList:true,subtree:true,characterData:true});setTimeout(function(){update();mo.disconnect();},600);}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData4:|rnt_remove B"
+        "scriptletParams": ["SCRIPT", "rnt_script_marker"],
+        "target": "<div class='target'>정적 스크립트 테스트 (scriptlet-test.html에 삽입됨)</div>",
+        "verification": "equals:window.rnt_4:undefined"
     },
     {
         "id": "5",
-        "title": "EXCLUDES 옵션 (DIV)",
-        "desc": "DIV 노드에서 'skip'이 없을 때만 'remove' 텍스트 제거",
+        "title": "#text 노드 제거",
+        "desc": "텍스트 노드에서 'rnt_text' 포함 시 제거",
         "scriptlet": "remove-node-text",
-        "scriptletParams": ["DIV", "rnt_remove", "EXCLUDES", "rnt_skip"],
-        "target": "<div class='target'><script>window.removeNodeTextData5=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='rnt_remove this content ready';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='rnt_remove this content rnt_skip';container.appendChild(d2);setTimeout(function(){window.removeNodeTextData5=d1.textContent+'|'+d2.textContent;},400);}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData5:|rnt_remove this content rnt_skip"
+        "scriptletParams": ["#text", "rnt_text"],
+        "target": "<div class='target'><div id='rnt_5_wrap'></div><script>window.rnt_5 = null;(function(){const wrap=document.getElementById('rnt_5_wrap');if(!wrap)return;const textNode=document.createTextNode('This has rnt_text here');wrap.appendChild(textNode);const update=function(){window.rnt_5=textNode.textContent;};update();const mo=new MutationObserver(function(){update();mo.disconnect();});mo.observe(textNode,{characterData:true});}())</script></div>",
+        "verification": "textEquals:window.rnt_5:"
     },
     {
         "id": "6",
-        "title": "STAY 옵션 (지속 감시)",
-        "desc": "변경이 늦게 일어나도 제거 유지(stay)",
+        "title": "includes 옵션",
+        "desc": "텍스트에 'rnt_main'이 포함될 때만 제거",
         "scriptlet": "remove-node-text",
-        "scriptletParams": ["DIV", "rnt_Later6", "STAY", "1"],
-        "target": "<div class='target'><script>window.removeNodeTextData6=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='waiting';container.appendChild(el);const update=function(){window.removeNodeTextData6=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{characterData:true,subtree:true,childList:true});const onDcl=function(){setTimeout(function(){el.textContent='rnt_Later6 arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },200);};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',onDcl,{once:true});}else{onDcl();}}())</script></div>",
-        "verification": "textEquals:window.removeNodeTextData6:"
+        "scriptletParams": ["DIV", "rnt_inc_target", "INCLUDES", "rnt_main"],
+        "target": "<div class='target'><script>window.rnt_6=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='rnt_inc_target in rnt_main content';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='rnt_inc_target in other content';container.appendChild(d2);setTimeout(function(){window.rnt_6=d1.textContent+'||'+d2.textContent;},400);}())</script></div>",
+        "verification": "textEquals:window.rnt_6:||rnt_inc_target in other content"
     },
     {
         "id": "7",
-        "title": "QUITAFTER 옵션",
-        "desc": "DOMContentLoaded 후 감시 종료(quitAfter)로 늦은 변경은 제거 안됨",
+        "title": "excludes 옵션",
+        "desc": "텍스트에 'rnt_skip'이 없을 때만 제거",
         "scriptlet": "remove-node-text",
-        "scriptletParams": ["DIV", "rnt_Later7", "quitAfter", 100],
-        "target": "<div class='target'><div id='rnt_7_el'><div id='rnt_7_child'>INIT</div></div></div>",
-        "verification": "textEquals:window.removeNodeTextData7:"
+        "scriptletParams": ["DIV", "rnt_exc_target", "EXCLUDES", "rnt_skip"],
+        "target": "<div class='target'><script>window.rnt_7=null;(function(){const container=document.currentScript.parentElement;const d1=document.createElement('div');d1.textContent='rnt_exc_target content ready';container.appendChild(d1);const d2=document.createElement('div');d2.textContent='rnt_exc_target rnt_skip content';container.appendChild(d2);setTimeout(function(){window.rnt_7=d1.textContent+'||'+d2.textContent;},400);}())</script></div>",
+        "verification": "textEquals:window.rnt_7:||rnt_exc_target rnt_skip content"
+    },
+    {
+        "id": "8",
+        "title": "stay 옵션 (지속 감시)",
+        "desc": "DOMContentLoaded 이후에도 제거 감시 유지 (stay 옵션)",
+        "scriptlet": "remove-node-text",
+        "scriptletParams": ["DIV", "rnt_Later8", "STAY", "1"],
+        "target": "<div class='target'><script>window.rnt_8=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='waiting';container.appendChild(el);const update=function(){window.rnt_8=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{characterData:true,subtree:true,childList:true});const changeAfterDCL=function(){setTimeout(function(){el.textContent='rnt_Later8 arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);}},50);};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',changeAfterDCL);}else{changeAfterDCL();}})();</script></div>",
+        "verification": "textEquals:window.rnt_8:"
+    },
+    {
+        "id": "9",
+        "title": "quitAfter 옵션",
+        "desc": "DOMContentLoaded 시점 이후 100ms까지만 제거 적용 (이후 변경은 제거되지 않음)",
+        "scriptlet": "remove-node-text",
+        "scriptletParams": ["DIV", "rnt_Later9", "quitAfter", 100],
+        "target": "<div class='target'><div id='rnt_9_el'></div></div>",
+        "verification": "textEquals:window.rnt_9:"
     }
 ]
