@@ -17,7 +17,22 @@ import { verifyTrustedJsonEditFetchRequest } from './scriptlet-verifiers/trusted
 import { verifyTrustedJsonEditXhrRequest } from './scriptlet-verifiers/trusted-json-edit-xhr-request.js';
 
 async function enableMocking() {
-    await worker.start();
+    // GitHub Pages(project pages)는 보통 /<repo>/ 경로에서 서비스됨.
+    // MSW 기본값은 /mockServiceWorker.js 를 찾기 때문에, 현재 페이지 기준으로 url/scope를 명시한다.
+    const serviceWorkerUrl = new URL(
+        'mockServiceWorker.js',
+        window.location.href
+    ).pathname;
+    const serviceWorkerScope = new URL('./', window.location.href).pathname;
+
+    await worker.start({
+        serviceWorker: {
+            url: serviceWorkerUrl,
+            options: {
+                scope: serviceWorkerScope,
+            },
+        },
+    });
 }
 
 (function () {
