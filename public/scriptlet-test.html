@@ -4,7 +4,24 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Scriptlet Test Page</title>
+        <script>
+            (function() {
+                const params = new URLSearchParams(location.search);
+                
+                // rpnt_4 테스트 (trusted-replace-node-text 페이지에서 실행)
+                if (params.get('type') === 'trusted-replace-node-text') {
+                    window.rpnt_4 = null;
+                    delete window.isTestText;
+                    delete window.isChangeText;
+                    window.isTestText = "tester";
+                    const testKey = 'is' + 'Test' + 'Text';
+                    const changeKey = 'is' + 'Change' + 'Text';
+                    const ok = (window[testKey] === undefined) && (window[changeKey] === "tester");
+                    window.rpnt_4 = ok ? "ok" : "fail";
+                }
+            })();
+        </script>
     </head>
-
-    <body></body>
+    <body>
+    </body>
 </html>

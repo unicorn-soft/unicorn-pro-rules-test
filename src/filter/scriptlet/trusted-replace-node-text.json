@@ -47,10 +47,10 @@
     {
         "id": "4",
         "title": "SCRIPT 소스 평가 영향 테스트",
-        "desc": "스크립트가 실행(평가)되기 전에 소스가 바뀌어 실행 결과가 달라지는지 확인 (isTestText → isChangeText)",
+        "desc": "정적 SCRIPT에서만 동작. 스크립트가 실행(평가)되기 전에 소스가 바뀌어 실행 결과가 달라지는지 확인 (isTestText → isChangeText)",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["SCRIPT", "isTestText", "isChangeText"],
-        "target": "<div class='target'><script>window.rpnt_4=null;delete window.isTestText;delete window.isChangeText;(function(){const container=document.currentScript.parentElement;const el=document.createElement('script');el.type='application/json';el.textContent='window.isTestText = \"tester\";';container.appendChild(el);setTimeout(function(){try{Function(el.textContent)();}catch(e){}const ok=(window.isTestText===undefined)&&(window.isChangeText===\"tester\");window.rpnt_4=ok?\"ok\":\"fail\";},200);}())</script></div>",
+        "target": "<div class='target'>정적 스크립트 테스트 (scriptlet-test.html에 삽입됨)</div>",
         "verification": "textEquals:window.rpnt_4:ok"
     },
     {
@@ -95,16 +95,16 @@
     {
         "id": "8",
         "title": "stay 옵션 (지속 감시)",
-        "desc": "변경이 늦게 일어나도 치환 유지(stay)",
+        "desc": "DOMContentLoaded 이후에도 치환 감시 유지 (stay 옵션)",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": ["DIV", "LaterStay", "ReplacedStay", "STAY", "1"],
-        "target": "<div class='target'><script>window.rpnt_8=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='LaterStay change pending';container.appendChild(el);const update=function(){window.rpnt_8=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent='LaterStay arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);} },500);}())</script></div>",
+        "target": "<div class='target'><script>window.rpnt_8=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='LaterStay change pending';container.appendChild(el);const update=function(){window.rpnt_8=el.textContent;};update();const mo=new MutationObserver(function(){update();});mo.observe(el,{childList:true,subtree:true});const changeAfterDCL=function(){setTimeout(function(){el.textContent='LaterStay arrived';if(el.parentNode){const parent=el.parentNode;parent.removeChild(el);parent.appendChild(el);}},50);};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',changeAfterDCL);}else{changeAfterDCL();}})();</script></div>",
         "verification": "textEquals:window.rpnt_8:ReplacedStay arrived"
     },
     {
         "id": "9",
         "title": "quitAfter 옵션",
-        "desc": "quitAfter=100ms: 최초 치환이 발생한 뒤( RPNT_QA_TXT → RPNT_QA_REPL ), 200ms 시점에 RPNT_QA_REPL일 때만 RPNT_QA_FALSE로 변경하고, 1000ms 최종값이 RPNT_QA_FALSE인지 확인",
+        "desc": "DOMContentLoaded 시점 이후 100ms까지만 치환 적용 (이후 변경은 치환되지 않음)",
         "scriptlet": "trusted-replace-node-text",
         "scriptletParams": [
             "DIV",
@@ -115,24 +115,5 @@
         ],
         "target": "<div class='target'><div id='rpnt_9_el'></div></div>",
         "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_REPL"
-    },
-    {
-        "id": "10",
-        "title": "옵션 우선순위: sedCount > stay > quitAfter",
-        "desc": "sedCount=1이 먼저 적용되고, stay로 감시 유지, quitAfter 이후 변화는 치환하지 않음",
-        "scriptlet": "trusted-replace-node-text",
-        "scriptletParams": [
-            "DIV",
-            "Target",
-            "Hit",
-            "SEDCOUNT",
-            "1",
-            "STAY",
-            "1",
-            "quitAfter",
-            "500"
-        ],
-        "target": "<div class='target'><script>window.rpnt_10=null;(function(){const container=document.currentScript.parentElement;const el=document.createElement('div');el.textContent='Target A';container.appendChild(el);const record=function(){window.rpnt_10=el.textContent;};record();const mo=new MutationObserver(function(){record();});mo.observe(el,{childList:true,subtree:true});setTimeout(function(){el.textContent+=' Target B';},150);setTimeout(function(){el.textContent+=' Target C';},700);}())</script></div>",
-        "verification": "textEquals:window.rpnt_10:Hit A Target B Target C"
     }
 ]

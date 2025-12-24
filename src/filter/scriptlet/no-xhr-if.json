@@ -5,7 +5,7 @@
         "desc": "특정 URL(/api/block1) 요청을 차단하고 빈 응답을 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block1"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData1 = null; const xhr1 = new XMLHttpRequest(); xhr1.open('GET', '/api/block1'); xhr1.onload = function() { if (xhr1.readyState === 4 && xhr1.status === 200) { window.nxif_noXhrIfTestData1 = xhr1.responseText; } }; xhr1.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData1 = null; const xhr1 = new XMLHttpRequest(); xhr1.open('GET', '/api/block1'); xhr1.onload = function() { if (xhr1.readyState === 4 && xhr1.status === 200) { window.nxif_noXhrIfTestData1 = xhr1.responseText; } }; xhr1.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData1"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "정규식 패턴(/api/track.*)에 매칭되는 XHR 요청을 차단하고 빈 응답 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/\\/api\\/track.*/"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/track-analytics'); xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { window.nxif_noXhrIfTestData2 = xhr2.responseText; } }; xhr2.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData2 = null; const xhr2 = new XMLHttpRequest(); xhr2.open('GET', '/api/track-analytics'); xhr2.onload = function() { if (xhr2.readyState === 4 && xhr2.status === 200) { window.nxif_noXhrIfTestData2 = xhr2.responseText; } }; xhr2.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData2"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "PUT 메서드일 때만 차단 (URL 제한 없음, 다른 메서드 영향 없음)",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["method:PUT"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('PUT', '/api/put-data'); xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { window.nxif_noXhrIfTestData3 = xhr3.responseText; } }; xhr3.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData3 = null; const xhr3 = new XMLHttpRequest(); xhr3.open('PUT', '/api/put-data'); xhr3.onload = function() { if (xhr3.readyState === 4 && xhr3.status === 200) { window.nxif_noXhrIfTestData3 = xhr3.responseText; } }; xhr3.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData3"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "차단된 요청을 surrogate 리소스(nofab.js)로 대체하여 원래 서버 응답과 다른 내용 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block4", "war:nofab.js"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData4 = null; const xhr4 = new XMLHttpRequest(); xhr4.open('GET', '/api/block4'); xhr4.onload = function() { if (xhr4.readyState === 4 && xhr4.status === 200) { try { window.nxif_noXhrIfTestData4 = xhr4.responseType === 'json' ? xhr4.response : JSON.parse(xhr4.responseText); } catch(e) { window.nxif_noXhrIfTestData4 = xhr4.responseText; } } }; xhr4.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData4 = null; const xhr4 = new XMLHttpRequest(); xhr4.open('GET', '/api/block4'); xhr4.onload = function() { if (xhr4.readyState === 4 && xhr4.status === 200) { try { window.nxif_noXhrIfTestData4 = xhr4.responseType === 'json' ? xhr4.response : JSON.parse(xhr4.responseText); } catch(e) { window.nxif_noXhrIfTestData4 = xhr4.responseText; } } }; xhr4.send();</script>XHR 응답 결과:</div>",
         "verification": "surrogateLoaded:window.nxif_noXhrIfTestData4"
     },
     {
@@ -41,7 +41,7 @@
         "desc": "url: 생략하고 문자열만 전달해도 차단 후 빈 응답 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["/api/block-implicit"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData5 = null; const xhr5 = new XMLHttpRequest(); xhr5.open('GET', '/api/block-implicit'); xhr5.onload = function() { if (xhr5.readyState === 4 && xhr5.status === 200) { window.nxif_noXhrIfTestData5 = xhr5.responseText; } }; xhr5.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData5 = null; const xhr5 = new XMLHttpRequest(); xhr5.open('GET', '/api/block-implicit'); xhr5.onload = function() { if (xhr5.readyState === 4 && xhr5.status === 200) { window.nxif_noXhrIfTestData5 = xhr5.responseText; } }; xhr5.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData5"
     },
     {
@@ -50,7 +50,7 @@
         "desc": "responseType=json 요청 차단 시 빈 객체 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block-json"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData6 = null; const xhr6 = new XMLHttpRequest(); xhr6.responseType='json'; xhr6.open('GET', '/api/block-json'); xhr6.onload = function() { if (xhr6.readyState === 4 && xhr6.status === 200) { window.nxif_noXhrIfTestData6 = xhr6.response; } }; xhr6.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData6 = null; const xhr6 = new XMLHttpRequest(); xhr6.responseType='json'; xhr6.open('GET', '/api/block-json'); xhr6.onload = function() { if (xhr6.readyState === 4 && xhr6.status === 200) { window.nxif_noXhrIfTestData6 = xhr6.response; } }; xhr6.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData6"
     },
     {
@@ -59,7 +59,7 @@
         "desc": "responseType=arraybuffer 요청 차단 시 길이 0 ArrayBuffer 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block-buffer"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData7 = null; const xhr7 = new XMLHttpRequest(); xhr7.responseType='arraybuffer'; xhr7.open('GET', '/api/block-buffer'); xhr7.onload = function() { if (xhr7.readyState === 4 && xhr7.status === 200) { window.nxif_noXhrIfTestData7 = xhr7.response; } }; xhr7.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData7 = null; const xhr7 = new XMLHttpRequest(); xhr7.responseType='arraybuffer'; xhr7.open('GET', '/api/block-buffer'); xhr7.onload = function() { if (xhr7.readyState === 4 && xhr7.status === 200) { window.nxif_noXhrIfTestData7 = xhr7.response; } }; xhr7.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData7"
     },
     {
@@ -68,7 +68,7 @@
         "desc": "responseType=blob 요청 차단 시 크기 0 Blob 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block-blob"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData8 = null; const xhr8 = new XMLHttpRequest(); xhr8.responseType='blob'; xhr8.open('GET', '/api/block-blob'); xhr8.onload = function() { if (xhr8.readyState === 4 && xhr8.status === 200) { window.nxif_noXhrIfTestData8 = xhr8.response; } }; xhr8.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData8 = null; const xhr8 = new XMLHttpRequest(); xhr8.responseType='blob'; xhr8.open('GET', '/api/block-blob'); xhr8.onload = function() { if (xhr8.readyState === 4 && xhr8.status === 200) { window.nxif_noXhrIfTestData8 = xhr8.response; } }; xhr8.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData8"
     },
     {
@@ -77,7 +77,7 @@
         "desc": "responseType=document 요청 차단 시 비어있는 Document 반환",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block-doc"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData9 = null; const xhr9 = new XMLHttpRequest(); xhr9.responseType='document'; xhr9.open('GET', '/api/block-doc'); xhr9.onload = function() { if (xhr9.readyState === 4 && xhr9.status === 200) { window.nxif_noXhrIfTestData9 = xhr9.response; } }; xhr9.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData9 = null; const xhr9 = new XMLHttpRequest(); xhr9.responseType='document'; xhr9.open('GET', '/api/block-doc'); xhr9.onload = function() { if (xhr9.readyState === 4 && xhr9.status === 200) { window.nxif_noXhrIfTestData9 = xhr9.response; } }; xhr9.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedEmpty:window.nxif_noXhrIfTestData9"
     },
     {
@@ -86,7 +86,7 @@
         "desc": "POST 메서드 + 특정 URL(/api/post-data)일 때만 차단하고, 같은 URL의 GET과 다른 POST는 유지",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["method:POST url:/api/post-data"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData10 = null; const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/post-data'),doReq('GET','/api/post-data'),doReq('POST','/api/other-post')]).then(([blockedPostData,allowedGetSameUrl,allowedPostOther])=>{window.nxif_noXhrIfTestData10=[blockedPostData,allowedGetSameUrl,allowedPostOther];}).catch(()=>{});</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData10 = null; const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/post-data'),doReq('GET','/api/post-data'),doReq('POST','/api/other-post')]).then(([blockedPostData,allowedGetSameUrl,allowedPostOther])=>{window.nxif_noXhrIfTestData10=[blockedPostData,allowedGetSameUrl,allowedPostOther];}).catch(()=>{});</script>XHR 응답 결과:</div>",
         "verification": "jsonEquals:window.nxif_noXhrIfTestData10:[\"\",\"original-response-post\",\"original-response-other-post\"]"
     },
     {
@@ -95,7 +95,7 @@
         "desc": "url 타입 명시 후 랜덤 문자열 반환 기능 확인 (param2가 true일 때)",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["url:/api/block-rand", "true"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData11 = null; const xhr11 = new XMLHttpRequest(); xhr11.open('GET', '/api/block-rand'); xhr11.onload = function() { if (xhr11.readyState === 4 && xhr11.status === 200) { window.nxif_noXhrIfTestData11 = xhr11.responseText; } }; xhr11.send();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData11 = null; const xhr11 = new XMLHttpRequest(); xhr11.open('GET', '/api/block-rand'); xhr11.onload = function() { if (xhr11.readyState === 4 && xhr11.status === 200) { window.nxif_noXhrIfTestData11 = xhr11.responseText; } }; xhr11.send();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedRandom:window.nxif_noXhrIfTestData11"
     },
     {
@@ -104,7 +104,7 @@
         "desc": "POST + /api/block-method-rand 조합일 때만 차단(랜덤 문자열), 같은 URL GET과 다른 POST는 유지하면 성공",
         "scriptlet": "no-xhr-if",
         "scriptletParams": ["method:POST url:/api/block-method-rand", "true"],
-        "target": "<div class='target'><script>window.nxif_noXhrIfTestData12=null;(function(){const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/block-method-rand'),doReq('GET','/api/block-method-rand'),doReq('POST','/api/other-post')]).then(([blockedPostRand,allowedGetSameUrl,allowedPostOther])=>{if(allowedGetSameUrl==='original-response-method-rand' && allowedPostOther==='original-response-other-post'){window.nxif_noXhrIfTestData12=blockedPostRand;}else{window.nxif_noXhrIfTestData12=null;}}).catch(()=>{});})();</script>XHR 응답 결과:<br></div>",
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData12=null;(function(){const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/block-method-rand'),doReq('GET','/api/block-method-rand'),doReq('POST','/api/other-post')]).then(([blockedPostRand,allowedGetSameUrl,allowedPostOther])=>{if(allowedGetSameUrl==='original-response-method-rand' && allowedPostOther==='original-response-other-post'){window.nxif_noXhrIfTestData12=blockedPostRand;}else{window.nxif_noXhrIfTestData12=null;}}).catch(()=>{});})();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedRandom:window.nxif_noXhrIfTestData12"
     }
 ]

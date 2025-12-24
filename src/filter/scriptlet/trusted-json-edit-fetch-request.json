@@ -5,7 +5,7 @@
         "desc": "body JSON의 tjefr_ads1 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": [".tjefr_ads1"],
-        "target": "<div class=\"target\"><script>window.tjefr_1=null;fetch('/api/edit-request-1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads1:1,tjefr_content1:'keep',tjefr_tracking1:'seoul'})}).then(r=>r.json()).then(d=>{window.tjefr_1=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_1=null;fetch('/api/edit-request-1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads1:1,tjefr_content1:'keep',tjefr_tracking1:'seoul'})}).then(r=>r.json()).then(d=>{window.tjefr_1=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_1:{\"tjefr_content1\":\"keep\",\"tjefr_tracking1\":\"seoul\"}"
     },
     {
@@ -14,7 +14,7 @@
         "desc": "tjefr_tracking2 값을 'removed'로 변경합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$.tjefr_tracking2=\"removed\""],
-        "target": "<div class=\"target\"><script>window.tjefr_2=null;fetch('/api/edit-request-2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads2:1,tjefr_tracking2:'orig',tjefr_content2:'keep'})}).then(r=>r.json()).then(d=>{window.tjefr_2=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_2=null;fetch('/api/edit-request-2',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads2:1,tjefr_tracking2:'orig',tjefr_content2:'keep'})}).then(r=>r.json()).then(d=>{window.tjefr_2=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_2:{\"tjefr_ads2\":1,\"tjefr_tracking2\":\"removed\",\"tjefr_content2\":\"keep\"}"
     },
     {
@@ -23,7 +23,7 @@
         "desc": "tjefr_config 객체에 tjefr_newKey를 병합합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$.tjefr_config+={\"tjefr_newKey\":\"value\"}"],
-        "target": "<div class=\"target\"><script>window.tjefr_3=null;fetch('/api/edit-request-3',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_config:{tjefr_old:'keep'},tjefr_content3:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_3=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_3=null;fetch('/api/edit-request-3',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_config:{tjefr_old:'keep'},tjefr_content3:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_3=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_3:{\"tjefr_config\":{\"tjefr_old\":\"keep\",\"tjefr_newKey\":\"value\"},\"tjefr_content3\":\"ok\"}"
     },
     {
@@ -32,7 +32,7 @@
         "desc": "tjefr_tracking4.tjefr_banner4 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": [".tjefr_tracking4.tjefr_banner4"],
-        "target": "<div class=\"target\"><script>window.tjefr_4=null;fetch('/api/edit-request-4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_tracking4:{tjefr_banner4:'seoul',tjefr_popup4:'kr'},tjefr_content4:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_4=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_4=null;fetch('/api/edit-request-4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_tracking4:{tjefr_banner4:'seoul',tjefr_popup4:'kr'},tjefr_content4:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_4=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_4:{\"tjefr_tracking4\":{\"tjefr_popup4\":\"kr\"},\"tjefr_content4\":\"ok\"}"
     },
     {
@@ -45,7 +45,7 @@
             "propsToMatch",
             "url:/api/edit-request-5"
         ],
-        "target": "<div class=\"target\"><script>window.tjefr_5=null;const body={tjefr_ads5:123,tjefr_content5:'keep',tjefr_tracking5:'seoul'};Promise.all([fetch('/api/edit-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).catch(()=>null),fetch('/api/edit-control-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.tjefr_5=[a,b];}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_5=null;const body={tjefr_ads5:123,tjefr_content5:'keep',tjefr_tracking5:'seoul'};Promise.all([fetch('/api/edit-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).catch(()=>null),fetch('/api/edit-control-request-5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).catch(()=>null)]).then(([a,b])=>{if(a===null||b===null)return;window.tjefr_5=[a,b];}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_5:[{\"tjefr_content5\":\"keep\",\"tjefr_tracking5\":\"seoul\"},{\"tjefr_ads5\":123,\"tjefr_content5\":\"keep\",\"tjefr_tracking5\":\"seoul\"}]"
     },
     {
@@ -54,7 +54,7 @@
         "desc": "배열 첫 요소의 tjefr_ads6를 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[0].tjefr_ads6"],
-        "target": "<div class=\"target\"><script>window.tjefr_6=null;fetch('/api/edit-request-6',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_ads6:1,tjefr_content6:'item1'},{tjefr_ads6:2,tjefr_content6:'item2'}])}).then(r=>r.json()).then(d=>{window.tjefr_6=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_6=null;fetch('/api/edit-request-6',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_ads6:1,tjefr_content6:'item1'},{tjefr_ads6:2,tjefr_content6:'item2'}])}).then(r=>r.json()).then(d=>{window.tjefr_6=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_6:[{\"tjefr_content6\":\"item1\"},{\"tjefr_ads6\":2,\"tjefr_content6\":\"item2\"}]"
     },
     {
@@ -63,7 +63,7 @@
         "desc": "모든 depth의 tjefr_tracking7 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["..tjefr_tracking7"],
-        "target": "<div class=\"target\"><script>window.tjefr_7=null;fetch('/api/edit-request-7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads7:1,tjefr_tracking7:'top',tjefr_nested:{tjefr_tracking7:'nested',tjefr_content7:'ok'},tjefr_content7:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_7=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_7=null;fetch('/api/edit-request-7',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads7:1,tjefr_tracking7:'top',tjefr_nested:{tjefr_tracking7:'nested',tjefr_content7:'ok'},tjefr_content7:'ok'})}).then(r=>r.json()).then(d=>{window.tjefr_7=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_7:{\"tjefr_ads7\":1,\"tjefr_nested\":{\"tjefr_content7\":\"ok\"},\"tjefr_content7\":\"ok\"}"
     },
     {
@@ -72,7 +72,7 @@
         "desc": "배열 모든 요소에서 tjefr_ads8을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[*].tjefr_ads8"],
-        "target": "<div class=\"target\"><script>window.tjefr_8=null;fetch('/api/edit-request-8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_ads8:1,tjefr_content8:'a'},{tjefr_ads8:2,tjefr_content8:'b'},{tjefr_ads8:3,tjefr_content8:'c'}])}).then(r=>r.json()).then(d=>{window.tjefr_8=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_8=null;fetch('/api/edit-request-8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_ads8:1,tjefr_content8:'a'},{tjefr_ads8:2,tjefr_content8:'b'},{tjefr_ads8:3,tjefr_content8:'c'}])}).then(r=>r.json()).then(d=>{window.tjefr_8=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_8:[{\"tjefr_content8\":\"a\"},{\"tjefr_content8\":\"b\"},{\"tjefr_content8\":\"c\"}]"
     },
     {
@@ -81,7 +81,7 @@
         "desc": "배열의 마지막 요소(-1)에서 tjefr_ads9를 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[-1].tjefr_ads9"],
-        "target": "<div class=\"target\"><script>window.tjefr_9=null;fetch('/api/edit-request-9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_ads9:1,tjefr_content9:'first'},{tjefr_ads9:2,tjefr_content9:'second'},{tjefr_ads9:3,tjefr_content9:'last'}])}).then(r=>r.json()).then(d=>{window.tjefr_9=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_9=null;fetch('/api/edit-request-9',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_ads9:1,tjefr_content9:'first'},{tjefr_ads9:2,tjefr_content9:'second'},{tjefr_ads9:3,tjefr_content9:'last'}])}).then(r=>r.json()).then(d=>{window.tjefr_9=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_9:[{\"tjefr_ads9\":1,\"tjefr_content9\":\"first\"},{\"tjefr_ads9\":2,\"tjefr_content9\":\"second\"},{\"tjefr_content9\":\"last\"}]"
     },
     {
@@ -90,7 +90,7 @@
         "desc": "배열 모든 요소의 tjefr_enabled를 'false' 문자열로 설정합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["$[*].tjefr_enabled=\"false\""],
-        "target": "<div class=\"target\"><script>window.tjefr_10=null;fetch('/api/edit-request-10',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_id:1,tjefr_enabled:true},{tjefr_id:2,tjefr_enabled:true},{tjefr_id:3,tjefr_enabled:true}])}).then(r=>r.json()).then(d=>{window.tjefr_10=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_10=null;fetch('/api/edit-request-10',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{tjefr_id:1,tjefr_enabled:true},{tjefr_id:2,tjefr_enabled:true},{tjefr_id:3,tjefr_enabled:true}])}).then(r=>r.json()).then(d=>{window.tjefr_10=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_10:[{\"tjefr_id\":1,\"tjefr_enabled\":\"false\"},{\"tjefr_id\":2,\"tjefr_enabled\":\"false\"},{\"tjefr_id\":3,\"tjefr_enabled\":\"false\"}]"
     },
     {
@@ -101,7 +101,7 @@
         "scriptletParams": [
             "$.tjefr_data.tjefr_items[0].tjefr_config.tjefr_ads14"
         ],
-        "target": "<div class=\"target\"><script>window.tjefr_11=null;fetch('/api/edit-request-11',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_data:{tjefr_items:[{tjefr_config:{tjefr_ads14:1,tjefr_content14:'keep'}},{tjefr_config:{tjefr_ads14:2,tjefr_content14:'keep2'}}]}}) }).then(r=>r.json()).then(d=>{window.tjefr_11=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_11=null;fetch('/api/edit-request-11',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_data:{tjefr_items:[{tjefr_config:{tjefr_ads14:1,tjefr_content14:'keep'}},{tjefr_config:{tjefr_ads14:2,tjefr_content14:'keep2'}}]}}) }).then(r=>r.json()).then(d=>{window.tjefr_11=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_11:{\"tjefr_data\":{\"tjefr_items\":[{\"tjefr_config\":{\"tjefr_content14\":\"keep\"}},{\"tjefr_config\":{\"tjefr_ads14\":2,\"tjefr_content14\":\"keep2\"}}]}}"
     },
     {
@@ -110,7 +110,7 @@
         "desc": "[?.tjefr_hasKey] 존재 시 tjefr_targetKey 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["[?.tjefr_hasKey].tjefr_targetKey"],
-        "target": "<div class=\"target\"><script>window.tjefr_12=null;fetch('/api/edit-request-12',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ tjefr_hasKey: true, tjefr_targetKey: 'deleteMe', tjefr_keep: 'me' })}).then(r=>r.json()).then(d=>{window.tjefr_12=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_12=null;fetch('/api/edit-request-12',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ tjefr_hasKey: true, tjefr_targetKey: 'deleteMe', tjefr_keep: 'me' })}).then(r=>r.json()).then(d=>{window.tjefr_12=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_12:{\"tjefr_hasKey\":true,\"tjefr_keep\":\"me\"}"
     },
     {
@@ -119,20 +119,20 @@
         "desc": "tjefr_type이 'target'으로 시작(^=)하면 tjefr_data 속성을 삭제합니다",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": ["[?.tjefr_type^='target'].tjefr_data"],
-        "target": "<div class=\"target\"><script>window.tjefr_13=null;fetch('/api/edit-request-13',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ tjefr_type: 'target-123', tjefr_data: 'deleteMe', tjefr_keep: 'me' })}).then(r=>r.json()).then(d=>{window.tjefr_13=d;}).catch(()=>{});</script>요청 결과: <br><pre class=\"json-result\"></pre></div>",
+        "target": "<div class=\"target\"><script>window.tjefr_13=null;fetch('/api/edit-request-13',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ tjefr_type: 'target-123', tjefr_data: 'deleteMe', tjefr_keep: 'me' })}).then(r=>r.json()).then(d=>{window.tjefr_13=d;}).catch(()=>{});</script>요청 결과: <pre class=\"json-result\"></pre></div>",
         "verification": "jsonEquals:window.tjefr_13:{\"tjefr_type\":\"target-123\",\"tjefr_keep\":\"me\"}"
     },
     {
         "id": "14",
         "title": "URL 부정 조건부 적용 (!tjefr_ads14)",
-        "desc": "초기에 /api/exclude-14 요청(수정 안 됨)을 확인하고, 버튼 클릭 시 /api/edit-request-14 요청(수정 됨)을 확인합니다",
+        "desc": "/api/exclude-14 요청은 수정되지 않고, /api/edit-request-14 요청만 수정됨을 검증",
         "scriptlet": "trusted-json-edit-fetch-request",
         "scriptletParams": [
             "['tjefr_ads14']",
             "propstomatch",
             "url:!/api/exclude-14"
         ],
-        "target": "<div class=\"target\"><div class=\"compare\"><div>/api/exclude-14 결과 (수정 X):<br><pre class=\"json-result\" id='tjefr_14_skip'></pre></div><div>/api/edit-request-14 결과 (수정 O):<br><pre class=\"json-result\" id='tjefr_14_target'></pre></div></div><script>if(!window.tjefr_14_init){window.tjefr_14_init=true;window.tjefr_14=null;window.tjefr_14_skip=null;(function(){const preTarget=document.getElementById('tjefr_14_target');const preSkip=document.getElementById('tjefr_14_skip');const btn=document.getElementById('tjefr_14_btn');const loadSkip=()=>{fetch('/api/exclude-14',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads14:1,tjefr_content14:'keep'})}).then(r=>r.json()).then(d=>{window.tjefr_14_skip=d;preSkip.textContent=JSON.stringify(window.tjefr_14_skip);}).catch(()=>{});};const loadTarget=()=>{window.tjefr_14=null;window.__tjefr_resetPolling=true;if(Array.isArray(window.__tjefr_restartList)){window.__tjefr_restartList.forEach(fn=>{try{fn();}catch(e){}});}fetch('/api/edit-request-14',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tjefr_ads14:1,tjefr_content14:'keep'})}).then(r=>r.json()).then(d=>{window.tjefr_14=d;preTarget.textContent=JSON.stringify(window.tjefr_14);}).catch(()=>{});};if(btn){btn.addEventListener('click',loadTarget,{once:true});}loadSkip();})();}</script></div>",
-        "verification": "jsonEquals:window.tjefr_14:{\"tjefr_content14\":\"keep\"}"
+        "target": "<div class=\"target\"><button id=\"tjefr_14_btn\">요청 실행</button><div class=\"compare\"><div>/api/exclude-14 결과 (수정 X):<pre class=\"json-result\" id=\"tjefr_14_skip\"></pre></div><div>/api/edit-request-14 결과 (수정 O):<pre class=\"json-result\" id=\"tjefr_14_target\"></pre></div></div><script>if(!window.tjefr_14_init){window.tjefr_14_init=true;window.tjefr_14=null;(function(){const preTarget=document.getElementById('tjefr_14_target');const preSkip=document.getElementById('tjefr_14_skip');const btn=document.getElementById('tjefr_14_btn');const body={tjefr_ads14:1,tjefr_content14:'keep'};let skipResult=null;const loadSkip=()=>{fetch('/api/exclude-14',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).then(d=>{skipResult=d;preSkip.textContent=JSON.stringify(d);}).catch(()=>{});};const loadTarget=()=>{fetch('/api/edit-request-14',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>r.json()).then(d=>{preTarget.textContent=JSON.stringify(d);window.tjefr_14=[skipResult,d];}).catch(()=>{});};btn.addEventListener('click',loadTarget,{once:true});loadSkip();})();}</script></div>",
+        "verification": "jsonEquals:window.tjefr_14:[{\"tjefr_ads14\":1,\"tjefr_content14\":\"keep\"},{\"tjefr_content14\":\"keep\"}]"
     }
 ]

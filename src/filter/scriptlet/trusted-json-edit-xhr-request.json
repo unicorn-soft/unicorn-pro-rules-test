@@ -125,14 +125,14 @@
     {
         "id": "14",
         "title": "URL 부정 조건부 적용 (!tjexr_ads14)",
-        "desc": "초기에 /api/exclude-xhr-14 요청(수정 안 됨)을 확인하고, 버튼 클릭 시 /api/edit-xhr-request-14 요청(수정 됨)을 확인합니다",
+        "desc": "/api/exclude-xhr-14 요청은 수정되지 않고, /api/edit-xhr-request-14 요청만 수정됨을 검증",
         "scriptlet": "trusted-json-edit-xhr-request",
         "scriptletParams": [
             "['tjexr_ads14']",
             "propstomatch",
             "url:!/api/exclude-xhr-14"
         ],
-        "target": "<div class='target'><div class='compare'><div><pre class='json-result' id='tjexr_14_skip'></pre></div><div><pre class='json-result' id='tjexr_14_target'></pre></div></div><script>if(!window.tjexr_14_init){window.tjexr_14_init=true;window.tjexr_14=null;window.tjexr_14_skip=null;(function(){const preTarget=document.getElementById('tjexr_14_target');const preSkip=document.getElementById('tjexr_14_skip');const btn=document.getElementById('tjexr_14_btn');const loadSkip=()=>{const xhr=new XMLHttpRequest();xhr.open('POST','/api/exclude-xhr-14');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){try{window.tjexr_14_skip=JSON.parse(xhr.responseText);preSkip.textContent=JSON.stringify(window.tjexr_14_skip);}catch(e){}};xhr.send(JSON.stringify({tjexr_ads14:1,tjexr_content14:'keep'}));};const loadTarget=()=>{window.tjexr_14=null;window.__tjexr_resetPolling=true;if(Array.isArray(window.__tjexr_restartList)){window.__tjexr_restartList.forEach(fn=>{try{fn();}catch(e){}});}const xhr=new XMLHttpRequest();xhr.open('POST','/api/edit-xhr-request-14');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){try{window.tjexr_14=JSON.parse(xhr.responseText);preTarget.textContent=JSON.stringify(window.tjexr_14);}catch(e){}};xhr.send(JSON.stringify({tjexr_ads14:1,tjexr_content14:'keep'}));};if(btn){btn.addEventListener('click',loadTarget,{once:true});}loadSkip();})();}</script></div>",
-        "verification": "jsonEquals:window.tjexr_14:{\"tjexr_content14\":\"keep\"}"
+        "target": "<div class='target'><button id='tjexr_14_btn'>요청 실행</button><div class='compare'><div>/api/exclude-xhr-14 결과 (수정 X):<pre class='json-result' id='tjexr_14_skip'></pre></div><div>/api/edit-xhr-request-14 결과 (수정 O):<pre class='json-result' id='tjexr_14_target'></pre></div></div><script>if(!window.tjexr_14_init){window.tjexr_14_init=true;window.tjexr_14=null;(function(){const preTarget=document.getElementById('tjexr_14_target');const preSkip=document.getElementById('tjexr_14_skip');const btn=document.getElementById('tjexr_14_btn');const body={tjexr_ads14:1,tjexr_content14:'keep'};let skipResult=null;const loadSkip=()=>{const xhr=new XMLHttpRequest();xhr.open('POST','/api/exclude-xhr-14');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){try{skipResult=JSON.parse(xhr.responseText);preSkip.textContent=JSON.stringify(skipResult);}catch(e){}};xhr.send(JSON.stringify(body));};const loadTarget=()=>{const xhr=new XMLHttpRequest();xhr.open('POST','/api/edit-xhr-request-14');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){try{const d=JSON.parse(xhr.responseText);preTarget.textContent=JSON.stringify(d);window.tjexr_14=[skipResult,d];}catch(e){}};xhr.send(JSON.stringify(body));};btn.addEventListener('click',loadTarget,{once:true});loadSkip();})();}</script></div>",
+        "verification": "jsonEquals:window.tjexr_14:[{\"tjexr_ads14\":1,\"tjexr_content14\":\"keep\"},{\"tjexr_content14\":\"keep\"}]"
     }
 ]
