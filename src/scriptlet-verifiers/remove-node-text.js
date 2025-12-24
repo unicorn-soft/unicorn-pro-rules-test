@@ -7,9 +7,7 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
         const childId = 'rnt_9_child';
         const update = () => {
             const child = qaEl.querySelector?.(`#${childId}`);
-            window.rnt_9 = child
-                ? child.textContent
-                : qaEl.textContent;
+            window.rnt_9 = child ? child.textContent : qaEl.textContent;
         };
 
         const mo = new MutationObserver(() => update());
@@ -69,7 +67,7 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
     const runCheck = () => {
         try {
             const actualValue = eval(target);
-            
+
             // equals 타입에서 undefined 체크
             if (type === 'equals' && expected === 'undefined') {
                 if (actualValue === undefined) {
@@ -79,7 +77,7 @@ export function verifyRemoveNodeText(targetEl, verification, parentBox) {
                 parentBox.removeAttribute('success');
                 return false;
             }
-            
+
             if (actualValue === null || actualValue === undefined) return false;
 
             if (checkMatch(actualValue)) {
