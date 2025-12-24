@@ -110,7 +110,7 @@
     {
         "id": "12",
         "title": "타입 불일치 시 고정 안 됨",
-        "desc": "문자열 프로퍼티(window.document.title)에 숫자 고정 시도 → 타입 불일치로 고정되지 않음을 확인<br>타입 불일치로 인해 고정되지 않기 때문에 규칙을 추가해도 테스트 실패가 정상입니다.",
+        "desc": "문자열 프로퍼티(window.document.title)에 숫자 고정 시도 → 타입 불일치로 고정되지 않음을 확인타입 불일치로 인해 고정되지 않기 때문에 규칙을 추가해도 테스트 실패가 정상입니다.",
         "scriptlet": "set-constant",
         "scriptletParams": ["document.title", "0"],
         "target": "<div class='target'><script>(function(){window.set_typeMismatchAttempted=false;let orig=document.title;try{Object.defineProperty(document,'title',{configurable:true,get:function(){return orig;},set:function(v){window.set_typeMismatchAttempted=true;orig=v;}});}catch(e){window.set_typeMismatchAttempted=true;}window.checkSetTypeMismatch=function(){const flag=window.set_typeMismatchAttempted===true;const same=document.title===orig;return flag && same;};})();</script></div>",

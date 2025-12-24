@@ -5,7 +5,7 @@
         "desc": "지정 프로퍼티에 대한 접근을 중단",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORT1__"],
-        "target": "<div class='target'><script>try { window.acis___ABORT1__; window.acis_abortResult1 = 'ran'; } catch(e) {}</script><br></div>",
+        "target": "<div class='target'><script>try { window.acis___ABORT1__; window.acis_abortResult1 = 'ran'; } catch(e) {}</script></div>",
         "verification": "equals:window.acis_abortResult1:undefined"
     },
     {
@@ -14,26 +14,26 @@
         "desc": "지정 프로퍼티에 대한 접근을 중단",
         "scriptlet": "acis",
         "scriptletParams": ["acis___ABORT1_ALIAS__"],
-        "target": "<div class='target'><script>try { window.acis___ABORT1_ALIAS__; window.acis_abortResult1Alias = 'ran'; } catch(e) {}</script><br></div>",
+        "target": "<div class='target'><script>try { window.acis___ABORT1_ALIAS__; window.acis_abortResult1Alias = 'ran'; } catch(e) {}</script></div>",
         "verification": "equals:window.acis_abortResult1Alias:undefined"
     },
     {
         "id": "2",
-        "title": "정규식 이스케이프 중단",
-        "desc": "정규식 /ABORT\\d+/ 매칭 시 인라인 스크립트 실행 중단",
+        "title": "정규식 매칭 조건 중단",
+        "desc": "정규식 /MATCHME[0-9]+/ 매칭 시 중단, 미매칭 시 통과",
         "scriptlet": "abort-current-inline-script",
-        "scriptletParams": ["acis___ABORT2__", "/ABORT\\d+/"],
-        "target": "<div class='target'><script>try { window.acis___ABORT2__; /* ABORT123 */ window.acis_abortResult2 = 'ran'; } catch(e) {}</script><br></div>",
-        "verification": "equals:window.acis_abortResult2:undefined"
+        "scriptletParams": ["acis___ABORT2__", "/MATCHME[0-9]+/"],
+        "target": "<div class='target'><script>window.acis_abortResult2_pair=[null,null];</script><script>try { window.acis___ABORT2__; /* MATCHME123 */ window.acis_abortResult2_pair[0] = 'ran'; } catch(e) {}</script><script>try { window.acis___ABORT2__; /* NOMATCH */ window.acis_abortResult2_pair[1] = 'ran'; } catch(e) {}</script></div>",
+        "verification": "jsonEquals:window.acis_abortResult2_pair:[null,\"ran\"]"
     },
     {
         "id": "3",
-        "title": "조건 옵션 + 문자열 중단",
-        "desc": "스크립트 내용에 문자열 ABORTSTR 포함 시 실행 중단",
+        "title": "문자열 매칭 조건 중단",
+        "desc": "문자열 ABORTSTR 매칭 시 중단, 미매칭 시 통과",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORT3__", "ABORTSTR"],
-        "target": "<div class='target'><script>try { const marker3 = 'ABORTSTR'; window.acis___ABORT3__; window.acis_abortResult3 = 'ran'; } catch(e) {}</script><br></div>",
-        "verification": "equals:window.acis_abortResult3:undefined"
+        "target": "<div class='target'><script>window.acis_abortResult3_pair=[null,null];</script><script>try { const marker3 = 'ABORTSTR'; window.acis___ABORT3__; window.acis_abortResult3_pair[0] = 'ran'; } catch(e) {}</script><script>try { const marker3 = 'NOMATCH'; window.acis___ABORT3__; window.acis_abortResult3_pair[1] = 'ran'; } catch(e) {}</script></div>",
+        "verification": "jsonEquals:window.acis_abortResult3_pair:[null,\"ran\"]"
     },
     {
         "id": "4",
@@ -41,7 +41,7 @@
         "desc": "window에 연결된 사용자 정의 함수를 접근할 때 중단되는지 확인",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis_customFn"],
-        "target": "<div class='target'><script>window.acis_abortResult4=undefined;function acis_customFn() {}</script><script>try { window.acis_customFn(); window.acis_abortResult4 = 'ran'; } catch(e) {}</script><br></div>",
+        "target": "<div class='target'><script>window.acis_abortResult4=undefined;function acis_customFn() {}</script><script>try { window.acis_customFn(); window.acis_abortResult4 = 'ran'; } catch(e) {}</script></div>",
         "verification": "equals:window.acis_abortResult4:undefined"
     },
     {
@@ -50,7 +50,7 @@
         "desc": "지정 프로퍼티 접근 스크립트의 src가 /acis-src/이면 실행 중단(미매칭 src는 통과)",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORTSRC__", "", "/acis-src/"],
-        "target": "<div class='target'><script>(function(){window.acis_abortResult5_pair=[null,null];const makeScript=(label,idx)=>{const s=document.createElement('script');s.async=false;s.src=`data:text/javascript,/*${label}*/try{window.acis___ABORTSRC__;window.acis_abortResult5_pair[${idx}]=\"ran\";}catch(e){}`;document.currentScript.parentElement.appendChild(s);};makeScript('acis-src',0);makeScript('nomatch-src',1);})();</script><br></div>",
+        "target": "<div class='target'><script>(function(){window.acis_abortResult5_pair=[null,null];const makeScript=(label,idx)=>{const s=document.createElement('script');s.async=false;s.src=`data:text/javascript,/*${label}*/try{window.acis___ABORTSRC__;window.acis_abortResult5_pair[${idx}]=\"ran\";}catch(e){}`;document.currentScript.parentElement.appendChild(s);};makeScript('acis-src',0);makeScript('nomatch-src',1);})();</script></div>",
         "verification": "jsonEquals:window.acis_abortResult5_pair:[null,\"ran\"]"
     },
     {
@@ -59,7 +59,7 @@
         "desc": "지정 프로퍼티 접근 스크립트의 src에 acis-src-str가 포함되면 실행 중단(미매칭 src는 통과)",
         "scriptlet": "abort-current-inline-script",
         "scriptletParams": ["acis___ABORTSRC_STR__", "", "acis-src-str"],
-        "target": "<div class='target'><script>(function(){window.acis_abortResult6_pair=[null,null];const makeScript=(label,idx)=>{const s=document.createElement('script');s.async=false;s.src=`data:text/javascript,/*${label}*/try{window.acis___ABORTSRC_STR__;window.acis_abortResult6_pair[${idx}]=\"ran\";}catch(e){}`;document.currentScript.parentElement.appendChild(s);};makeScript('acis-src-str',0);makeScript('nomatch-src-str',1);})();</script><br></div>",
+        "target": "<div class='target'><script>(function(){window.acis_abortResult6_pair=[null,null];const makeScript=(label,idx)=>{const s=document.createElement('script');s.async=false;s.src=`data:text/javascript,/*${label}*/try{window.acis___ABORTSRC_STR__;window.acis_abortResult6_pair[${idx}]=\"ran\";}catch(e){}`;document.currentScript.parentElement.appendChild(s);};makeScript('acis-src-str',0);makeScript('nomatch-src-str',1);})();</script></div>",
         "verification": "jsonEquals:window.acis_abortResult6_pair:[null,\"ran\"]"
     }
 ]
