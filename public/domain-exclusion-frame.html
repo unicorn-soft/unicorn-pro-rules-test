@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Domain Exclusion Frame</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 12px;
+                background: #fff;
+                color: #111;
+                font-family: Arial, sans-serif;
+            }
+
+            .host {
+                margin-bottom: 12px;
+                font-weight: 700;
+            }
+
+            .case {
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+            }
+
+            .case-title {
+                padding: 8px;
+                background: #f5f5f5;
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            .row {
+                display: flex;
+            }
+
+            .target-panel,
+            .content {
+                flex: 1;
+                padding: 20px;
+                color: #fff;
+                text-align: center;
+                font-weight: 700;
+            }
+
+            .target-panel {
+                background: #c00;
+            }
+
+            .content {
+                background: #4caf50;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="host" id="host"></div>
+
+        <main>
+            <section class="case">
+                <div class="case-title">1. 단독 제외 - 현재 도메인 제외</div>
+                <div class="row">
+                    <div
+                        id="domain-exclusion-case1"
+                        class="target target-panel"
+                        data-case-id="1"
+                    >
+                        타겟
+                    </div>
+                    <div class="content">콘텐츠</div>
+                </div>
+            </section>
+
+            <section class="case">
+                <div class="case-title">2. 단독 제외 - Synology 제외</div>
+                <div class="row">
+                    <div
+                        id="domain-exclusion-case2"
+                        class="target target-panel"
+                        data-case-id="2"
+                    >
+                        타겟
+                    </div>
+                    <div class="content">콘텐츠</div>
+                </div>
+            </section>
+
+            <section class="case">
+                <div class="case-title">
+                    3. 양수 리스트에서 현재 도메인 제외
+                </div>
+                <div class="row">
+                    <div
+                        id="domain-exclusion-case3"
+                        class="target target-panel"
+                        data-case-id="3"
+                    >
+                        타겟
+                    </div>
+                    <div class="content">콘텐츠</div>
+                </div>
+            </section>
+
+            <section class="case">
+                <div class="case-title">4. 양수 리스트에서 Synology 제외</div>
+                <div class="row">
+                    <div
+                        id="domain-exclusion-case4"
+                        class="target target-panel"
+                        data-case-id="4"
+                    >
+                        타겟
+                    </div>
+                    <div class="content">콘텐츠</div>
+                </div>
+            </section>
+
+            <section class="case">
+                <div class="case-title">
+                    5. 양수 리스트와 무관한 제외 도메인
+                </div>
+                <div class="row">
+                    <div
+                        id="domain-exclusion-case5"
+                        class="target target-panel"
+                        data-case-id="5"
+                    >
+                        타겟
+                    </div>
+                    <div class="content">콘텐츠</div>
+                </div>
+            </section>
+
+            <section class="case">
+                <div class="case-title">
+                    6. 현재 도메인이 양수 리스트에 없는 경우
+                </div>
+                <div class="row">
+                    <div
+                        id="domain-exclusion-case6"
+                        class="target target-panel"
+                        data-case-id="6"
+                    >
+                        타겟
+                    </div>
+                    <div class="content">콘텐츠</div>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            const MESSAGE_RESULT = 'domain-exclusion-frame-result';
+
+            document.getElementById('host').textContent =
+                `현재 hostname: ${location.hostname}`;
+
+            reportResultsRepeatedly();
+
+            function reportResultsRepeatedly() {
+                [100, 300, 700, 1200, 2500].forEach((delay) => {
+                    setTimeout(reportResults, delay);
+                });
+            }
+
+            function reportResults() {
+                const targets = Array.from(
+                    document.querySelectorAll('.target[data-case-id]')
+                );
+                const results = targets.map((target) => ({
+                    id: target.dataset.caseId,
+                    hidden: isHidden(target),
+                }));
+
+                window.parent.postMessage(
+                    {
+                        type: MESSAGE_RESULT,
+                        host: location.hostname,
+                        results,
+                    },
+                    '*'
+                );
+            }
+
+            function isHidden(element) {
+                const style = getComputedStyle(element);
+                return style.display === 'none';
+            }
+        </script>
+    </body>
+</html>

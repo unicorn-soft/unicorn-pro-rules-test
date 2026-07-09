@@ -1,10 +1,21 @@
-function addDomainPrefix(text) {
-    return window.location.hostname + '##' + text;
+function createDomainPrefix(domainPrefix) {
+    if (!domainPrefix) return window.location.hostname;
+
+    return domainPrefix.replace(/\{hostname\}/g, window.location.hostname);
 }
 
-export function createRuleString({ filter, scriptlet, scriptletParams }) {
+function addDomainPrefix(text, domainPrefix) {
+    return createDomainPrefix(domainPrefix) + '##' + text;
+}
+
+export function createRuleString({
+    domainPrefix,
+    filter,
+    scriptlet,
+    scriptletParams,
+}) {
     if (filter) {
-        return addDomainPrefix(filter);
+        return addDomainPrefix(filter, domainPrefix);
     }
     if (scriptlet && scriptletParams) {
         const formattedParams = scriptletParams.map((param) => {
@@ -27,7 +38,7 @@ export function createRuleString({ filter, scriptlet, scriptletParams }) {
             return param;
         });
         const scriptletText = `+js(${scriptlet}, ${formattedParams.join(', ')})`;
-        return addDomainPrefix(scriptletText);
+        return addDomainPrefix(scriptletText, domainPrefix);
     }
     return '';
 }

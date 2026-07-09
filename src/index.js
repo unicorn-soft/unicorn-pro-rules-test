@@ -3,6 +3,7 @@ import './style/index.css';
 import { createRuleString } from './utils/createRuleString.js';
 
 import basicCases from './filter/extend-css/basic.json';
+import domainExclusionCases from './filter/extend-css/domain-exclusion.json';
 import styleCases from './filter/extend-css/style.json';
 import removeCases from './filter/extend-css/remove.json';
 
@@ -22,6 +23,7 @@ import trustedJsonEditXhrRequestCases from './filter/scriptlet/trusted-json-edit
 
 const testCase = {
     basic: basicCases,
+    'domain-exclusion': domainExclusionCases,
     style: styleCases,
     remove: removeCases,
 

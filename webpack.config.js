@@ -52,7 +52,10 @@ module.exports = {
         }),
         new MiniCssExtractPlugin(),
         new CopyPlugin({
-            patterns: [{ from: 'public/mockServiceWorker.js', to: '.' }],
+            patterns: [
+                { from: 'public/mockServiceWorker.js', to: '.' },
+                { from: 'public/domain-exclusion-frame.html', to: '.' },
+            ],
         }),
     ],
 };

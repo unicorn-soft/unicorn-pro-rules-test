@@ -16,6 +16,11 @@ import { verifyRemoveNodeText } from './scriptlet-verifiers/remove-node-text.js'
 import { verifyTrustedJsonEditFetchRequest } from './scriptlet-verifiers/trusted-json-edit-fetch-request.js';
 import { verifyTrustedJsonEditXhrRequest } from './scriptlet-verifiers/trusted-json-edit-xhr-request.js';
 
+const DOMAIN_EXCLUSION_TYPE = 'domain-exclusion';
+const DOMAIN_EXCLUSION_RESULT_MESSAGE = 'domain-exclusion-frame-result';
+const DOMAIN_EXCLUSION_CURRENT_HOST_KEY = '{hostname}';
+const DOMAIN_EXCLUSION_SYNOLOGY_HOST = 'unicornsoft.synology.me';
+
 async function enableMocking() {
     // GitHub Pages(project pages)는 보통 /<repo>/ 경로에서 서비스됨.
     // MSW 기본값은 /mockServiceWorker.js 를 찾기 때문에, 현재 페이지 기준으로 url/scope를 명시한다.
@@ -41,6 +46,11 @@ async function enableMocking() {
     if (Array.isArray(currentCase) === false) return;
 
     renderRulesCopy(type, currentCase);
+
+    if (type === DOMAIN_EXCLUSION_TYPE) {
+        renderDomainExclusionPage(currentCase);
+        return;
+    }
 
     const buildPage = () => {
         currentCase.forEach((c) => createTestSection(c, type));
@@ -151,6 +161,208 @@ function renderRulesCopy(type, currentCase) {
     document.body.insertBefore(section, document.body.firstChild);
 }
 
+function renderDomainExclusionPage(cases) {
+    const hosts = getDomainExclusionHosts();
+    const state = hosts.reduce((acc, host) => {
+        acc[host.hostname] = {};
+        return acc;
+    }, {});
+
+    window.addEventListener('message', (event) => {
+        const data = event.data;
+        if (!data) return;
+
+        if (data.type !== DOMAIN_EXCLUSION_RESULT_MESSAGE) return;
+        if (!state[data.host] || !Array.isArray(data.results)) return;
+
+        data.results.forEach((result) => {
+            state[data.host][String(result.id)] = result.hidden;
+        });
+        updateDomainExclusionResults(cases, hosts, state);
+    });
+
+    cases.forEach((item) => createDomainExclusionSection(item, hosts));
+    createDomainExclusionFrames(hosts);
+}
+
+function getDomainExclusionHosts() {
+    return [
+        {
+            key: DOMAIN_EXCLUSION_CURRENT_HOST_KEY,
+            hostname: window.location.hostname,
+            label: '현재 페이지',
+            frameUrl: new URL(
+                'domain-exclusion-frame.html',
+                window.location.href
+            ).href,
+        },
+        {
+            key: DOMAIN_EXCLUSION_SYNOLOGY_HOST,
+            hostname: DOMAIN_EXCLUSION_SYNOLOGY_HOST,
+            label: 'Synology',
+            frameUrl: `https://${DOMAIN_EXCLUSION_SYNOLOGY_HOST}/qa/domain-exclusion-frame.html`,
+        },
+    ];
+}
+
+function createDomainExclusionSection(item, hosts) {
+    const section = document.createElement('section');
+    section.id = `s_${item.id}`;
+    section.className = 'domain-exclusion-section';
+
+    const divTitle = document.createElement('div');
+    divTitle.className = 'title';
+
+    const h1El = document.createElement('h1');
+    h1El.textContent = `${item.id}. ${item.title}`;
+    divTitle.appendChild(h1El);
+
+    const status = document.createElement('span');
+    status.className = 'domain-case-status';
+    status.dataset.status = 'pending';
+    status.textContent = '대기';
+    divTitle.appendChild(status);
+
+    section.appendChild(divTitle);
+
+    const pDesc = document.createElement('p');
+    pDesc.className = 'description';
+    pDesc.innerHTML = item.desc;
+    section.appendChild(pDesc);
+
+    const resultRow = document.createElement('div');
+    resultRow.className = 'domain-result-row';
+    hosts.forEach((host) => {
+        resultRow.appendChild(createDomainResultCard(item, host));
+    });
+    section.appendChild(resultRow);
+
+    const filtersEl = document.createElement('div');
+    filtersEl.className = 'filter';
+
+    const h2Filter = document.createElement('h2');
+    h2Filter.textContent = 'Filter';
+    filtersEl.appendChild(h2Filter);
+
+    const filterCode = document.createElement('div');
+    filterCode.className = 'filter-code';
+    filterCode.textContent = createRuleString(item);
+    filtersEl.appendChild(filterCode);
+
+    section.appendChild(filtersEl);
+    document.body.appendChild(section);
+}
+
+function createDomainResultCard(item, host) {
+    const card = document.createElement('div');
+    card.className = 'domain-result-card';
+    card.dataset.caseId = String(item.id);
+    card.dataset.host = host.hostname;
+    card.dataset.status = 'pending';
+
+    const hostTitle = document.createElement('h2');
+    hostTitle.className = 'domain-result-host';
+    hostTitle.textContent = host.label;
+    card.appendChild(hostTitle);
+
+    const expected = document.createElement('p');
+    expected.className = 'domain-result-expected';
+    expected.textContent = `기대: ${formatDomainResult(
+        getDomainExclusionExpectedHidden(item, host)
+    )}`;
+    card.appendChild(expected);
+
+    const actual = document.createElement('p');
+    actual.className = 'domain-result-actual';
+    actual.textContent = '결과: 대기';
+    card.appendChild(actual);
+
+    const status = document.createElement('p');
+    status.className = 'domain-result-status';
+    status.textContent = '대기';
+    card.appendChild(status);
+
+    return card;
+}
+
+function createDomainExclusionFrames(hosts) {
+    const container = document.createElement('div');
+    container.className = 'domain-frame-container';
+
+    hosts.forEach((host) => {
+        const iframe = document.createElement('iframe');
+        iframe.className = 'domain-exclusion-frame';
+        iframe.title = `${host.label} 도메인 제외 테스트 프레임`;
+        iframe.src = host.frameUrl;
+        container.appendChild(iframe);
+    });
+
+    document.body.appendChild(container);
+}
+
+function updateDomainExclusionResults(cases, hosts, state) {
+    cases.forEach((item) => {
+        const hostResults = hosts.map((host) => {
+            const hidden = state[host.hostname][String(item.id)];
+            const expectedHidden = getDomainExclusionExpectedHidden(item, host);
+            return {
+                host,
+                hidden,
+                expectedHidden,
+                completed: hidden !== undefined,
+                passed: hidden === expectedHidden,
+            };
+        });
+
+        hostResults.forEach(({ host, hidden, passed, completed }) => {
+            const card = document.querySelector(
+                `.domain-result-card[data-case-id="${item.id}"][data-host="${host.hostname}"]`
+            );
+            if (!card) return;
+
+            const actual = card.querySelector('.domain-result-actual');
+            const status = card.querySelector('.domain-result-status');
+
+            if (!completed) {
+                card.dataset.status = 'pending';
+                actual.textContent = '결과: 대기';
+                status.textContent = '대기';
+                return;
+            }
+
+            card.dataset.status = passed ? 'success' : 'failure';
+            actual.textContent = `결과: ${formatDomainResult(hidden)}`;
+            status.textContent = passed ? '성공' : '실패';
+        });
+
+        const sectionStatus = document.querySelector(
+            `#s_${item.id} .domain-case-status`
+        );
+        if (!sectionStatus) return;
+
+        const isCompleted = hostResults.every((result) => result.completed);
+        const isPassed = hostResults.every((result) => result.passed);
+
+        if (!isCompleted) {
+            sectionStatus.dataset.status = 'pending';
+            sectionStatus.textContent = '대기';
+        } else {
+            sectionStatus.dataset.status = isPassed ? 'success' : 'failure';
+            sectionStatus.textContent = isPassed ? '성공' : '실패';
+        }
+    });
+}
+
+function getDomainExclusionExpectedHidden(item, host) {
+    return item.expectedHidden[host.key];
+}
+
+function formatDomainResult(hidden) {
+    if (hidden === true) return '차단됨';
+    if (hidden === false) return '차단 안 됨';
+    return '확인 불가';
+}
+
 function createTestSection(
     {
         id,
@@ -162,6 +374,7 @@ function createTestSection(
         scriptlet,
         scriptletParams,
         verification,
+        domainPrefix,
     },
     pageType
 ) {
@@ -249,6 +462,7 @@ function createTestSection(
     filterCode.className = 'filter-code';
 
     filterCode.textContent = createRuleString({
+        domainPrefix,
         filter,
         scriptlet,
         scriptletParams,

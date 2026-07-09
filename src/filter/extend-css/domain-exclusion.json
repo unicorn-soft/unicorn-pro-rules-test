@@ -1,0 +1,80 @@
+[
+    {
+        "id": "1",
+        "domainPrefix": "~{hostname}",
+        "filter": "#domain-exclusion-case1.target",
+        "title": "단독 제외 - 현재 도메인 제외",
+        "desc": "<code>~{hostname}</code> 단독 사용 시 현재 페이지 도메인에서는 제외되고, 다른 도메인에서는 적용되는지 테스트합니다.",
+        "target": "<div id=\"domain-exclusion-case1\" class=\"target\">타겟</div>",
+        "targetSelector": "#domain-exclusion-case1.target",
+        "expectedHidden": {
+            "{hostname}": false,
+            "unicornsoft.synology.me": true
+        }
+    },
+    {
+        "id": "2",
+        "domainPrefix": "~unicornsoft.synology.me",
+        "filter": "#domain-exclusion-case2.target",
+        "title": "단독 제외 - Synology 제외",
+        "desc": "<code>~unicornsoft.synology.me</code> 단독 사용 시 Synology 도메인에서는 제외되고, 다른 도메인에서는 적용되는지 테스트합니다.",
+        "target": "<div id=\"domain-exclusion-case2\" class=\"target\">타겟</div>",
+        "targetSelector": "#domain-exclusion-case2.target",
+        "expectedHidden": {
+            "{hostname}": true,
+            "unicornsoft.synology.me": false
+        }
+    },
+    {
+        "id": "3",
+        "domainPrefix": "{hostname},unicornsoft.synology.me,~{hostname}",
+        "filter": "#domain-exclusion-case3.target",
+        "title": "양수 리스트에서 현재 도메인 제외",
+        "desc": "양수 도메인 리스트에 현재 페이지 도메인과 Synology를 모두 포함한 뒤 현재 페이지 도메인만 제외되는지 테스트합니다.",
+        "target": "<div id=\"domain-exclusion-case3\" class=\"target\">타겟</div>",
+        "targetSelector": "#domain-exclusion-case3.target",
+        "expectedHidden": {
+            "{hostname}": false,
+            "unicornsoft.synology.me": true
+        }
+    },
+    {
+        "id": "4",
+        "domainPrefix": "{hostname},unicornsoft.synology.me,~unicornsoft.synology.me",
+        "filter": "#domain-exclusion-case4.target",
+        "title": "양수 리스트에서 Synology 제외",
+        "desc": "양수 도메인 리스트에 현재 페이지 도메인과 Synology를 모두 포함한 뒤 Synology만 제외되는지 테스트합니다.",
+        "target": "<div id=\"domain-exclusion-case4\" class=\"target\">타겟</div>",
+        "targetSelector": "#domain-exclusion-case4.target",
+        "expectedHidden": {
+            "{hostname}": true,
+            "unicornsoft.synology.me": false
+        }
+    },
+    {
+        "id": "5",
+        "domainPrefix": "{hostname},unicornsoft.synology.me,~example.com",
+        "filter": "#domain-exclusion-case5.target",
+        "title": "양수 리스트와 무관한 제외 도메인",
+        "desc": "양수 도메인 리스트에 포함되지 않은 <code>~example.com</code>은 현재 페이지 도메인과 Synology 적용 여부에 영향을 주지 않는지 테스트합니다.",
+        "target": "<div id=\"domain-exclusion-case5\" class=\"target\">타겟</div>",
+        "targetSelector": "#domain-exclusion-case5.target",
+        "expectedHidden": {
+            "{hostname}": true,
+            "unicornsoft.synology.me": true
+        }
+    },
+    {
+        "id": "6",
+        "domainPrefix": "example.com,~unicornsoft.synology.me",
+        "filter": "#domain-exclusion-case6.target",
+        "title": "현재 도메인이 양수 리스트에 없는 경우",
+        "desc": "양수 도메인이 현재 테스트 도메인을 포함하지 않으면 제외 문법이 함께 있어도 규칙이 적용되지 않는지 테스트합니다.",
+        "target": "<div id=\"domain-exclusion-case6\" class=\"target\">타겟</div>",
+        "targetSelector": "#domain-exclusion-case6.target",
+        "expectedHidden": {
+            "{hostname}": false,
+            "unicornsoft.synology.me": false
+        }
+    }
+]
