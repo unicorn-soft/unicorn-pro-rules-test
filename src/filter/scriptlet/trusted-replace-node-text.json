@@ -115,5 +115,18 @@
         ],
         "target": "<div class='target'><div id='rpnt_9_el'></div></div>",
         "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_REPL"
+    },
+    {
+        "id": "10",
+        "title": "SCRIPT 파라미터 중괄호 포함 치환",
+        "desc": "별칭 'rpnt' 사용 시 치환 문자열에 '{}'가 포함된 SCRIPT 규칙이 정상 적용되는지 확인",
+        "scriptlet": "rpnt",
+        "scriptletParams": [
+            "SCRIPT",
+            "(function test10(",
+            ";(function(){window.testValue=true;})();(funciton test10()"
+        ],
+        "target": "<div class='target'><script id='rpnt_10_target'>(function test10(){window.testValue=false;})();</script><script>window.rpnt_10=null;setTimeout(function(){const target=document.getElementById('rpnt_10_target');const source=target?target.textContent:'';window.rpnt_10=source.includes(';(function(){window.testValue=true;})();(funciton test10()')?'ok':'fail';},300);</script></div>",
+        "verification": "textEquals:window.rpnt_10:ok"
     }
 ]
