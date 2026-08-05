@@ -1,0 +1,85 @@
+[
+    {
+        "id": "1",
+        "title": "기본 trusted localStorage 저장",
+        "desc": "임의 문자열 custom-value를 localStorage에 저장",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["tlsi_basic", "custom-value"],
+        "target": "<div class='target'></div>",
+        "verification": "storageValue:tlsi_basic:custom-value"
+    },
+    {
+        "id": "2",
+        "title": "g 플래그 정규표현식 삭제",
+        "desc": "테스트 실행 시 기준값을 넣고, 정규표현식에 일치하는 키 세 개가 모두 삭제되는지 확인",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["/^tlsi_regex_a/g", "$remove$"],
+        "target": "<div class='target'></div>",
+        "setup": {
+            "tlsi_regex_a1": "seed",
+            "tlsi_regex_a2": "seed",
+            "tlsi_regex_a3": "seed"
+        },
+        "verification": "probeRemovedStorage:tlsi_regex_a1,tlsi_regex_a2,tlsi_regex_a3"
+    },
+    {
+        "id": "3",
+        "title": "reload 옵션",
+        "desc": "값 변경 후 약 5000ms 뒤 실제 페이지 리로드가 발생했는지 확인",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["tlsi_reload", "custom-value", "reload", "5000"],
+        "target": "<div class='target'></div>",
+        "setup": { "tlsi_reload": null },
+        "verification": "reloadStorage:tlsi_reload:custom-value:8000"
+    },
+    {
+        "id": "4",
+        "title": "emptyArr 별칭",
+        "desc": "emptyArr가 빈 배열 문자열 []로 변환되어 저장되는지 확인",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["tlsi_empty_arr", "emptyArr"],
+        "target": "<div class='target'></div>",
+        "setup": { "tlsi_empty_arr": null },
+        "verification": "storageValue:tlsi_empty_arr:[]"
+    },
+    {
+        "id": "5",
+        "title": "emptyObj 별칭",
+        "desc": "emptyObj가 빈 객체 문자열 {}로 변환되어 저장되는지 확인",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["tlsi_empty_obj", "emptyObj"],
+        "target": "<div class='target'></div>",
+        "setup": { "tlsi_empty_obj": null },
+        "verification": "storageValue:tlsi_empty_obj:{}"
+    },
+    {
+        "id": "6",
+        "title": "$now$ 토큰",
+        "desc": "$now$가 현재 시각의 밀리초 타임스탬프로 변환되어 저장되는지 확인",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["tlsi_now", "$now$"],
+        "target": "<div class='target'></div>",
+        "setup": { "tlsi_now": null },
+        "verification": "storageTimeValue:tlsi_now:now"
+    },
+    {
+        "id": "7",
+        "title": "$currentDate$ 토큰",
+        "desc": "$currentDate$가 현재 시각의 Date 문자열로 변환되어 저장되는지 확인",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["tlsi_current_date", "$currentDate$"],
+        "target": "<div class='target'></div>",
+        "setup": { "tlsi_current_date": null },
+        "verification": "storageTimeValue:tlsi_current_date:date"
+    },
+    {
+        "id": "8",
+        "title": "$currentISODate$ 토큰",
+        "desc": "$currentISODate$가 현재 시각의 ISO 8601 문자열로 변환되어 저장되는지 확인",
+        "scriptlet": "trusted-set-local-storage-item",
+        "scriptletParams": ["tlsi_current_iso_date", "$currentISODate$"],
+        "target": "<div class='target'></div>",
+        "setup": { "tlsi_current_iso_date": null },
+        "verification": "storageTimeValue:tlsi_current_iso_date:iso"
+    }
+]
