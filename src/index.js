@@ -20,6 +20,7 @@ import removeNodeTextCases from './filter/scriptlet/remove-node-text.json';
 import trustedJsonEditFetchRequestCases from './filter/scriptlet/trusted-json-edit-fetch-request.json';
 import trustedJsonEditXhrRequestCases from './filter/scriptlet/trusted-json-edit-xhr-request.json';
 import setCookieCases from './filter/scriptlet/set-cookie.json';
+import trustedSetCookieCases from './filter/scriptlet/trusted-set-cookie.json';
 
 const testCase = {
     basic: basicCases,
@@ -40,6 +41,7 @@ const testCase = {
     'trusted-json-edit-fetch-request': trustedJsonEditFetchRequestCases,
     'trusted-json-edit-xhr-request': trustedJsonEditXhrRequestCases,
     'set-cookie': setCookieCases,
+    'trusted-set-cookie': trustedSetCookieCases,
 };
 
 const STORAGE_COOKIE_TYPES = new Set([
