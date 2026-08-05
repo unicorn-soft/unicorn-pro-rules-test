@@ -21,6 +21,7 @@ import trustedJsonEditFetchRequestCases from './filter/scriptlet/trusted-json-ed
 import trustedJsonEditXhrRequestCases from './filter/scriptlet/trusted-json-edit-xhr-request.json';
 import setCookieCases from './filter/scriptlet/set-cookie.json';
 import trustedSetCookieCases from './filter/scriptlet/trusted-set-cookie.json';
+import setLocalStorageItemCases from './filter/scriptlet/set-local-storage-item.json';
 
 const testCase = {
     basic: basicCases,
@@ -42,6 +43,7 @@ const testCase = {
     'trusted-json-edit-xhr-request': trustedJsonEditXhrRequestCases,
     'set-cookie': setCookieCases,
     'trusted-set-cookie': trustedSetCookieCases,
+    'set-local-storage-item': setLocalStorageItemCases,
 };
 
 const STORAGE_COOKIE_TYPES = new Set([
