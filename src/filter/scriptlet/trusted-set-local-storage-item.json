@@ -2,7 +2,7 @@
     {
         "id": "1",
         "title": "기본 trusted localStorage 저장",
-        "desc": "임의 문자열 custom-value를 localStorage에 저장",
+        "desc": "custom-value를 tlsi_basic에 저장하는 기본 동작을 확인합니다. 저장값이 custom-value면 성공입니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["tlsi_basic", "custom-value"],
         "target": "<div class='target'></div>",
@@ -11,7 +11,7 @@
     {
         "id": "2",
         "title": "g 플래그 정규표현식 삭제",
-        "desc": "테스트 실행 시 기준값을 넣고, 정규표현식에 일치하는 키 세 개가 모두 삭제되는지 확인",
+        "desc": "테스트 실행 버튼을 누르면 tlsi_regex_a1, a2, a3을 만든 뒤 정규표현식으로 삭제합니다. 세 키가 모두 삭제되면 성공입니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["/^tlsi_regex_a/g", "$remove$"],
         "target": "<div class='target'></div>",
@@ -25,7 +25,7 @@
     {
         "id": "3",
         "title": "reload 옵션",
-        "desc": "값 변경 후 약 5000ms 뒤 실제 페이지 리로드가 발생했는지 확인",
+        "desc": "tlsi_reload=custom-value가 저장된 뒤 약 5초 후 페이지가 새로고침되는지 확인합니다. 값 저장과 새로고침이 모두 확인되면 성공입니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["tlsi_reload", "custom-value", "reload", "5000"],
         "target": "<div class='target'></div>",
@@ -35,7 +35,7 @@
     {
         "id": "4",
         "title": "emptyArr 별칭",
-        "desc": "emptyArr가 빈 배열 문자열 []로 변환되어 저장되는지 확인",
+        "desc": "emptyArr가 빈 배열 문자열 []로 변환되어 tlsi_empty_arr에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["tlsi_empty_arr", "emptyArr"],
         "target": "<div class='target'></div>",
@@ -45,7 +45,7 @@
     {
         "id": "5",
         "title": "emptyObj 별칭",
-        "desc": "emptyObj가 빈 객체 문자열 {}로 변환되어 저장되는지 확인",
+        "desc": "emptyObj가 빈 객체 문자열 {}로 변환되어 tlsi_empty_obj에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["tlsi_empty_obj", "emptyObj"],
         "target": "<div class='target'></div>",
@@ -55,7 +55,7 @@
     {
         "id": "6",
         "title": "$now$ 토큰",
-        "desc": "$now$가 현재 시각의 밀리초 타임스탬프로 변환되어 저장되는지 확인",
+        "desc": "$now$가 현재 시각의 밀리초 값으로 변환되어 tlsi_now에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["tlsi_now", "$now$"],
         "target": "<div class='target'></div>",
@@ -65,7 +65,7 @@
     {
         "id": "7",
         "title": "$currentDate$ 토큰",
-        "desc": "$currentDate$가 현재 시각의 Date 문자열로 변환되어 저장되는지 확인",
+        "desc": "$currentDate$가 현재 시각의 Date 문자열로 변환되어 tlsi_current_date에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["tlsi_current_date", "$currentDate$"],
         "target": "<div class='target'></div>",
@@ -75,7 +75,7 @@
     {
         "id": "8",
         "title": "$currentISODate$ 토큰",
-        "desc": "$currentISODate$가 현재 시각의 ISO 8601 문자열로 변환되어 저장되는지 확인",
+        "desc": "$currentISODate$가 현재 시각의 ISO 날짜 문자열로 변환되어 tlsi_current_iso_date에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-local-storage-item",
         "scriptletParams": ["tlsi_current_iso_date", "$currentISODate$"],
         "target": "<div class='target'></div>",

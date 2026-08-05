@@ -2,7 +2,7 @@
     {
         "id": "1",
         "title": "기본 localStorage 저장",
-        "desc": "허용값 accepted를 localStorage에 저장",
+        "desc": "accepted 값을 slsi_basic에 저장하는 기본 동작을 확인합니다. 저장값이 accepted면 성공입니다.",
         "scriptlet": "set-local-storage-item",
         "scriptletParams": ["slsi_basic", "accepted"],
         "target": "<div class='target'></div>",
@@ -11,7 +11,7 @@
     {
         "id": "2",
         "title": "g 플래그 정규표현식 삭제",
-        "desc": "테스트 실행 시 기준값을 넣고, 정규표현식에 일치하는 키 세 개가 모두 삭제되는지 확인",
+        "desc": "테스트 실행 버튼을 누르면 slsi_regex_a1, a2, a3을 만든 뒤 정규표현식으로 삭제합니다. 세 키가 모두 삭제되면 성공입니다.",
         "scriptlet": "set-local-storage-item",
         "scriptletParams": ["/^slsi_regex_a/g", "$remove$"],
         "target": "<div class='target'></div>",
@@ -25,7 +25,7 @@
     {
         "id": "3",
         "title": "reload 옵션",
-        "desc": "값 변경 후 약 5000ms 뒤 실제 페이지 리로드가 발생했는지 확인",
+        "desc": "slsi_reload=true가 저장된 뒤 약 5초 후 페이지가 새로고침되는지 확인합니다. 값 저장과 새로고침이 모두 확인되면 성공입니다.",
         "scriptlet": "set-local-storage-item",
         "scriptletParams": ["slsi_reload", "true", "reload", "5000"],
         "target": "<div class='target'></div>",
@@ -35,7 +35,7 @@
     {
         "id": "4",
         "title": "허용되지 않은 값 거부 (수동 확인)",
-        "desc": "1. 규칙을 추가한 뒤 메인 화면에서 이 테스트 페이지를 다시 엽니다.<br>2. 개발자 도구의 Application > Storage > Local storage에서 slsi_invalid를 찾습니다.<br>3. Value가 original이면 허용되지 않은 custom-value가 거부된 것입니다. custom-value로 변경됐다면 실패입니다.",
+        "desc": "1. 규칙을 적용하고 Home에서 이 페이지를 다시 엽니다.<br>2. 개발자 도구의 Application > Storage > Local storage에서 slsi_invalid를 찾습니다.<br>3. 값이 original이면 성공, custom-value면 실패입니다.",
         "scriptlet": "set-local-storage-item",
         "scriptletParams": ["slsi_invalid", "custom-value"],
         "setup": { "slsi_invalid": "original" }

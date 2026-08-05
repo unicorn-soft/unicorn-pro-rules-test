@@ -278,7 +278,9 @@ function createTestSection(
 
         const targetBox = document.createElement('div');
         targetBox.className = 'box target-box';
-        targetBox.textContent = STORAGE_COOKIE_TYPES.has(pageType) ? '' : '타겟';
+        targetBox.textContent = STORAGE_COOKIE_TYPES.has(pageType)
+            ? ''
+            : '타겟';
 
         targetEl = createCase(target);
         targetBox.appendChild(targetEl);

@@ -2,7 +2,7 @@
     {
         "id": "1",
         "title": "기본 trusted 쿠키 저장",
-        "desc": "임의 문자열 custom-value를 Secure 쿠키에 저장",
+        "desc": "custom-value를 __Secure-tsc_basic 쿠키에 저장하는 기본 동작을 확인합니다. 쿠키값이 custom-value면 성공입니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["__Secure-tsc_basic", "custom-value"],
         "target": "<div class='target'></div>",
@@ -11,7 +11,7 @@
     {
         "id": "2",
         "title": "expires 옵션",
-        "desc": "1day 만료값이 현재 시각에서 약 하루 뒤로 설정됐는지 확인",
+        "desc": "expires=1day로 쿠키 만료 시간이 하루 뒤로 설정되는지 확인합니다. tsc_expires=accepted이고 만료 시간이 약 24시간 뒤면 성공입니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_expires", "accepted", "1day"],
         "target": "<div class='target'></div>",
@@ -20,7 +20,7 @@
     {
         "id": "3",
         "title": "path 옵션",
-        "desc": "none 값으로 Path 속성을 생략하고, 현재 URL에서 계산한 기본 Path가 실제로 적용됐는지 확인",
+        "desc": "path=none으로 Path 속성을 생략했을 때 브라우저의 기본 경로가 적용되는지 확인합니다. tsc_path=accepted이고 Path가 현재 페이지의 기본 경로면 성공입니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_path", "accepted", "", "none"],
         "target": "<div class='target'></div>",
@@ -29,14 +29,14 @@
     {
         "id": "4",
         "title": "domain 정규표현식 옵션 (수동 확인)",
-        "desc": "1. 규칙을 추가하고 페이지를 새로고침합니다.<br>2. 개발자 도구의 Application > Storage > Cookies에서 tsc_domain을 찾습니다.<br>3. Value가 accepted이고 Domain이 현재 페이지의 hostname과 같은지 확인합니다.",
+        "desc": "1. 규칙을 적용하고 페이지를 새로고침합니다.<br>2. 개발자 도구의 Application > Storage > Cookies에서 tsc_domain을 찾습니다.<br>3. 값이 accepted이고 Domain이 현재 페이지 주소의 hostname과 같으면 성공입니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_domain", "accepted", "", "", "domain", "/.*/"]
     },
     {
         "id": "5",
         "title": "dontOverwrite 옵션",
-        "desc": "테스트 실행 시 쿠키가 없으면 replacement가 생성되고, 기존 tsc_dont_overwrite=custom-value는 덮어써지지 않는지 순서대로 확인",
+        "desc": "테스트 실행 버튼을 누르면 쿠키가 없을 때 replacement가 생성되는지 먼저 확인합니다. 이후 기존값 custom-value가 replacement로 덮어써지지 않으면 성공입니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": [
             "tsc_dont_overwrite",
@@ -53,7 +53,7 @@
     {
         "id": "6",
         "title": "reload 옵션",
-        "desc": "쿠키 변경 후 실제 페이지 리로드가 발생했는지 확인",
+        "desc": "tsc_reload=accepted가 저장된 뒤 페이지가 실제로 새로고침되는지 확인합니다. 값 저장과 새로고침이 모두 확인되면 성공입니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_reload", "accepted", "", "", "reload", "1"],
         "target": "<div class='target'></div>",
@@ -63,7 +63,7 @@
     {
         "id": "7",
         "title": "$now$ 토큰",
-        "desc": "$now$가 현재 시각의 밀리초 타임스탬프로 변환되어 쿠키에 저장되는지 확인",
+        "desc": "$now$가 현재 시각의 밀리초 값으로 변환되어 tsc_now 쿠키에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_now", "$now$"],
         "target": "<div class='target'></div>",
@@ -73,7 +73,7 @@
     {
         "id": "8",
         "title": "$currentDate$ 토큰",
-        "desc": "$currentDate$가 현재 시각의 UTC 날짜 문자열로 변환되어 쿠키에 저장되는지 확인",
+        "desc": "$currentDate$가 현재 시각의 UTC 날짜 문자열로 변환되어 tsc_current_date 쿠키에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_current_date", "$currentDate$"],
         "target": "<div class='target'></div>",
@@ -83,7 +83,7 @@
     {
         "id": "9",
         "title": "$currentISODate$ 토큰",
-        "desc": "$currentISODate$가 현재 시각의 ISO 8601 문자열로 변환되어 쿠키에 저장되는지 확인",
+        "desc": "$currentISODate$가 현재 시각의 ISO 날짜 문자열로 변환되어 tsc_current_iso_date 쿠키에 저장되는지 확인합니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_current_iso_date", "$currentISODate$"],
         "target": "<div class='target'></div>",
