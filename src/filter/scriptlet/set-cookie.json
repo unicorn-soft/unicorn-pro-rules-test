@@ -1,0 +1,54 @@
+[
+    {
+        "id": "1",
+        "title": "기본 쿠키 저장",
+        "desc": "허용값 accepted를 쿠키에 저장",
+        "scriptlet": "set-cookie",
+        "scriptletParams": ["sc_basic", "accepted"],
+        "target": "<div class='target'></div>",
+        "verification": "cookieValue:sc_basic:accepted"
+    },
+    {
+        "id": "2",
+        "title": "path 옵션",
+        "desc": "none 값으로 Path 속성을 생략하고, 현재 URL에서 계산한 기본 Path가 실제로 적용됐는지 확인",
+        "scriptlet": "set-cookie",
+        "scriptletParams": ["sc_path", "accepted", "none"],
+        "target": "<div class='target'></div>",
+        "verification": "cookieAttribute:sc_path:accepted:path:default"
+    },
+    {
+        "id": "3",
+        "title": "dontOverwrite 옵션",
+        "desc": "테스트 실행 시 쿠키가 없으면 rejected가 생성되고, 기존 sc_dont_overwrite=accepted는 덮어써지지 않는지 순서대로 확인",
+        "scriptlet": "set-cookie",
+        "scriptletParams": [
+            "sc_dont_overwrite",
+            "rejected",
+            "",
+            "dontOverwrite",
+            "1"
+        ],
+        "target": "<div class='target'></div>",
+        "setup": { "sc_dont_overwrite": "accepted" },
+        "verification": "probeDontOverwriteCookie:sc_dont_overwrite:accepted:rejected"
+    },
+    {
+        "id": "4",
+        "title": "reload 옵션",
+        "desc": "쿠키 변경 후 실제 페이지 리로드가 발생했는지 확인",
+        "scriptlet": "set-cookie",
+        "scriptletParams": ["sc_reload", "true", "", "reload", "1"],
+        "target": "<div class='target'></div>",
+        "setup": { "sc_reload": null },
+        "verification": "reloadCookie:sc_reload:true:10000"
+    },
+    {
+        "id": "5",
+        "title": "허용되지 않은 값 거부 (수동 확인)",
+        "desc": "1. 규칙을 추가한 뒤 메인 화면에서 이 테스트 페이지를 다시 엽니다.<br>2. 개발자 도구의 Application > Storage > Cookies에서 sc_invalid를 찾습니다.<br>3. Value가 original이면 허용되지 않은 custom-value가 거부된 것입니다. custom-value로 변경됐다면 실패입니다.",
+        "scriptlet": "set-cookie",
+        "scriptletParams": ["sc_invalid", "custom-value"],
+        "setup": { "sc_invalid": "original" }
+    }
+]

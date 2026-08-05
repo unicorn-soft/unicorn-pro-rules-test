@@ -75,6 +75,28 @@ section {
     display: none;
 }
 
+.target-box[data-status='pending'] {
+    background: #7a7a7a;
+}
+
+.target-box[data-status='fail'] {
+    background: #c00;
+}
+
+.target-box[data-status='success'] {
+    background: #4caf50;
+}
+
+.target-box[data-status='unsupported'] {
+    background: #d97706;
+}
+
+.verification-status {
+    display: block;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
 .content-box {
     background: #4caf50;
 }

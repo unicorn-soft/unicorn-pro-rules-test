@@ -50,6 +50,11 @@ module.exports = {
             filename: 'scriptlet-test.html',
             chunks: ['testPage'],
         }),
+        new HtmlWebpackPlugin({
+            template: './public/scriptlet-test.html',
+            filename: 'cookie-scope/scriptlet-test.html',
+            chunks: ['testPage'],
+        }),
         new MiniCssExtractPlugin(),
         new CopyPlugin({
             patterns: [{ from: 'public/mockServiceWorker.js', to: '.' }],

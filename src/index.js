@@ -19,6 +19,7 @@ import noFetchCases from './filter/scriptlet/no-fetch-if.json';
 import removeNodeTextCases from './filter/scriptlet/remove-node-text.json';
 import trustedJsonEditFetchRequestCases from './filter/scriptlet/trusted-json-edit-fetch-request.json';
 import trustedJsonEditXhrRequestCases from './filter/scriptlet/trusted-json-edit-xhr-request.json';
+import setCookieCases from './filter/scriptlet/set-cookie.json';
 
 const testCase = {
     basic: basicCases,
@@ -38,7 +39,58 @@ const testCase = {
     'remove-node-text': removeNodeTextCases,
     'trusted-json-edit-fetch-request': trustedJsonEditFetchRequestCases,
     'trusted-json-edit-xhr-request': trustedJsonEditXhrRequestCases,
+    'set-cookie': setCookieCases,
 };
+
+const STORAGE_COOKIE_TYPES = new Set([
+    'set-cookie',
+    'trusted-set-cookie',
+    'set-local-storage-item',
+    'trusted-set-local-storage-item',
+]);
+
+function entryStorageKey(type) {
+    return `scriptlet-test-entry:${type}`;
+}
+
+function deleteCookie(name) {
+    const secure = window.isSecureContext ? '; Secure' : '';
+    const domains = ['', `; Domain=${location.hostname}`];
+
+    domains.forEach((domain) => {
+        document.cookie = `${name}=; Max-Age=0; Path=/${domain}${secure}`;
+    });
+}
+
+function prepareStorageCookieTests(type) {
+    if (!STORAGE_COOKIE_TYPES.has(type)) return;
+
+    const isCookie = type.includes('cookie');
+    const secure =
+        type === 'trusted-set-cookie' && window.isSecureContext
+            ? '; Secure'
+            : '';
+
+    testCase[type].forEach(({ setup = {} }) => {
+        Object.entries(setup).forEach(([name, value]) => {
+            if (isCookie) {
+                deleteCookie(name);
+                if (value !== null) {
+                    document.cookie = `${name}=${value}; Path=/${secure}`;
+                }
+                return;
+            }
+
+            if (value === null) localStorage.removeItem(name);
+            else localStorage.setItem(name, value);
+        });
+    });
+
+    sessionStorage.setItem(
+        entryStorageKey(type),
+        JSON.stringify({ type, startedAt: Date.now() })
+    );
+}
 
 export default testCase;
 
@@ -86,4 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    document
+        .querySelectorAll('.scriptlet-buttons .button-link')
+        .forEach((link) => {
+            const url = new URL(link.href);
+            const type = url.searchParams.get('type');
+            if (!STORAGE_COOKIE_TYPES.has(type)) return;
+
+            link.addEventListener('click', () => {
+                prepareStorageCookieTests(type);
+            });
+        });
 });

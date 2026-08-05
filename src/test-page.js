@@ -15,6 +15,29 @@ import { verifyNoFetchIf } from './scriptlet-verifiers/no-fetch-if.js';
 import { verifyRemoveNodeText } from './scriptlet-verifiers/remove-node-text.js';
 import { verifyTrustedJsonEditFetchRequest } from './scriptlet-verifiers/trusted-json-edit-fetch-request.js';
 import { verifyTrustedJsonEditXhrRequest } from './scriptlet-verifiers/trusted-json-edit-xhr-request.js';
+import { verifyStorageCookie } from './scriptlet-verifiers/storage-cookie.js';
+
+const STORAGE_COOKIE_TYPES = new Set([
+    'set-cookie',
+    'trusted-set-cookie',
+    'set-local-storage-item',
+    'trusted-set-local-storage-item',
+]);
+
+const COOKIE_VERIFICATION_TYPES = new Set([
+    'cookieValue',
+    'cookieTimeValue',
+    'secureCookie',
+    'cookieAttribute',
+    'probeDontOverwriteCookie',
+    'reloadCookie',
+]);
+
+const STORAGE_VERIFICATION_TYPES = new Set([
+    'storageValue',
+    'storageTimeValue',
+    'reloadStorage',
+]);
 
 async function enableMocking() {
     // GitHub Pages(project pages)는 보통 /<repo>/ 경로에서 서비스됨.
@@ -36,17 +59,27 @@ async function enableMocking() {
 }
 
 (function () {
-    const type = new URLSearchParams(location.search).get('type');
+    const params = new URLSearchParams(location.search);
+    const type = params.get('type');
     const currentCase = testCase[type];
     if (Array.isArray(currentCase) === false) return;
+    if (params.has('storageProbe')) return;
+    const activeRun = getActiveRun(type);
 
     renderRulesCopy(type, currentCase);
 
     const buildPage = () => {
-        currentCase.forEach((c) => createTestSection(c, type));
+        currentCase.forEach((c) => {
+            createTestSection(c, type, activeRun);
+        });
     };
 
-    if (type === 'trusted-replace-node-text' || type === 'remove-node-text') {
+    if (STORAGE_COOKIE_TYPES.has(type)) {
+        buildPage();
+    } else if (
+        type === 'trusted-replace-node-text' ||
+        type === 'remove-node-text'
+    ) {
         buildPage();
         enableMocking();
     } else {
@@ -113,6 +146,23 @@ function renderRulesCopy(type, currentCase) {
     buttons.appendChild(toggleButton);
     buttons.appendChild(copyButton);
 
+    if (STORAGE_COOKIE_TYPES.has(type)) {
+        const resetButton = document.createElement('button');
+        resetButton.type = 'button';
+        resetButton.textContent = type.includes('cookie')
+            ? '쿠키값 초기화'
+            : 'localStorage 초기화';
+        resetButton.addEventListener('click', () => {
+            resetStorageCookieState(type, currentCase);
+            const originalText = resetButton.textContent;
+            resetButton.textContent = '초기화 완료';
+            setTimeout(() => {
+                resetButton.textContent = originalText;
+            }, 1500);
+        });
+        buttons.appendChild(resetButton);
+    }
+
     const rulesContainer = document.createElement('div');
     rulesContainer.className = 'rules-container';
     const pre = document.createElement('pre');
@@ -163,7 +213,8 @@ function createTestSection(
         scriptletParams,
         verification,
     },
-    pageType
+    pageType,
+    activeRun
 ) {
     const section = document.createElement('section');
     section.id = `s_${id}`;
@@ -220,23 +271,26 @@ function createTestSection(
     pDesc.innerHTML = desc;
     section.appendChild(pDesc);
 
-    const contentRow = document.createElement('div');
-    contentRow.className = 'content-row';
+    let targetEl = null;
+    if (target) {
+        const contentRow = document.createElement('div');
+        contentRow.className = 'content-row';
 
-    const targetBox = document.createElement('div');
-    targetBox.className = 'box target-box';
-    targetBox.textContent = '타겟';
+        const targetBox = document.createElement('div');
+        targetBox.className = 'box target-box';
+        targetBox.textContent = STORAGE_COOKIE_TYPES.has(pageType) ? '' : '타겟';
 
-    const targetEl = createCase(target);
-    targetBox.appendChild(targetEl);
-    contentRow.appendChild(targetBox);
+        targetEl = createCase(target);
+        targetBox.appendChild(targetEl);
+        contentRow.appendChild(targetBox);
 
-    const exampleBox = document.createElement('div');
-    exampleBox.className = 'box content-box';
-    exampleBox.textContent = '콘텐츠';
-    contentRow.appendChild(exampleBox);
+        const exampleBox = document.createElement('div');
+        exampleBox.className = 'box content-box';
+        exampleBox.textContent = '콘텐츠';
+        contentRow.appendChild(exampleBox);
 
-    section.appendChild(contentRow);
+        section.appendChild(contentRow);
+    }
 
     const filtersEl = document.createElement('div');
     filtersEl.className = 'filter';
@@ -260,7 +314,75 @@ function createTestSection(
 
     document.body.appendChild(section);
 
-    observeTargetDisplay(targetEl, checkStyle, verification, pageType);
+    if (targetEl) {
+        observeTargetDisplay(
+            targetEl,
+            checkStyle,
+            verification,
+            pageType,
+            activeRun
+        );
+    }
+}
+
+function runStorageKey(type) {
+    return `scriptlet-test-entry:${type}`;
+}
+
+function defaultCookiePath(pathname) {
+    if (!pathname || pathname[0] !== '/') return '/';
+    if (pathname.indexOf('/', 1) === -1) return '/';
+    return pathname.slice(0, pathname.lastIndexOf('/')) || '/';
+}
+
+function deleteTestCookie(name) {
+    const currentPath = defaultCookiePath(location.pathname);
+    const paths = [...new Set(['/', currentPath, `${currentPath}/`])];
+    const domains = ['', `; Domain=${location.hostname}`];
+    const secure = window.isSecureContext ? '; Secure' : '';
+
+    paths.forEach((path) => {
+        domains.forEach((domain) => {
+            document.cookie = `${name}=; Max-Age=0; Path=${path}${domain}${secure}`;
+        });
+    });
+    document.cookie = `${name}=; Max-Age=0${secure}`;
+}
+
+function resetStorageCookieState(type, currentCase) {
+    const isCookie = type.includes('cookie');
+    const verificationTypes = isCookie
+        ? COOKIE_VERIFICATION_TYPES
+        : STORAGE_VERIFICATION_TYPES;
+    const names = new Set();
+
+    currentCase.forEach(({ setup = {}, verification = '' }) => {
+        Object.keys(setup).forEach((name) => names.add(name));
+
+        const [verificationType, name] = verification.split(':');
+        if (verificationTypes.has(verificationType) && name) names.add(name);
+    });
+
+    names.forEach((name) => {
+        if (isCookie) deleteTestCookie(name);
+        else localStorage.removeItem(name);
+    });
+
+    sessionStorage.removeItem(runStorageKey(type));
+    window.dispatchEvent(new Event('storage-test-reset'));
+}
+
+function getActiveRun(type) {
+    if (!STORAGE_COOKIE_TYPES.has(type)) return null;
+
+    const storageKey = runStorageKey(type);
+    try {
+        const run = JSON.parse(sessionStorage.getItem(storageKey));
+        if (run && run.type === type && Date.now() - run.startedAt <= 30000) {
+            return { ...run, storageKey };
+        }
+    } catch (error) {}
+    return null;
 }
 
 function createCase(htmlString) {
@@ -286,12 +408,24 @@ function createCase(htmlString) {
     return node;
 }
 
-function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
+function observeTargetDisplay(
+    targetEl,
+    checkStyle,
+    verification,
+    pageType,
+    activeRun
+) {
     const parentBox = targetEl.closest('.target-box');
     if (!parentBox) return;
 
     if (verification) {
-        observeScriptletResult(targetEl, verification, parentBox, pageType);
+        observeScriptletResult(
+            targetEl,
+            verification,
+            parentBox,
+            pageType,
+            activeRun
+        );
     } else if (checkStyle) {
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
@@ -332,8 +466,21 @@ function observeTargetDisplay(targetEl, checkStyle, verification, pageType) {
     }
 }
 
-function observeScriptletResult(targetEl, verification, parentBox, pageType) {
+function observeScriptletResult(
+    targetEl,
+    verification,
+    parentBox,
+    pageType,
+    activeRun
+) {
     const [verificationType] = verification.split(':');
+
+    if (STORAGE_COOKIE_TYPES.has(pageType)) {
+        return verifyStorageCookie(verification, parentBox, {
+            pageType,
+            activeRun,
+        });
+    }
 
     if (pageType === 'json-prune-xhr-response') {
         if (verificationType === 'jsonEquals') {
