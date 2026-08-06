@@ -11,7 +11,7 @@
     {
         "id": "2",
         "title": "expires 옵션",
-        "desc": "expires=1day로 쿠키 만료 시간이 하루 뒤로 설정되는지 확인합니다. tsc_expires=accepted이고 만료 시간이 약 24시간 뒤면 성공입니다.",
+        "desc": "expires=1day로 쿠키 만료 시간이 하루 뒤로 설정되는지 확인합니다. tsc_expires=accepted이고 만료 시간이 약 24시간 뒤면 성공입니다.<br><strong>Safari:</strong> Cookie Store API가 expires 속성을 공개하지 않아 자동 검증할 수 없으므로 개발자 도구에서 만료 시간을 수동으로 확인해야 합니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_expires", "accepted", "1day"],
         "target": "<div class='target'></div>",
@@ -20,7 +20,7 @@
     {
         "id": "3",
         "title": "path 옵션",
-        "desc": "path=none으로 Path 속성을 생략했을 때 브라우저의 기본 경로가 적용되는지 확인합니다. tsc_path=accepted이고 Path가 현재 페이지의 기본 경로면 성공입니다.",
+        "desc": "path=none으로 Path 속성을 생략했을 때 브라우저의 기본 경로가 적용되는지 확인합니다. tsc_path=accepted이고 Path가 현재 페이지의 기본 경로면 성공입니다.<br><strong>Safari:</strong> Cookie Store API가 path 속성을 공개하지 않아 자동 검증할 수 없으므로 개발자 도구에서 Path를 수동으로 확인해야 합니다.",
         "scriptlet": "trusted-set-cookie",
         "scriptletParams": ["tsc_path", "accepted", "", "none"],
         "target": "<div class='target'></div>",

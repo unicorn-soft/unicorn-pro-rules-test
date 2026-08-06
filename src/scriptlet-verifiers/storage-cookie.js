@@ -223,10 +223,12 @@ function verifyTimeValue(parentBox, readValue, format) {
                 timestamp = Number.NaN;
             }
         } else if (format === 'utc') {
+            const compactValue = value.replace(/\s+/g, '');
             timestamp = Date.parse(value);
             if (
                 Number.isFinite(timestamp) &&
-                new Date(timestamp).toUTCString() !== value
+                new Date(timestamp).toUTCString().replace(/\s+/g, '') !==
+                    compactValue
             ) {
                 timestamp = Number.NaN;
             }
