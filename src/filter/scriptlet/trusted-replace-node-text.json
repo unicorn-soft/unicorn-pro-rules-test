@@ -115,5 +115,44 @@
         ],
         "target": "<div class='target'><div id='rpnt_9_el'></div></div>",
         "verification": "textEquals:window.rpnt_9_flag:RPNT_QA_REPL"
+    },
+    {
+        "id": "10",
+        "title": "SCRIPT 파라미터 중괄호 포함 치환",
+        "desc": "별칭 'rpnt' 사용 시 치환 문자열에 '{}'가 포함된 SCRIPT 규칙이 정상 적용되는지 확인",
+        "scriptlet": "rpnt",
+        "scriptletParams": [
+            "SCRIPT",
+            "(function test10(",
+            ";(function(){window.testValue=true;})();(funciton test10()"
+        ],
+        "target": "<div class='target'><script id='rpnt_10_target'>(function test10(){window.testValue=false;})();</script><script>window.rpnt_10=null;setTimeout(function(){const target=document.getElementById('rpnt_10_target');const source=target?target.textContent:'';window.rpnt_10=source.includes(';(function(){window.testValue=true;})();(funciton test10()')?'ok':'fail';},300);</script></div>",
+        "verification": "textEquals:window.rpnt_10:ok"
+    },
+    {
+        "id": "11",
+        "title": "ARTICLE 치환 시 하위 태그 구조 보존",
+        "desc": "ARTICLE 직계 텍스트의 'RPNT_DOM_ORIGINAL'을 'RPNT_DOM_REPLACED'로 치환해도 하위 SPAN/STRONG 태그가 유지되는지 확인",
+        "scriptlet": "rpnt",
+        "scriptletParams": [
+            "ARTICLE",
+            "RPNT_DOM_ORIGINAL",
+            "RPNT_DOM_REPLACED"
+        ],
+        "target": "<div class='target'><script>window.rpnt_11=null;(function(){const container=document.currentScript.parentElement;const article=document.createElement('article');article.id='rpnt_11_article';article.appendChild(document.createTextNode('RPNT_DOM_ORIGINAL'));const span=document.createElement('span');span.id='rpnt_11_span';span.textContent='SPAN_CHILD';article.appendChild(span);article.appendChild(document.createTextNode('RPNT_DOM_TAIL'));const strong=document.createElement('strong');strong.id='rpnt_11_strong';strong.textContent='STRONG_CHILD';article.appendChild(strong);container.appendChild(article);const update=function(){const spanChild=article.querySelector('#rpnt_11_span');const strongChild=article.querySelector('#rpnt_11_strong');window.rpnt_11=article.textContent+'||'+(spanChild?spanChild.tagName+':'+spanChild.textContent:'missing')+'||'+(strongChild?strongChild.tagName+':'+strongChild.textContent:'missing')+'||'+article.children.length;};update();const mo=new MutationObserver(function(){update();});mo.observe(article,{childList:true,subtree:true,characterData:true});setTimeout(function(){update();mo.disconnect();},600);}())</script></div>",
+        "verification": "textEquals:window.rpnt_11:RPNT_DOM_REPLACEDSPAN_CHILDRPNT_DOM_TAILSTRONG_CHILD||SPAN:SPAN_CHILD||STRONG:STRONG_CHILD||2"
+    },
+    {
+        "id": "12",
+        "title": "ARTICLE 치환 시 중첩 태그 내부 텍스트 보존",
+        "desc": "ARTICLE 직계 텍스트만 치환하고 SECTION > SPAN 내부의 동일 텍스트는 유지되는지 확인",
+        "scriptlet": "rpnt",
+        "scriptletParams": [
+            "ARTICLE",
+            "RPNT_NESTED_ORIGINAL",
+            "RPNT_NESTED_REPLACED"
+        ],
+        "target": "<div class='target'><script>window.rpnt_12=null;(function(){const container=document.currentScript.parentElement;const article=document.createElement('article');article.id='rpnt_12_article';article.appendChild(document.createTextNode('RPNT_NESTED_ORIGINAL'));const section=document.createElement('section');section.id='rpnt_12_section';const span=document.createElement('span');span.id='rpnt_12_span';span.textContent='RPNT_NESTED_ORIGINAL_CHILD';section.appendChild(span);article.appendChild(section);container.appendChild(article);const update=function(){const sectionChild=article.querySelector('#rpnt_12_section');const spanChild=article.querySelector('#rpnt_12_span');window.rpnt_12=article.textContent+'||'+(sectionChild?sectionChild.tagName:'missing')+'||'+(spanChild?spanChild.tagName+':'+spanChild.textContent:'missing')+'||'+article.children.length;};update();const mo=new MutationObserver(function(){update();});mo.observe(article,{childList:true,subtree:true,characterData:true});setTimeout(function(){update();mo.disconnect();},600);}())</script></div>",
+        "verification": "textEquals:window.rpnt_12:RPNT_NESTED_REPLACEDRPNT_NESTED_ORIGINAL_CHILD||SECTION||SPAN:RPNT_NESTED_ORIGINAL_CHILD||1"
     }
 ]
