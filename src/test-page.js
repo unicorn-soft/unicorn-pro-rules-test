@@ -212,6 +212,8 @@ function createTestSection(
         scriptlet,
         scriptletParams,
         verification,
+        showTarget,
+        comparison,
     },
     pageType,
     activeRun
@@ -272,23 +274,48 @@ function createTestSection(
     section.appendChild(pDesc);
 
     let targetEl = null;
+    let comparisonBoxes = null;
     if (target) {
         const contentRow = document.createElement('div');
         contentRow.className = 'content-row';
 
         const targetBox = document.createElement('div');
         targetBox.className = 'box target-box';
-        targetBox.textContent = STORAGE_COOKIE_TYPES.has(pageType)
-            ? ''
-            : '타겟';
-
         targetEl = createCase(target);
-        targetBox.appendChild(targetEl);
-        contentRow.appendChild(targetBox);
 
         const exampleBox = document.createElement('div');
         exampleBox.className = 'box content-box';
-        exampleBox.textContent = '콘텐츠';
+
+        if (showTarget && comparison) {
+            const leftTarget = targetEl.querySelector(
+                '[data-shadow-side="left"]'
+            );
+            const rightTarget = targetEl.querySelector(
+                '[data-shadow-side="right"]'
+            );
+
+            targetBox.classList.add('shadow-dom-comparison-box');
+            exampleBox.classList.add('shadow-dom-comparison-box');
+            targetBox.textContent = comparison.leftLabel;
+            exampleBox.textContent = comparison.rightLabel;
+
+            if (leftTarget) targetBox.appendChild(leftTarget);
+            if (rightTarget) exampleBox.appendChild(rightTarget);
+            targetBox.appendChild(targetEl);
+
+            comparisonBoxes = {
+                left: targetBox,
+                right: exampleBox,
+            };
+        } else {
+            targetBox.textContent = STORAGE_COOKIE_TYPES.has(pageType)
+                ? ''
+                : '타겟';
+            targetBox.appendChild(targetEl);
+            exampleBox.textContent = '콘텐츠';
+        }
+
+        contentRow.appendChild(targetBox);
         contentRow.appendChild(exampleBox);
 
         section.appendChild(contentRow);
@@ -316,7 +343,18 @@ function createTestSection(
 
     document.body.appendChild(section);
 
-    if (targetEl) {
+    if (targetEl && comparisonBoxes) {
+        observeComparisonResult(
+            targetEl,
+            comparison.leftVerification,
+            comparisonBoxes.left
+        );
+        observeComparisonResult(
+            targetEl,
+            comparison.rightVerification,
+            comparisonBoxes.right
+        );
+    } else if (targetEl) {
         observeTargetDisplay(
             targetEl,
             checkStyle,
@@ -325,6 +363,15 @@ function createTestSection(
             activeRun
         );
     }
+}
+
+function observeComparisonResult(targetEl, verification, box) {
+    box.dataset.status = 'pending';
+    verifyGlobalValue(targetEl, verification, box);
+
+    setTimeout(() => {
+        box.dataset.status = box.hasAttribute('success') ? 'success' : 'fail';
+    }, 10000);
 }
 
 function runStorageKey(type) {
@@ -406,8 +453,27 @@ function createCase(htmlString) {
         } catch (e) {}
     });
 
+    attachShadowTemplates(node);
     node.classList.add('case');
     return node;
+}
+
+function attachShadowTemplates(root) {
+    const templates = Array.from(
+        root.querySelectorAll('template[shadowrootmode="open"]')
+    );
+
+    templates.forEach((template) => {
+        const host = template.parentElement;
+        if (!host || host.shadowRoot) return;
+
+        try {
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.appendChild(template.content);
+            template.remove();
+            attachShadowTemplates(shadowRoot);
+        } catch (e) {}
+    });
 }
 
 function observeTargetDisplay(
