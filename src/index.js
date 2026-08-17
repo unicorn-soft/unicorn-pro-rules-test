@@ -16,6 +16,7 @@ import trustedReplaceOutboundCases from './filter/scriptlet/trusted-replace-outb
 import abortScriptCases from './filter/scriptlet/abort-current-inline-script.json';
 import noXhrCases from './filter/scriptlet/no-xhr-if.json';
 import noFetchCases from './filter/scriptlet/no-fetch-if.json';
+import hideInShadowDomCases from './filter/scriptlet/hide-in-shadow-dom.json';
 import removeNodeTextCases from './filter/scriptlet/remove-node-text.json';
 import trustedJsonEditFetchRequestCases from './filter/scriptlet/trusted-json-edit-fetch-request.json';
 import trustedJsonEditXhrRequestCases from './filter/scriptlet/trusted-json-edit-xhr-request.json';
@@ -39,6 +40,7 @@ const testCase = {
     'abort-current-inline-script': abortScriptCases,
     'no-xhr-if': noXhrCases,
     'no-fetch-if': noFetchCases,
+    'hide-in-shadow-dom': hideInShadowDomCases,
     'remove-node-text': removeNodeTextCases,
     'trusted-json-edit-fetch-request': trustedJsonEditFetchRequestCases,
     'trusted-json-edit-xhr-request': trustedJsonEditXhrRequestCases,
