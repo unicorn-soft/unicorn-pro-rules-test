@@ -1,0 +1,45 @@
+[
+    {
+        "id": "1",
+        "title": "Shadow DOM 요소 기본 제거",
+        "desc": "open Shadow DOM 안의 <code>.risd_target_1</code> 요소를 제거한다.",
+        "scriptlet": "remove-in-shadow-dom",
+        "scriptletParams": [".risd_target_1"],
+        "target": "<div class='target'><div id='risd_host_1'><template shadowrootmode='open'><div class='risd_target_1'>기본 제거 대상</div></template></div><script>(function(){const host=document.getElementById('risd_host_1');window.risd_check_1=function(){return host.shadowRoot!==null&&host.shadowRoot.querySelector('.risd_target_1')===null;};}());</script></div>",
+        "verification": "functionCall:risd_check_1:true"
+    },
+    {
+        "id": "2",
+        "title": "baseSelector로 Shadow Host 제한",
+        "desc": "<code>.risd_base_2</code> host 안의 대상만 제거하고 비교 대상은 유지한다.",
+        "scriptlet": "remove-in-shadow-dom",
+        "scriptletParams": [".risd_target_2", ".risd_base_2"],
+        "showTarget": true,
+        "comparison": {
+            "leftLabel": "제거되어야 하는 대상",
+            "rightLabel": "계속 존재해야 하는 대상",
+            "leftVerification": "functionCall:risd_check_2_left:true",
+            "rightVerification": "functionCall:risd_check_2_right:true"
+        },
+        "target": "<div class='target shadow-dom-case'><div class='shadow-comparison-content' data-shadow-side='left'><div class='risd_base_2 shadow-demo-host'><template shadowrootmode='open'><div class='risd_target_2' style='padding:0.75rem;background:#fee2e2;color:#7f1d1d;border:1px solid #fca5a5'>이 내용은 제거되어야 함</div></template></div></div><div class='shadow-comparison-content' data-shadow-side='right'><div class='risd_control_2 shadow-demo-host'><template shadowrootmode='open'><div class='risd_target_2' style='padding:0.75rem;background:#fff;color:#166534;border:1px solid #86efac'>이 내용은 계속 존재해야 함</div></template></div></div><script>(function(){const matchedHost=document.querySelector('.risd_base_2');const controlHost=document.querySelector('.risd_control_2');window.risd_check_2_left=function(){return matchedHost.shadowRoot!==null&&matchedHost.shadowRoot.querySelector('.risd_target_2')===null;};window.risd_check_2_right=function(){return window.risd_check_2_left()&&controlHost.shadowRoot!==null&&controlHost.shadowRoot.querySelector('.risd_target_2')!==null;};window.risd_check_2=function(){return window.risd_check_2_left()&&window.risd_check_2_right();};}());</script></div>",
+        "verification": "functionCall:risd_check_2:true"
+    },
+    {
+        "id": "3",
+        "title": "중첩 Shadow DOM 요소 제거",
+        "desc": "Shadow Root 안에 중첩된 open Shadow Root까지 탐색해 대상을 제거한다.",
+        "scriptlet": "remove-in-shadow-dom",
+        "scriptletParams": [".risd_target_3"],
+        "target": "<div class='target'><div id='risd_host_3'><template shadowrootmode='open'><div class='risd_inner_host_3'><template shadowrootmode='open'><div class='risd_target_3'>중첩 제거 대상</div></template></div></template></div><script>(function(){const outerHost=document.getElementById('risd_host_3');window.risd_check_3=function(){const innerHost=outerHost.shadowRoot&&outerHost.shadowRoot.querySelector('.risd_inner_host_3');return innerHost!==null&&innerHost.shadowRoot!==null&&innerHost.shadowRoot.querySelector('.risd_target_3')===null;};}());</script></div>",
+        "verification": "functionCall:risd_check_3:true"
+    },
+    {
+        "id": "4",
+        "title": "동적으로 추가된 요소 제거",
+        "desc": "Shadow Root에 나중에 추가된 요소도 감지해 제거한다.",
+        "scriptlet": "remove-in-shadow-dom",
+        "scriptletParams": [".risd_target_4"],
+        "target": "<div class='target'><div id='risd_host_4'><template shadowrootmode='open'></template></div><script>(function(){const host=document.getElementById('risd_host_4');const root=host.shadowRoot;let added=false;setTimeout(function(){const el=document.createElement('div');el.className='risd_target_4';el.textContent='동적 제거 대상';root.appendChild(el);added=true;},100);window.risd_check_4=function(){return added&&root.querySelector('.risd_target_4')===null;};}());</script></div>",
+        "verification": "functionCall:risd_check_4:true"
+    }
+]

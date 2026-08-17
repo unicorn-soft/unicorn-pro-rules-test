@@ -87,6 +87,9 @@
 - `hide-in-shadow-dom`
     - 역할: open Shadow DOM 안에서 selector와 일치하는 요소를 숨긴다. `baseSelector`로 탐색할 host를 제한할 수 있다.
     - 검증: 기본·host 제한·중첩·동적 생성 케이스에서 `display: none` 적용 여부를 폴링 확인한다.
+- `remove-in-shadow-dom`
+    - 역할: open Shadow DOM 안에서 selector와 일치하는 요소를 제거한다. `baseSelector`로 탐색할 host를 제한할 수 있다.
+    - 검증: 기본·host 제한·중첩·동적 생성 케이스에서 대상 요소가 제거됐는지 폴링 확인한다.
 - `trusted-json-edit-fetch-request`
     - 역할: fetch 요청 body(JSON)에서 지정 경로의 key를 삭제·수정한다.
     - 검증: echo된 요청 JSON을 `jsonEquals`로 확인한다(deepEqual).
