@@ -1,0 +1,67 @@
+[
+    {
+        "id": "1",
+        "title": "Shadow DOM에 CSS 기본 주입",
+        "desc": "기본 <code>adoptedStyleSheets</code> 방식으로 모든 Shadow Root에 CSS를 주입한다.",
+        "scriptlet": "inject-css-in-shadow-dom",
+        "scriptletParams": [
+            ".icsd_target_1 { color: rgb(1, 2, 3) !important; }"
+        ],
+        "target": "<div class='target'><div id='icsd_host_1'><template shadowrootmode='open'><div class='icsd_target_1'>기본 CSS 주입 대상</div></template></div><script>(function(){const host=document.getElementById('icsd_host_1');window.icsd_check_1=function(){const el=host.shadowRoot&&host.shadowRoot.querySelector('.icsd_target_1');return el!==null&&getComputedStyle(el).color==='rgb(1, 2, 3)';};}());</script></div>",
+        "verification": "functionCall:icsd_check_1:true"
+    },
+    {
+        "id": "2",
+        "title": "hostSelector로 주입 대상 제한",
+        "desc": "<code>.icsd_host_match_2</code> host에만 CSS를 주입하고 비교 host에는 적용하지 않는다.",
+        "scriptlet": "inject-css-in-shadow-dom",
+        "scriptletParams": [
+            ".icsd_target_2 { background-color: rgb(76, 175, 80) !important; }",
+            ".icsd_host_match_2"
+        ],
+        "showTarget": true,
+        "comparison": {
+            "leftLabel": "초록색으로 변경되어야 하는 대상",
+            "rightLabel": "색상이 변경되면 안 되는 대상",
+            "leftVerification": "functionCall:icsd_check_2_left:true",
+            "rightVerification": "functionCall:icsd_check_2_right:true"
+        },
+        "target": "<div class='target shadow-dom-case'><div class='shadow-comparison-content' data-shadow-side='left'><div class='icsd_host_match_2 shadow-demo-host'><template shadowrootmode='open'><div class='icsd_target_2' style='padding:0.75rem;background:#fee2e2;color:#fff;border:1px solid #fca5a5'>이 배경은 초록색으로 변경되어야 함</div></template></div></div><div class='shadow-comparison-content' data-shadow-side='right'><div class='icsd_host_control_2 shadow-demo-host'><template shadowrootmode='open'><div class='icsd_target_2' style='padding:0.75rem;background:#fff;color:#166534;border:1px solid #86efac'>이 배경은 변경되면 안 됨</div></template></div></div><script>(function(){const matchedHost=document.querySelector('.icsd_host_match_2');const controlHost=document.querySelector('.icsd_host_control_2');window.icsd_check_2_left=function(){const matched=matchedHost.shadowRoot&&matchedHost.shadowRoot.querySelector('.icsd_target_2');return matched!==null&&getComputedStyle(matched).backgroundColor==='rgb(76, 175, 80)';};window.icsd_check_2_right=function(){const control=controlHost.shadowRoot&&controlHost.shadowRoot.querySelector('.icsd_target_2');return window.icsd_check_2_left()&&control!==null&&getComputedStyle(control).backgroundColor!=='rgb(76, 175, 80)';};window.icsd_check_2=function(){return window.icsd_check_2_left()&&window.icsd_check_2_right();};}());</script></div>",
+        "verification": "functionCall:icsd_check_2:true"
+    },
+    {
+        "id": "3",
+        "title": "styleTag 방식으로 CSS 주입",
+        "desc": "<code>styleTag</code> 옵션으로 Shadow Root에 <code>&lt;style&gt;</code>을 추가한다.",
+        "scriptlet": "inject-css-in-shadow-dom",
+        "scriptletParams": [
+            ".icsd_target_3 { font-weight: 700 !important; }",
+            "",
+            "styleTag"
+        ],
+        "target": "<div class='target'><div id='icsd_host_3'><template shadowrootmode='open'><div class='icsd_target_3'>styleTag 주입 대상</div></template></div><script>(function(){const host=document.getElementById('icsd_host_3');window.icsd_check_3=function(){const root=host.shadowRoot;const el=root&&root.querySelector('.icsd_target_3');return root!==null&&el!==null&&root.querySelector('style')!==null&&getComputedStyle(el).fontWeight==='700';};}());</script></div>",
+        "verification": "functionCall:icsd_check_3:true"
+    },
+    {
+        "id": "4",
+        "title": "여러 Shadow Root에 CSS 주입",
+        "desc": "동일한 CSS 규칙을 페이지의 여러 Shadow Root에 모두 적용한다.",
+        "scriptlet": "inject-css-in-shadow-dom",
+        "scriptletParams": [
+            ".icsd_target_4 { opacity: 0.25 !important; }"
+        ],
+        "target": "<div class='target'><div class='icsd_host_4'><template shadowrootmode='open'><div class='icsd_target_4'>다중 Root 주입 대상 1</div></template></div><div class='icsd_host_4'><template shadowrootmode='open'><div class='icsd_target_4'>다중 Root 주입 대상 2</div></template></div><script>(function(){const hosts=Array.from(document.querySelectorAll('.icsd_host_4'));window.icsd_check_4=function(){return hosts.length===2&&hosts.every(function(host){const el=host.shadowRoot&&host.shadowRoot.querySelector('.icsd_target_4');return el!==null&&getComputedStyle(el).opacity==='0.25';});};}());</script></div>",
+        "verification": "functionCall:icsd_check_4:true"
+    },
+    {
+        "id": "5",
+        "title": "중첩된 신규 Shadow Root에 CSS 주입",
+        "desc": "나중에 생성된 중첩 Shadow Root에도 CSS를 주입한다.",
+        "scriptlet": "inject-css-in-shadow-dom",
+        "scriptletParams": [
+            ".icsd_target_5 { color: rgb(7, 8, 9) !important; }"
+        ],
+        "target": "<div class='target'><div id='icsd_host_5'><template shadowrootmode='open'><div class='icsd_inner_container_5'></div></template></div><script>(function(){const outerHost=document.getElementById('icsd_host_5');const outerRoot=outerHost.shadowRoot;let target=null;setTimeout(function(){const innerHost=document.createElement('div');innerHost.className='icsd_inner_host_5';outerRoot.querySelector('.icsd_inner_container_5').appendChild(innerHost);const innerRoot=innerHost.attachShadow({mode:'open'});target=document.createElement('div');target.className='icsd_target_5';target.textContent='중첩 신규 Root 주입 대상';innerRoot.appendChild(target);},100);window.icsd_check_5=function(){return target!==null&&target.getRootNode() instanceof ShadowRoot&&getComputedStyle(target).color==='rgb(7, 8, 9)';};}());</script></div>",
+        "verification": "functionCall:icsd_check_5:true"
+    }
+]

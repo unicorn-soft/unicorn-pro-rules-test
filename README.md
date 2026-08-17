@@ -87,6 +87,9 @@
 - `hide-in-shadow-dom`
     - 역할: open Shadow DOM 안에서 selector와 일치하는 요소를 숨긴다. `baseSelector`로 탐색할 host를 제한할 수 있다.
     - 검증: 기본·host 제한·중첩·동적 생성 케이스에서 `display: none` 적용 여부를 폴링 확인한다.
+- `inject-css-in-shadow-dom`
+    - 역할: Shadow Root에 CSS를 주입한다. `hostSelector`와 `adoptedStyleSheets`/`styleTag` 주입 방식을 지원한다.
+    - 검증: 기본·host 제한·styleTag·여러 Root·중첩 신규 Root 케이스의 computedStyle을 폴링 확인한다.
 - `remove-in-shadow-dom`
     - 역할: open Shadow DOM 안에서 selector와 일치하는 요소를 제거한다. `baseSelector`로 탐색할 host를 제한할 수 있다.
     - 검증: 기본·host 제한·중첩·동적 생성 케이스에서 대상 요소가 제거됐는지 폴링 확인한다.
