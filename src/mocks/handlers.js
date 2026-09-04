@@ -67,6 +67,19 @@ const xhrMockResponses = {
         jpxr_content10: 'keep',
         jpxr_tracking10: 'ok',
     },
+    '/api/conflict-json': {
+        jpxr_conflict_ads11: 1,
+        jpxr_conflict_content11: 'keep',
+    },
+    '/api/conflict-json-reuse': {
+        jpxr_conflict_ads12: 1,
+        jpxr_conflict_content12: 'keep',
+    },
+    '/api/conflict-both': {
+        jpxr_conflict_both_ads13: 1,
+        jpxr_conflict_both_keep13: 2,
+        nxif_conflict_both_marker: 1,
+    },
 };
 
 const xhrHandlers = Object.keys(xhrMockResponses)
@@ -253,6 +266,8 @@ export const noXhrIfMockResponses = {
     '/api/block-multi': 'original-response-multi',
     '/api/block-rand': 'original-response-rand',
     '/api/block-method-rand': 'original-response-method-rand',
+    '/api/conflict-nxif': 'original-response-conflict-nxif',
+    '/api/conflict-nxif-reuse': 'original-response-conflict-nxif-reuse',
 };
 
 const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {

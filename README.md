@@ -59,7 +59,7 @@
     - 검증: `window.xxx`를 `jsonEquals`로 확인한다.
 - `json-prune-xhr-response`
     - 역할: XHR로 받은 JSON 응답에서 지정 경로의 property를 삭제한다.
-    - 검증: XHR 결과를 `jsonEquals`로 확인한다(MSW mock).
+    - 검증: 광고 정보 제거, 요청 조건별 적용, 외부 서비스와 충돌 시 양보, 요청 중 응답 변경 결과를 확인한다(MSW mock).
 - `json-prune-fetch-response`
     - 역할: fetch로 받은 JSON 응답에서 지정 경로의 property를 삭제한다.
     - 검증: fetch 결과를 `jsonEquals`로 확인한다(MSW mock).
@@ -80,7 +80,7 @@
     - 검증: 실행 결과가 미설정(`undefined`) 등으로 남는지 확인한다.
 - `no-xhr-if`
     - 역할: XHR 요청을 차단하고 responseType에 맞는 빈 응답을 반환한다.
-    - 검증: 차단 여부를 `textBlocked*`/`surrogateLoaded` 등으로 확인한다.
+    - 검증: 요청 차단, 요청 조건·응답 형식별 결과, 외부 서비스와 충돌 시 양보, 요청 중 응답 변경 결과를 확인한다(MSW mock).
 - `no-fetch-if`
     - 역할: fetch 요청을 차단하고 빈 응답을 반환한다.
     - 검증: 차단 여부를 `textBlocked`/`jsonEquals` 등으로 확인한다.

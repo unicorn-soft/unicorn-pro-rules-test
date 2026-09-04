@@ -93,5 +93,47 @@
         "scriptletParams": ["jpxr_ads10", "", "propsToMatch", "url:/data10$/"],
         "target": "<div class='target'><script>window.jpxr_10=null;(function(){const getJson=(url)=>new Promise((resolve,reject)=>{try{const xhr=new XMLHttpRequest();xhr.open('GET',url);xhr.responseType='json';xhr.onload=()=>{if(xhr.readyState===4&&xhr.status===200)resolve(xhr.response);else reject();};xhr.onerror=reject;xhr.send();}catch(e){reject(e);}});Promise.all([getJson('/api/data10'),getJson('/api/data10x')]).then(([a,b])=>{window.jpxr_10=[a,b];}).catch(()=>{});})();</script></div>",
         "verification": "jsonEquals:window.jpxr_10:[{\"jpxr_content10\":\"keep\",\"jpxr_tracking10\":\"ok\"},{\"jpxr_ads10\":1,\"jpxr_content10\":\"keep\",\"jpxr_tracking10\":\"ok\"}]"
+    },
+    {
+        "id": "11",
+        "title": "외부 서비스와 충돌 (유니콘 먼저 실행)",
+        "desc": "유니콘이 먼저 응답을 정리한 뒤 외부 서비스가 실행되면, 유니콘은 양보하고 외부 서비스의 원래 응답이 그대로 표시되는지 확인합니다.",
+        "scriptlet": "json-prune-xhr-response",
+        "scriptletParams": [
+            "jpxr_conflict_ads11",
+            "",
+            "propsToMatch",
+            "url:/api/conflict-json"
+        ],
+        "target": "<div class='target'><script>window.jpxr_11=null;(function(){const UnicornXHR=window.XMLHttpRequest;const control=new UnicornXHR();control.responseType='json';control.open('GET','/api/conflict-json');control.onload=function(){const before=control.response;class ExternalXHR extends UnicornXHR{};ExternalXHR.prototype.open=new Proxy(ExternalXHR.prototype.open,{});ExternalXHR.prototype.send=new Proxy(ExternalXHR.prototype.send,{});window.XMLHttpRequest=ExternalXHR;const xhr=new window.XMLHttpRequest();xhr.responseType='json';xhr.open('GET','/api/conflict-json');xhr.onload=function(){window.jpxr_11={before,after:xhr.response};window.XMLHttpRequest=UnicornXHR;};xhr.send();};control.send();})();</script></div>",
+        "verification": "jsonEquals:window.jpxr_11:{\"before\":{\"jpxr_conflict_content11\":\"keep\"},\"after\":{\"jpxr_conflict_ads11\":1,\"jpxr_conflict_content11\":\"keep\"}}"
+    },
+    {
+        "id": "12",
+        "title": "외부 서비스와 충돌 (요청 중 응답 변경)",
+        "desc": "요청이 진행되는 동안 외부 서비스가 응답을 변경해도 변경된 결과가 정상적으로 표시되는지 확인합니다.",
+        "scriptlet": "json-prune-xhr-response",
+        "scriptletParams": [
+            "jpxr_conflict_ads12",
+            "",
+            "propsToMatch",
+            "url:/api/conflict-json-reuse"
+        ],
+        "target": "<div class='target'><script>window.jpxr_12=null;(function(){const UnicornXHR=window.XMLHttpRequest;const xhr=new UnicornXHR();const originalOpen=UnicornXHR.prototype.open;const originalSend=UnicornXHR.prototype.send;const descriptor=Object.getOwnPropertyDescriptor(UnicornXHR.prototype,'response');const instanceHasOwn=Object.prototype.hasOwnProperty.call(xhr,'response');UnicornXHR.prototype.open=new Proxy(originalOpen,{});UnicornXHR.prototype.send=new Proxy(originalSend,{});xhr.responseType='json';xhr.open('GET','/api/conflict-json-reuse');xhr.onload=function(){try{Object.defineProperty(xhr,'response',{value:'external-response'});window.jpxr_12={prototypeConfigurable:descriptor&&descriptor.configurable,instanceHasOwn,response:xhr.response};}catch(e){window.jpxr_12={error:String(e)};}finally{UnicornXHR.prototype.open=originalOpen;UnicornXHR.prototype.send=originalSend;}};xhr.send();})();</script></div>",
+        "verification": "jsonEquals:window.jpxr_12:{\"prototypeConfigurable\":false,\"instanceHasOwn\":false,\"response\":\"external-response\"}"
+    },
+    {
+        "id": "13",
+        "title": "json-prune-xhr-response와 no-xhr-if 충돌",
+        "desc": "유니콘이 광고 정보를 제거한 뒤 다른 요청 차단 기능이 적용되면, 유니콘이 양보하고 차단 결과가 표시되는지 확인합니다.",
+        "scriptlet": "json-prune-xhr-response",
+        "scriptletParams": [
+            "jpxr_conflict_both_ads13",
+            "",
+            "propsToMatch",
+            "url:/api/conflict-both"
+        ],
+        "target": "<div class='target'><script>window.jpxr_13=null;(function(){const UnicornXHR=window.XMLHttpRequest;const control=new UnicornXHR();control.responseType='json';control.open('GET','/api/conflict-both');control.onload=function(){const before=control.response;class ExternalNoXhr extends UnicornXHR{};ExternalNoXhr.prototype.open=new Proxy(UnicornXHR.prototype.open,{apply(target,xhr,args){xhr.__externalBlocked=args[1]==='/api/conflict-both';return Reflect.apply(target,xhr,args);}});ExternalNoXhr.prototype.send=new Proxy(UnicornXHR.prototype.send,{apply(target,xhr,args){if(!xhr.__externalBlocked)return Reflect.apply(target,xhr,args);Object.defineProperty(xhr,'response',{value:{},configurable:true});setTimeout(()=>xhr.dispatchEvent(new Event('load')),0);}});window.XMLHttpRequest=ExternalNoXhr;const xhr=new window.XMLHttpRequest();xhr.responseType='json';xhr.open('GET','/api/conflict-both');xhr.onload=function(){window.jpxr_13={before,after:xhr.response};window.XMLHttpRequest=UnicornXHR;};xhr.send();};control.send();})();</script></div>",
+        "verification": "jsonEquals:window.jpxr_13:{\"before\":{\"jpxr_conflict_both_keep13\":2,\"nxif_conflict_both_marker\":1},\"after\":{}}"
     }
 ]
