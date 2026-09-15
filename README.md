@@ -80,7 +80,7 @@
     - 검증: 실행 결과가 미설정(`undefined`) 등으로 남는지 확인한다.
 - `no-xhr-if`
     - 역할: XHR 요청을 차단하고 responseType에 맞는 빈 응답을 반환한다.
-    - 검증: 차단 여부를 `textBlocked*`/`surrogateLoaded` 등으로 확인한다.
+    - 검증: 타 광고 서비스와의 실행 순서가 달라지거나 Unicorn Pro와 Extension을 함께 사용해도 요청 차단이 유지되는지 확인한다.
 - `no-fetch-if`
     - 역할: fetch 요청을 차단하고 빈 응답을 반환한다.
     - 검증: 차단 여부를 `textBlocked`/`jsonEquals` 등으로 확인한다.

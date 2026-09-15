@@ -273,6 +273,9 @@ export const noXhrIfMockResponses = {
     '/api/block-multi': 'original-response-multi',
     '/api/block-rand': 'original-response-rand',
     '/api/block-method-rand': 'original-response-method-rand',
+    '/api/redefine-nxif-constructor': 'original-response-redefine-nxif-constructor',
+    '/api/redefine-nxif-getter': 'original-response-redefine-nxif-getter',
+    '/api/redefine-nxif-unicorns': 'original-response-redefine-nxif-unicorns',
 };
 
 const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {
