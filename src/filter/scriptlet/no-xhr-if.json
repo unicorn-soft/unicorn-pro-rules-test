@@ -106,5 +106,32 @@
         "scriptletParams": ["method:POST url:/api/block-method-rand", "true"],
         "target": "<div class='target'><script>window.nxif_noXhrIfTestData12=null;(function(){const doReq=(method,url)=>new Promise((resolve)=>{try{const xhr=new XMLHttpRequest();xhr.open(method,url);xhr.onload=function(){if(xhr.readyState===4)resolve(xhr.responseText);else resolve(null);};xhr.onerror=()=>resolve(null);xhr.send();}catch(e){resolve(null);}});Promise.all([doReq('POST','/api/block-method-rand'),doReq('GET','/api/block-method-rand'),doReq('POST','/api/other-post')]).then(([blockedPostRand,allowedGetSameUrl,allowedPostOther])=>{if(allowedGetSameUrl==='original-response-method-rand' && allowedPostOther==='original-response-other-post'){window.nxif_noXhrIfTestData12=blockedPostRand;}else{window.nxif_noXhrIfTestData12=null;}}).catch(()=>{});})();</script>XHR 응답 결과:</div>",
         "verification": "textBlockedRandom:window.nxif_noXhrIfTestData12"
+    },
+    {
+        "id": "13",
+        "title": "유니콘 먼저 실행 후 타 광고 서비스 동시 사용",
+        "desc": "유니콘의 요청 차단 기능이 먼저 적용된 상태에서 타 광고 서비스가 나중에 실행되어도 대상 요청이 정상적으로 차단되는지 확인",
+        "scriptlet": "no-xhr-if",
+        "scriptletParams": ["url:/api/redefine-nxif-constructor"],
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData13=null;(function(){const UnicornXHR=window.XMLHttpRequest;const response=Object.getOwnPropertyDescriptor(UnicornXHR.prototype,'response');if(!response||!response.get)return;let openCalls=0;let sendCalls=0;let responseCalls=0;class ExternalXHR extends UnicornXHR{};ExternalXHR.prototype.open=new Proxy(UnicornXHR.prototype.open,{apply(target,xhr,args){openCalls++;return Reflect.apply(target,xhr,args);}});ExternalXHR.prototype.send=new Proxy(UnicornXHR.prototype.send,{apply(target,xhr,args){sendCalls++;return Reflect.apply(target,xhr,args);}});Object.defineProperty(ExternalXHR.prototype,'response',{configurable:true,get(){responseCalls++;return response.get.call(this);}});window.XMLHttpRequest=ExternalXHR;try{const xhr=new window.XMLHttpRequest();xhr.open('GET','/api/redefine-nxif-constructor');xhr.onload=function(){const value=xhr.response;window.nxif_noXhrIfTestData13={externalServiceApplied:openCalls>0&&sendCalls>0&&responseCalls>0,status:xhr.status,readyState:xhr.readyState,response:value};};xhr.send();}finally{window.XMLHttpRequest=UnicornXHR;}})();</script></div>",
+        "verification": "jsonEquals:window.nxif_noXhrIfTestData13:{\"externalServiceApplied\":true,\"status\":200,\"readyState\":4,\"response\":\"\"}"
+    },
+    {
+        "id": "14",
+        "title": "타 광고 서비스 먼저 실행 후 유니콘 동시 사용",
+        "desc": "타 광고 서비스가 먼저 실행된 상태에서 유니콘의 요청 차단 기능이 나중에 적용되어도 충돌 없이 대상 요청이 차단되는지 확인",
+        "scriptlet": "no-xhr-if",
+        "scriptletParams": ["url:/api/redefine-nxif-getter"],
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData14=null;(function(){const InstalledUnicornXHR=window.XMLHttpRequest;const NativeXHR=Object.getPrototypeOf(InstalledUnicornXHR);if(typeof NativeXHR!=='function')return;let externalServiceApplied=false;class ExternalXHR extends NativeXHR{constructor(...args){super(...args);externalServiceApplied=true;}}class UnicornAfterExternalXHR extends ExternalXHR{};const descriptors=Object.getOwnPropertyDescriptors(InstalledUnicornXHR.prototype);delete descriptors.constructor;Object.defineProperties(UnicornAfterExternalXHR.prototype,descriptors);window.XMLHttpRequest=UnicornAfterExternalXHR;try{const xhr=new window.XMLHttpRequest();xhr.open('GET','/api/redefine-nxif-getter');xhr.onload=function(){window.nxif_noXhrIfTestData14={externalServiceApplied,status:xhr.status,readyState:xhr.readyState,response:xhr.response};};xhr.send();}finally{window.XMLHttpRequest=InstalledUnicornXHR;}})();</script></div>",
+        "verification": "jsonEquals:window.nxif_noXhrIfTestData14:{\"externalServiceApplied\":true,\"status\":200,\"readyState\":4,\"response\":\"\"}"
+    },
+    {
+        "id": "15",
+        "title": "Unicorn Pro와 Extension 동시 사용",
+        "desc": "Unicorn Pro와 Unicorn Extension이 같은 요청 차단 기능을 함께 적용해도 충돌 없이 대상 요청이 차단되는지 확인",
+        "scriptlet": "no-xhr-if",
+        "scriptletParams": ["url:/api/redefine-nxif-unicorns"],
+        "target": "<div class='target'><script>window.nxif_noXhrIfTestData15=null;(function(){const CurrentUnicornXHR=window.XMLHttpRequest;const PreviousUnicornXHR=Object.getPrototypeOf(CurrentUnicornXHR);const xhr=new CurrentUnicornXHR();const bothUnicornsApplied=typeof PreviousUnicornXHR==='function'&&CurrentUnicornXHR.name==='NoXhrXHR'&&PreviousUnicornXHR.name==='NoXhrXHR'&&Object.getPrototypeOf(CurrentUnicornXHR.prototype)===PreviousUnicornXHR.prototype&&xhr instanceof PreviousUnicornXHR;xhr.open('GET','/api/redefine-nxif-unicorns');xhr.onload=function(){window.nxif_noXhrIfTestData15={bothUnicornsApplied,status:xhr.status,readyState:xhr.readyState,response:xhr.response};};xhr.send();})();</script></div>",
+        "verification": "jsonEquals:window.nxif_noXhrIfTestData15:{\"bothUnicornsApplied\":true,\"status\":200,\"readyState\":4,\"response\":\"\"}"
     }
 ]
