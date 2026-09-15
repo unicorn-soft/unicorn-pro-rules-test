@@ -67,6 +67,26 @@ const xhrMockResponses = {
         jpxr_content10: 'keep',
         jpxr_tracking10: 'ok',
     },
+    '/api/redefine-json-constructor': {
+        jpxr_redefine_ads11: 1,
+        jpxr_redefine_content11: 'keep',
+    },
+    '/api/redefine-json-getter': {
+        jpxr_redefine_ads12: 1,
+        jpxr_redefine_content12: 'keep',
+    },
+    '/api/redefine-json-unicorns': {
+        jpxr_redefine_ads13: 1,
+        jpxr_redefine_content13: 'keep',
+    },
+    '/api/reuse-json-match': {
+        jpxr_reuse_ads14: 1,
+        jpxr_reuse_content14: 'first',
+    },
+    '/api/reuse-json-unmatched': {
+        jpxr_reuse_ads14: 2,
+        jpxr_reuse_content14: 'second',
+    },
 };
 
 const xhrHandlers = Object.keys(xhrMockResponses)

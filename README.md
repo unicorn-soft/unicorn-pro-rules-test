@@ -59,7 +59,7 @@
     - 검증: `window.xxx`를 `jsonEquals`로 확인한다.
 - `json-prune-xhr-response`
     - 역할: XHR로 받은 JSON 응답에서 지정 경로의 property를 삭제한다.
-    - 검증: XHR 결과를 `jsonEquals`로 확인한다(MSW mock).
+    - 검증: 타 광고 서비스와의 실행 순서가 달라지거나 Unicorn Pro와 Extension을 함께 사용해도 응답 정리가 유지되는지 확인한다(MSW mock).
 - `json-prune-fetch-response`
     - 역할: fetch로 받은 JSON 응답에서 지정 경로의 property를 삭제한다.
     - 검증: fetch 결과를 `jsonEquals`로 확인한다(MSW mock).
