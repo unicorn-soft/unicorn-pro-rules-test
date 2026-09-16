@@ -1,6 +1,6 @@
 {
     "name": "unicorn-pro-rules-test",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "author": "Somfist",
     "scripts": {
         "dev": "npx msw init public/ --save && webpack serve --mode development",
