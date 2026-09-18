@@ -71,21 +71,13 @@ const xhrMockResponses = {
         jpxr_redefine_ads11: 1,
         jpxr_redefine_content11: 'keep',
     },
-    '/api/redefine-json-getter': {
-        jpxr_redefine_ads12: 1,
-        jpxr_redefine_content12: 'keep',
-    },
-    '/api/redefine-json-unicorns': {
-        jpxr_redefine_ads13: 1,
-        jpxr_redefine_content13: 'keep',
-    },
     '/api/reuse-json-match': {
-        jpxr_reuse_ads14: 1,
-        jpxr_reuse_content14: 'first',
+        jpxr_reuse_ads12: 1,
+        jpxr_reuse_content12: 'first',
     },
     '/api/reuse-json-unmatched': {
-        jpxr_reuse_ads14: 2,
-        jpxr_reuse_content14: 'second',
+        jpxr_reuse_ads12: 2,
+        jpxr_reuse_content12: 'second',
     },
 };
 
@@ -274,8 +266,6 @@ export const noXhrIfMockResponses = {
     '/api/block-rand': 'original-response-rand',
     '/api/block-method-rand': 'original-response-method-rand',
     '/api/redefine-nxif-constructor': 'original-response-redefine-nxif-constructor',
-    '/api/redefine-nxif-getter': 'original-response-redefine-nxif-getter',
-    '/api/redefine-nxif-unicorns': 'original-response-redefine-nxif-unicorns',
 };
 
 const noXhrIfHandlers = Object.keys(noXhrIfMockResponses).map((path) => {
